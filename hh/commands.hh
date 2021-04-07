@@ -22,10 +22,12 @@ void nuevo_problema(const string& id, const Problema& problem, const Problemas& 
  *  @param id identificador de la sesión.
  *  @param session objeto del tipo 'Sesion'.
  *  @param sessions objeto del tipo 'Sesiones'.
- *  \pre existencia de un objeto 'Sesiones'.
+ *  \pre existencia de un objeto 'Sesiones', con problemas no repetidos.
  *  \post añade una sesion al objeto 'Sesiones'.
  *        Devuelve un mensaje de error por pantalla si ya existia la sesión, en caso contrario, devuelve el número total de problemas.
  */
 void nueva_sesion(const string& id, const Sesion& session, const Sesiones& sessions);
+
+
 
 #endif

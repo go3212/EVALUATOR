@@ -19,7 +19,7 @@ struct Attempts
     int rejected;
 };
 
-/** @class Problem
+/** @class Problema
  *  @brief Class which stores problem's data.
  */
 class Problema
