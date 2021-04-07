@@ -61,9 +61,6 @@ $(function() {
 
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Course Class Reference</div>  </div>
 </div><!--header-->
@@ -73,130 +70,15 @@ $(function() {
  <a href="class_course.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="curso_8hh_source.html">curso.hh</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Course:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_course__coll__graph.png" border="0" usemap="#a_course_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a6b959ccf15d9ceed9e9c14a701561982"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a6b959ccf15d9ceed9e9c14a701561982">Course</a> ()</td></tr>
-<tr class="memdesc:a6b959ccf15d9ceed9e9c14a701561982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloaded default class null constructor.  <a href="class_course.html#a6b959ccf15d9ceed9e9c14a701561982">More...</a><br /></td></tr>
-<tr class="separator:a6b959ccf15d9ceed9e9c14a701561982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab126033d75e4ef96b770143a57dbd45e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#ab126033d75e4ef96b770143a57dbd45e">Course</a> (const int &amp;<a class="el" href="class_course.html#a25fc48add606dc67349678c2699b875e">id</a>)</td></tr>
-<tr class="memdesc:ab126033d75e4ef96b770143a57dbd45e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloaded class constructor.  <a href="class_course.html#ab126033d75e4ef96b770143a57dbd45e">More...</a><br /></td></tr>
-<tr class="separator:ab126033d75e4ef96b770143a57dbd45e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a25fc48add606dc67349678c2699b875e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a25fc48add606dc67349678c2699b875e">id</a></td></tr>
-<tr class="separator:a25fc48add606dc67349678c2699b875e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11ba4b520acd109fc40b12c0cc8146f0"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_sesion.html">Sesion</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a11ba4b520acd109fc40b12c0cc8146f0">session</a></td></tr>
-<tr class="separator:a11ba4b520acd109fc40b12c0cc8146f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p class="">Holds data for a course: course identifier ('id') and a sequence of session identifiers ('sessions') </p>
-
-<p class="definition">Definition at line <a class="el" href="curso_8hh_source.html#l00017">17</a> of file <a class="el" href="curso_8hh_source.html">curso.hh</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6b959ccf15d9ceed9e9c14a701561982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b959ccf15d9ceed9e9c14a701561982">&#9670;&nbsp;</a></span>Course() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Course::Course </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Overloaded default class null constructor. </p>
-<dl class="section post"><dt>Postcondition</dt><dd>Null course id ('id'). All other private variables are also undefined. </dd></dl>
-
-</div>
-</div>
-<a id="ab126033d75e4ef96b770143a57dbd45e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab126033d75e4ef96b770143a57dbd45e">&#9670;&nbsp;</a></span>Course() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Course::Course </td>
-          <td>(</td>
-          <td class="paramtype">const int &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Overloaded class constructor. </p>
-<dl class="section post"><dt>Postcondition</dt><dd>Sets the course id ('this-&gt;id') to the constructor parameter ('id'). All other private variables are left undefined. </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Field Documentation</h2>
-<a id="a25fc48add606dc67349678c2699b875e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25fc48add606dc67349678c2699b875e">&#9670;&nbsp;</a></span>id</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Course::id</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="curso_8hh_source.html#l00020">20</a> of file <a class="el" href="curso_8hh_source.html">curso.hh</a>.</p>
-
-</div>
-</div>
-<a id="a11ba4b520acd109fc40b12c0cc8146f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11ba4b520acd109fc40b12c0cc8146f0">&#9670;&nbsp;</a></span>session</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_sesion.html">Sesion</a>&gt; Course::session</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="curso_8hh_source.html#l00021">21</a> of file <a class="el" href="curso_8hh_source.html">curso.hh</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>hh/<a class="el" href="curso_8hh_source.html">curso.hh</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 7 2021 19:08:00 for Bluron by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Apr 7 2021 23:02:30 for Bluron by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

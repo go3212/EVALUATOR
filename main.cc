@@ -1,6 +1,6 @@
 #include <iostream>
 #include <hh/problema.hh>
-#include <hh/user.hh>
+#include <hh/usuario.hh>
 #include <hh/BinTree.hh>
 #include <hh/curso.hh>
 #include <hh/sesion.hh>

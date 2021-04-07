@@ -7,6 +7,8 @@
 
 using namespace std;
 
+typedef string problemid;
+
 // N > 0, Sin repeticiones, 
 
 /** @struct Attempts
@@ -25,7 +27,7 @@ struct Attempts
 class Problema
 {
 private:
-    string id;
+    problemid id;
     Attempts attempts;
 public:
     /** @brief Overloaded default class constructor.

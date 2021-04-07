@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['sesion_39',['Sesion',['../class_sesion.html',1,'Sesion'],['../class_sesion.html#adf5a84efa8e2629b30ad89df74cfc0a2',1,'Sesion::Sesion()'],['../class_sesion.html#aeae08cb708c138e5c36e2fcc0ea6a276',1,'Sesion::Sesion(const string &amp;name)']]],
-  ['sesion_2ehh_40',['sesion.hh',['../sesion_8hh.html',1,'']]],
-  ['sesiones_41',['Sesiones',['../class_sesiones.html',1,'Sesiones'],['../class_sesiones.html#a1b845cc2a490941bac3ada0d3b6cc2f3',1,'Sesiones::Sesiones()'],['../class_sesiones.html#aab08a995b091132826d3c174a7afc077',1,'Sesiones::Sesiones(const string &amp;id, const Sesion &amp;session)']]],
-  ['sesiones_2ehh_42',['sesiones.hh',['../sesiones_8hh.html',1,'']]],
-  ['session_43',['Session',['../class_session.html',1,'']]],
-  ['session_44',['session',['../class_course.html#a11ba4b520acd109fc40b12c0cc8146f0',1,'Course']]],
-  ['sessionmap_45',['sessionMap',['../class_sesiones.html#aebbb0b82bf6da36dbb31ceaeca139418',1,'Sesiones']]],
-  ['solved_problems_46',['solved_problems',['../struct_all_courses_data.html#a63be2d216386cd0587f41ba44683a380',1,'AllCoursesData']]]
+  ['p_43',['p',['../class_bin_tree.html#afe3647af1dda90f6ddf1deee6560fcf1',1,'BinTree']]],
+  ['problema_44',['Problema',['../class_problema.html',1,'Problema'],['../class_problema.html#a9d81af5f3f42a1b4354ad8f3c022fca3',1,'Problema::Problema()'],['../class_problema.html#ad76fed3e8035fba55a05759d2d78b852',1,'Problema::Problema(const string &amp;id)']]],
+  ['problema_2ehh_45',['problema.hh',['../problema_8hh.html',1,'']]],
+  ['problemas_46',['Problemas',['../class_problemas.html',1,'Problemas'],['../class_problemas.html#ae587a6825117a5103b50f544a7415c0c',1,'Problemas::Problemas()'],['../class_problemas.html#a3df3cc483fc37258f1be66a1376ff608',1,'Problemas::Problemas(const string &amp;id, const Problema &amp;problem)']]],
+  ['problemas_2ecc_47',['problemas.cc',['../problemas_8cc.html',1,'']]],
+  ['problemas_2ehh_48',['problemas.hh',['../problemas_8hh.html',1,'']]],
+  ['problemmap_49',['problemMap',['../class_problemas.html#a28b604f91a16408164b927e3b7a09bf3',1,'Problemas']]],
+  ['problems_50',['problems',['../struct_current_course_data.html#a1e7ac424a29dc6051c71d5b21a4e0abd',1,'CurrentCourseData::problems()'],['../class_sesion.html#ac2a6728ae88620e95e07a13059b397e8',1,'Sesion::problems()']]]
 ];

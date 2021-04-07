@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['empty_16',['empty',['../class_bin_tree.html#a74cda259ba5c25b8ee38ed4dc33e4fad',1,'BinTree']]]
+  ['delete_user_25',['delete_user',['../class_usuarios.html#a88f201f803433c92574acd7f34612345',1,'Usuarios']]]
 ];

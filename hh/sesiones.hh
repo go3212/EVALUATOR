@@ -39,7 +39,6 @@ public:
      */
     bool add_session(const string& id, const Sesion& session);
 
-
 };
 
 #endif

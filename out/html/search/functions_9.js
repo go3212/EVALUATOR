@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['sesion_92',['Sesion',['../class_sesion.html#adf5a84efa8e2629b30ad89df74cfc0a2',1,'Sesion::Sesion()'],['../class_sesion.html#aeae08cb708c138e5c36e2fcc0ea6a276',1,'Sesion::Sesion(const string &amp;name)']]],
-  ['sesiones_93',['Sesiones',['../class_sesiones.html#a1b845cc2a490941bac3ada0d3b6cc2f3',1,'Sesiones::Sesiones()'],['../class_sesiones.html#aab08a995b091132826d3c174a7afc077',1,'Sesiones::Sesiones(const string &amp;id, const Sesion &amp;session)']]]
+  ['node_122',['Node',['../struct_bin_tree_1_1_node.html#af45885e303875c018e89fa5c8b96bde0',1,'BinTree::Node']]],
+  ['nueva_sesion_123',['nueva_sesion',['../commands_8hh.html#a9f15198fc5a4e1c305210cb3fdfbf656',1,'commands.hh']]],
+  ['nuevo_curso_124',['nuevo_curso',['../commands_8hh.html#a746fe12b0701bf3a1bbf3851df8e79d6',1,'commands.hh']]],
+  ['nuevo_problema_125',['nuevo_problema',['../commands_8hh.html#a6ecb6930948262fe01ed44f4f587ca1a',1,'commands.hh']]]
 ];

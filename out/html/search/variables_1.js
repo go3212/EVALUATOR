@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['current_course_99',['current_course',['../class_user.html#a15be13bd8d2e32fd362491aff3963e5a',1,'User']]]
+  ['courses_139',['courses',['../class_cursos.html#ad955db2e462fb55d36bb0c218bdc551a',1,'Cursos']]],
+  ['current_course_140',['current_course',['../class_usuario.html#aa803d7068541e8af16b3e06df27e3450',1,'Usuario']]]
 ];

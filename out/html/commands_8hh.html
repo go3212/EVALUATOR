@@ -75,6 +75,8 @@ $(function() {
 <code>#include &lt;string&gt;</code><br />
 <code>#include &quot;<a class="el" href="problemas_8hh_source.html">hh/problemas.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sesiones_8hh_source.html">hh/sesiones.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cursos_8hh_source.html">hh/cursos.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="usuarios_8hh_source.html">hh/usuarios.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for commands.hh:</div>
 <div class="dyncontent">
@@ -85,16 +87,178 @@ Include dependency graph for commands.hh:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0ea5383fa6eeea08c4e20e902a070cb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a0ea5383fa6eeea08c4e20e902a070cb0">nuevo_problema</a> (const string &amp;id, const <a class="el" href="class_problema.html">Problema</a> &amp;problem, const <a class="el" href="class_problemas.html">Problemas</a> &amp;problems)</td></tr>
-<tr class="memdesc:a0ea5383fa6eeea08c4e20e902a070cb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade un nuevo problema a la lista de problemas.  <a href="commands_8hh.html#a0ea5383fa6eeea08c4e20e902a070cb0">More...</a><br /></td></tr>
-<tr class="separator:a0ea5383fa6eeea08c4e20e902a070cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30ca4d035fcc9011e1599580a87f3ab3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a30ca4d035fcc9011e1599580a87f3ab3">nueva_sesion</a> (const string &amp;id, const <a class="el" href="class_sesion.html">Sesion</a> &amp;session, const <a class="el" href="class_sesiones.html">Sesiones</a> &amp;sessions)</td></tr>
-<tr class="memdesc:a30ca4d035fcc9011e1599580a87f3ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade una nueva sesión a la lista de sesiones.  <a href="commands_8hh.html#a30ca4d035fcc9011e1599580a87f3ab3">More...</a><br /></td></tr>
-<tr class="separator:a30ca4d035fcc9011e1599580a87f3ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ecb6930948262fe01ed44f4f587ca1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a6ecb6930948262fe01ed44f4f587ca1a">nuevo_problema</a> (const string &amp;id, const <a class="el" href="class_problemas.html">Problemas</a> &amp;problems)</td></tr>
+<tr class="memdesc:a6ecb6930948262fe01ed44f4f587ca1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade un nuevo problema a la lista de problemas.  <a href="commands_8hh.html#a6ecb6930948262fe01ed44f4f587ca1a">More...</a><br /></td></tr>
+<tr class="separator:a6ecb6930948262fe01ed44f4f587ca1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f15198fc5a4e1c305210cb3fdfbf656"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a9f15198fc5a4e1c305210cb3fdfbf656">nueva_sesion</a> (const string &amp;id, const <a class="el" href="class_sesiones.html">Sesiones</a> &amp;sessions)</td></tr>
+<tr class="memdesc:a9f15198fc5a4e1c305210cb3fdfbf656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade una nueva sesión a la lista de sesiones.  <a href="commands_8hh.html#a9f15198fc5a4e1c305210cb3fdfbf656">More...</a><br /></td></tr>
+<tr class="separator:a9f15198fc5a4e1c305210cb3fdfbf656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a746fe12b0701bf3a1bbf3851df8e79d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a746fe12b0701bf3a1bbf3851df8e79d6">nuevo_curso</a> (const <a class="el" href="class_curso.html">Curso</a> &amp;course, const <a class="el" href="class_cursos.html">Cursos</a> &amp;courses)</td></tr>
+<tr class="memdesc:a746fe12b0701bf3a1bbf3851df8e79d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade un nuevo curso a la lista de cursos.  <a href="commands_8hh.html#a746fe12b0701bf3a1bbf3851df8e79d6">More...</a><br /></td></tr>
+<tr class="separator:a746fe12b0701bf3a1bbf3851df8e79d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33163b00f6f0c4516b62c348bcd5aef6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a33163b00f6f0c4516b62c348bcd5aef6">alta_usuario</a> (const int &amp;uid, const <a class="el" href="class_usuario.html">Usuario</a> &amp;users)</td></tr>
+<tr class="memdesc:a33163b00f6f0c4516b62c348bcd5aef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade un usuario a la lista de usuarios.  <a href="commands_8hh.html#a33163b00f6f0c4516b62c348bcd5aef6">More...</a><br /></td></tr>
+<tr class="separator:a33163b00f6f0c4516b62c348bcd5aef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157b15a1c8bd5d5caa33e08828b065e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a157b15a1c8bd5d5caa33e08828b065e1">baja_usuario</a> (const int &amp;uid, const <a class="el" href="class_usuario.html">Usuario</a> &amp;users)</td></tr>
+<tr class="memdesc:a157b15a1c8bd5d5caa33e08828b065e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elimina un usuario de la lista de usuarios.  <a href="commands_8hh.html#a157b15a1c8bd5d5caa33e08828b065e1">More...</a><br /></td></tr>
+<tr class="separator:a157b15a1c8bd5d5caa33e08828b065e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ab2903397c7736ce7d269b93cc1011"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#ae2ab2903397c7736ce7d269b93cc1011">inscribir_curso</a> (const int &amp;uid, const int &amp;cid)</td></tr>
+<tr class="memdesc:ae2ab2903397c7736ce7d269b93cc1011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inscribe un usuario ('<a class="el" href="class_usuario.html">Usuario</a>) en un curso ('<a class="el" href="class_curso.html">Curso</a>').  <a href="commands_8hh.html#ae2ab2903397c7736ce7d269b93cc1011">More...</a><br /></td></tr>
+<tr class="separator:ae2ab2903397c7736ce7d269b93cc1011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f4951b0d35b2182c0a8e5f9b368151e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a5f4951b0d35b2182c0a8e5f9b368151e">curso_usuario</a> (const int &amp;uid)</td></tr>
+<tr class="memdesc:a5f4951b0d35b2182c0a8e5f9b368151e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consulta el curso al que pertenece un usuario.  <a href="commands_8hh.html#a5f4951b0d35b2182c0a8e5f9b368151e">More...</a><br /></td></tr>
+<tr class="separator:a5f4951b0d35b2182c0a8e5f9b368151e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9579b1b0969542d1f99f99584bef562f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="commands_8hh.html#a9579b1b0969542d1f99f99584bef562f">sesion_problema</a> ()</td></tr>
+<tr class="memdesc:a9579b1b0969542d1f99f99584bef562f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busca en un curso la sesión que contenga el problema buscado.  <a href="commands_8hh.html#a9579b1b0969542d1f99f99584bef562f">More...</a><br /></td></tr>
+<tr class="separator:a9579b1b0969542d1f99f99584bef562f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a30ca4d035fcc9011e1599580a87f3ab3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30ca4d035fcc9011e1599580a87f3ab3">&#9670;&nbsp;</a></span>nueva_sesion()</h2>
+<a id="a33163b00f6f0c4516b62c348bcd5aef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33163b00f6f0c4516b62c348bcd5aef6">&#9670;&nbsp;</a></span>alta_usuario()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void alta_usuario </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_usuario.html">Usuario</a> &amp;&#160;</td>
+          <td class="paramname"><em>users</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Añade un usuario a la lista de usuarios. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>identificador de usuario ('int'). </td></tr>
+    <tr><td class="paramname">users</td><td>objeto del tipo 'Users'. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>existencia de un objeto 'Users', bien definido. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>Devuelve un mensaje de error por pantalla si ya existe un usuario con el mismo identificador, en caso contrario, devuelve por pantalla el número de usuarios despues de añadirlo. </dd></dl>
+
+</div>
+</div>
+<a id="a157b15a1c8bd5d5caa33e08828b065e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a157b15a1c8bd5d5caa33e08828b065e1">&#9670;&nbsp;</a></span>baja_usuario()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void baja_usuario </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_usuario.html">Usuario</a> &amp;&#160;</td>
+          <td class="paramname"><em>users</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Elimina un usuario de la lista de usuarios. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>identificador de usuario ('int'). </td></tr>
+    <tr><td class="paramname">users</td><td>objeto del tipo 'Users'. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>existencia de un objeto 'Users', bien definido. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>Devuelve un mensaje de error por pantalla si no existe el usuario a eliminar, en caso contrario, devuelve por pantalla el número de usuarios despues de eliminar el usuario. </dd></dl>
+
+</div>
+</div>
+<a id="a5f4951b0d35b2182c0a8e5f9b368151e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f4951b0d35b2182c0a8e5f9b368151e">&#9670;&nbsp;</a></span>curso_usuario()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void curso_usuario </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>uid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Consulta el curso al que pertenece un usuario. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>identificador de usuario ('int'). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondition</dt><dd>Imprime por pantalla el curso ('cid') al que pertenece el usuario, si no pertenece a ningún curso se imprime un error. </dd></dl>
+
+</div>
+</div>
+<a id="ae2ab2903397c7736ce7d269b93cc1011"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2ab2903397c7736ce7d269b93cc1011">&#9670;&nbsp;</a></span>inscribir_curso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void inscribir_curso </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>cid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inscribe un usuario ('<a class="el" href="class_usuario.html">Usuario</a>) en un curso ('<a class="el" href="class_curso.html">Curso</a>'). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>identificador de usuario ('int'). </td></tr>
+    <tr><td class="paramname">cid</td><td>objeto del tipo ('<a class="el" href="class_curso.html">Curso</a>'). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd></dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>Añade el usuario ('user') al curso ('course'). Imprime por pantalla el número de usuarios inscritos en el curso tras añadir el usuario, si no se ha añadido, se imprime un mensaje de error (uid no encontrado o uid inscrito o course no encontrado) </dd></dl>
+
+</div>
+</div>
+<a id="a9f15198fc5a4e1c305210cb3fdfbf656"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f15198fc5a4e1c305210cb3fdfbf656">&#9670;&nbsp;</a></span>nueva_sesion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -104,12 +268,6 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const string &amp;&#160;</td>
           <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_sesion.html">Sesion</a> &amp;&#160;</td>
-          <td class="paramname"><em>session</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -129,18 +287,56 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>identificador de la sesión. </td></tr>
-    <tr><td class="paramname">session</td><td>objeto del tipo '<a class="el" href="class_sesion.html">Sesion</a>'. </td></tr>
     <tr><td class="paramname">sessions</td><td>objeto del tipo '<a class="el" href="class_sesiones.html" title="Holds data for a session: session name (&#39;name&#39;) and a binary tree of problems (&#39;problems&#39;)">Sesiones</a>'. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd>existencia de un objeto '<a class="el" href="class_sesiones.html" title="Holds data for a session: session name (&#39;name&#39;) and a binary tree of problems (&#39;problems&#39;)">Sesiones</a>', con problemas no repetidos. </dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>añade una sesion al objeto '<a class="el" href="class_sesiones.html" title="Holds data for a session: session name (&#39;name&#39;) and a binary tree of problems (&#39;problems&#39;)">Sesiones</a>'. Devuelve un mensaje de error por pantalla si ya existia la sesión, en caso contrario, devuelve el número total de problemas. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>añade una sesion al objeto '<a class="el" href="class_sesiones.html" title="Holds data for a session: session name (&#39;name&#39;) and a binary tree of problems (&#39;problems&#39;)">Sesiones</a>'. Devuelve un mensaje de error por pantalla si ya existia la sesión, en caso contrario, devuelve por pantalla el número total de problemas. </dd></dl>
 
 </div>
 </div>
-<a id="a0ea5383fa6eeea08c4e20e902a070cb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea5383fa6eeea08c4e20e902a070cb0">&#9670;&nbsp;</a></span>nuevo_problema()</h2>
+<a id="a746fe12b0701bf3a1bbf3851df8e79d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a746fe12b0701bf3a1bbf3851df8e79d6">&#9670;&nbsp;</a></span>nuevo_curso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nuevo_curso </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_curso.html">Curso</a> &amp;&#160;</td>
+          <td class="paramname"><em>course</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_cursos.html">Cursos</a> &amp;&#160;</td>
+          <td class="paramname"><em>courses</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Añade un nuevo curso a la lista de cursos. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">course</td><td>objeto del tipo '<a class="el" href="class_curso.html">Curso</a>'. </td></tr>
+    <tr><td class="paramname">courses</td><td>objeto del tipo '<a class="el" href="class_cursos.html" title="Almacena todos los cursos y permite su gestión.">Cursos</a>'. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>existencia de un objeto '<a class="el" href="class_cursos.html" title="Almacena todos los cursos y permite su gestión.">Cursos</a>', bien definido. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>Devuelve un mensaje de error por pantalla si el curso a insertar tiene problemas repetidos, en caso contrario, devuelve por pantalla el identificador del curso. </dd></dl>
+
+</div>
+</div>
+<a id="a6ecb6930948262fe01ed44f4f587ca1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ecb6930948262fe01ed44f4f587ca1a">&#9670;&nbsp;</a></span>nuevo_problema()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,12 +346,6 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const string &amp;&#160;</td>
           <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_problema.html">Problema</a> &amp;&#160;</td>
-          <td class="paramname"><em>problem</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -175,20 +365,46 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>identificador del problema. </td></tr>
-    <tr><td class="paramname">problem</td><td>objecto del tipo '<a class="el" href="class_problema.html">Problema</a>'. </td></tr>
     <tr><td class="paramname">problems</td><td>objeto de tipo '<a class="el" href="class_problemas.html">Problemas</a>'. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd>existencia de un objeto '<a class="el" href="class_problemas.html">Problemas</a>'. </dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>añade un problema al objeto '<a class="el" href="class_problemas.html">Problemas</a>'. Devuelve un mensaje de error por pantalla si ya existia el problema, en caso contrario, devuelve el número total de problemas. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>añade un problema al objeto '<a class="el" href="class_problemas.html">Problemas</a>'. Devuelve un mensaje de error por pantalla si ya existia el problema, en caso contrario, devuelve por pantalla el número total de problemas. </dd></dl>
+
+</div>
+</div>
+<a id="a9579b1b0969542d1f99f99584bef562f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9579b1b0969542d1f99f99584bef562f">&#9670;&nbsp;</a></span>sesion_problema()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sesion_problema </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Busca en un curso la sesión que contenga el problema buscado. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cid</td><td>identificador de curso ('int'). </td></tr>
+    <tr><td class="paramname">pid</td><td>identificador de problema ('string') </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondition</dt><dd>Imprime el identificador de la sesión en pantalla si se ha encontrado, en caso opuesto, se imprime un error. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 7 2021 19:08:00 for Bluron by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Apr 7 2021 23:02:30 for Bluron by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

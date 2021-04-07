@@ -20,7 +20,7 @@ class Sesion
 private:
     string name;
     int n_problems;
-    BinTree<Problema> problems;
+    BinTree<problemid> problems;
 
 public:
 

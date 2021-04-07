@@ -44,25 +44,36 @@ struct AllCoursesData
 /** @class User
  *  @brief Holds data for a user: a username ('name') and a sequence of session identifiers ('sessions')
  */
-class User
+class Usuario
 {
 private:
-    string name;
+    int uid;
     CurrentCourseData current_course;
     AllCoursesData all_courses;
-
 
 public:
 
     /** @brief Overloaded default class null constructor.
-     *  \post Null user id ('id'). All other private variables are also undefined.
+     *  \post Null user id ('uid'). All other private variables are also undefined.
      */ 
-    User();
+    Usuario();
 
     /** @brief Overloaded class constructor.
-     *  \post Sets the username ('this->name') to the constructor parameter ('name'). All other private variables are left undefined.
+     *  \post Sets the user id ('this->uid') to the constructor parameter ('uid'). All other private variables are left undefined.
      */ 
-    User(const int& name);
+    Usuario(const int& uid);
+
+    /** @brief Inscribe al usuario en un curso.
+     *  @param cid identificador del curso.
+     *  \pre El usuario debe tener 'uid' != NULL.
+     *  \post Si el usuario no está inscrito en ningún curso se le inscribe al parámetro de la función y se devuelve ('true'), en caso opuesto, no se modifica la inscripción y se devuelve ('false').
+     */
+    bool inscribe(const int& cid);
+
+    /** @brief Devuelve si el usuario está inscrito en un curso.
+     *  \post devuelve 'true' si el usuario está inscrito y 'false' si no lo está.
+     */
+    bool is_inscribed();
 };
 
 #endif
