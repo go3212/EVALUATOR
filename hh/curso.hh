@@ -19,7 +19,7 @@ class Course
 {
 private:
     int id;
-    vector<Session> sessions;
+    vector<Session> session;
 
 public:
 
