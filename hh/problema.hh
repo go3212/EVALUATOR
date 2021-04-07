@@ -10,7 +10,7 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 /** @struct Attempts
- *  @brief Estructura que almacena el número de intentos.
+ *  @brief Holds attempts data.
  */
 struct Attempts
 {
@@ -20,7 +20,7 @@ struct Attempts
 };
 
 /** @class Problem
- *  @brief Clase que almancena toda la información de un problema: identificador, intentos y intentos correctos.
+ *  @brief Class which stores problem's data.
  */
 class Problem
 {
@@ -28,17 +28,15 @@ private:
     string id;
     Attempts attempts;
 public:
-    /** @brief
-     *  \pre
-     *  \post
-     */ 
-
-
-    /** @brief
-     *  \pre
-     *  \post
+    /** @brief Overloaded default class constructor.
+     *  \post Null problem identifier. All other private <em>int</em> variables are set to zero.
      */ 
     Problem();
+
+    /** @brief Overloaded default class constructor.
+     *  \post Problem identifier ('this->id') set to the constructor parameter ('id'). All other private <em>int</em> variables are set to zero.
+     */ 
+    Problem(const string& id);
 };
 
 #endif
