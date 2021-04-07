@@ -14,7 +14,7 @@ using namespace std;
  *  @brief Holds data for a course: course identifier ('id') and a sequence of session identifiers ('sessions')
  */
 
-class Course
+class Curso
 {
 private:
     int id;
@@ -25,12 +25,12 @@ public:
     /** @brief Overloaded default class null constructor.
      *  \post Null course id ('id'). All other private variables are also undefined.
      */ 
-    Course();
+    Curso();
 
     /** @brief Overloaded class constructor.
      *  \post Sets the course id ('this->id') to the constructor parameter ('id'). All other private variables are left undefined.
      */ 
-    Course(const int& id);
+    Curso(const int& id);
 
 };
 
