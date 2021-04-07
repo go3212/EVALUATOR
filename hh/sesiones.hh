@@ -11,7 +11,7 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
-/** @class Sessiones
+/** @class Sesiones
  *  @brief Holds data for a session: session name ('name') and a binary tree of problems ('problems') 
  */
 class Sesiones
