@@ -11,11 +11,6 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
-struct Session
-{
-    string nombre;
-};
-
 /** @class Session
  *  @brief Holds data for a session: session name ('name') and a binary tree of problems ('problems') 
  */
@@ -29,6 +24,15 @@ private:
 
 public:
 
+    /** @brief Overloaded default class null constructor.
+     *  \post Null session name. All other private variables are also undefined.
+     */ 
+    Session();
+
+    /** @brief Overloaded class constructor.
+     *  \post Sets the session name ('this->name') to the constructor parameter ('name'). All other private <em>int</em> variables are set to zero.
+     */ 
+    Session(const string& name);
 
 };
 
