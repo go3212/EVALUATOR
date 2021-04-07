@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "hh/BinTree.hh"
 #include "hh/sesion.hh"
 
 using namespace std;
