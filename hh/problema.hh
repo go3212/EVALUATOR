@@ -1,5 +1,5 @@
-#ifndef PROBLEMAS_HH
-#define PROBLEMAS_HH
+#ifndef PROBLEMA_HH
+#define PROBLEMA_HH
 
 #include <iostream>
 #include <vector>
@@ -33,7 +33,7 @@ public:
      */ 
     Problem();
 
-    /** @brief Overloaded default class constructor.
+    /** @brief Overloaded class constructor.
      *  \post Problem identifier ('this->id') set to the constructor parameter ('id'). All other private <em>int</em> variables are set to zero.
      */ 
     Problem(const string& id);
