@@ -29,7 +29,7 @@ struct CurrentCourseData
     bool is_inscribed;
     int identifier;
     Attempts attempts;
-    set<Problem, bool> problems;
+    set<Problema, bool> problems;
 };
 
 /** @struct CourseData
@@ -38,7 +38,7 @@ struct CurrentCourseData
 struct AllCoursesData
 {
     Attempts attempts;
-    vector<Problem> solved_problems;
+    vector<Problema> solved_problems;
 };
 
 /** @class User
@@ -63,7 +63,6 @@ public:
      *  \post Sets the username ('this->name') to the constructor parameter ('name'). All other private variables are left undefined.
      */ 
     User(const int& name);
-
 };
 
 #endif
