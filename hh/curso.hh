@@ -1,3 +1,7 @@
+/** @file curso.hh
+ *  @brief Especificación de la clase 'Curso'.
+ */
+
 #ifndef COURSE_HH
 #define COURSE_HH
 
@@ -34,7 +38,7 @@ public:
      */ 
     Curso(const courseid& cid);
 
-    /** @brief Añade toda la información de las sesiones desde la entrada 'stdin'.
+    /** @brief Almacena la infomración de un curso por el 'stdin'
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.
      *  \post Las sesiones estaran definidas en el vector. El único parametro no definido será el 'courseid'.
      */

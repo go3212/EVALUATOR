@@ -1,3 +1,8 @@
+/** @file problema.hh
+ *  @brief Especificación de la clase 'Problema'.
+ */
+
+
 #ifndef PROBLEMA_HH
 #define PROBLEMA_HH
 
@@ -12,13 +17,21 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 /** @struct Attempts
- *  @brief Holds attempts data.
+ *  @brief Almacena información sobre los intentos: totales, aceptados y erroneos.
+ *  \post Todos los tipos de intentos son inicializados a cero.
  */
 struct Attempts
 {
     int accepted;
     int total;
     int rejected;
+
+    Attempts()
+    {
+        accepted = 0;
+        total = 0;
+        rejected = 0;
+    }
 };
 
 /** @class Problema
@@ -45,6 +58,11 @@ public:
      *  \post Se incrementa el número de intentos totales en uno. En función de si se ha solucionado correctamente se increamentan los intentos correctos o los incorrectos.
      */
     void updateAttempts(const bool& solved);
+
+    /** @brief Devuelve los intentos del problema.
+     *  \post Se devuelve por referencia un objeto 'Attempts' constante.
+     */
+    const Attempts& get_attempts() const;
 };
 
 #endif

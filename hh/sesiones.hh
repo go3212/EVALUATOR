@@ -1,3 +1,8 @@
+/** @file sesiones.hh
+ *  @brief Especificación de la clase 'Sesiones'.
+ */
+
+
 #ifndef SESIONES_HH
 #define SESIONES_HH
 

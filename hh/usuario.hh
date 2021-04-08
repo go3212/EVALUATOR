@@ -1,3 +1,8 @@
+/** @file usuario.hh
+ *  @brief Especificación de la clase 'Usuario'.
+ */
+
+
 #ifndef USER_HH
 #define USER_HH
 
@@ -10,8 +15,6 @@
 typedef int userid;
 
 using namespace std;
-
-// N > 0, Sin repeticiones, 
 
 /** @struct ProblemData
  *  @brief Almacena el número de intentos (total) al problema, y su identificador. 
@@ -50,7 +53,7 @@ struct AllCoursesData
 class Usuario
 {
 private:
-    userid uid;
+    userid id;
     CurrentCourseData current_course;
     AllCoursesData all_courses;
 
@@ -63,7 +66,7 @@ public:
 
     /** @brief Overloaded class constructor.
      *  @param uid identificador de usuario ('userid')
-     *  \post Sets the user id ('this->uid') to the constructor parameter ('uid'). All other private variables are left undefined.
+     *  \post Sets the user id ('this->id') to the constructor parameter ('uid'). All other private variables are left undefined.
      */ 
     Usuario(const userid& uid);
 
@@ -95,7 +98,7 @@ public:
     const vector<ProblemData>& availableCourseProblems() const;
 
     /** @brief Actualiza el estado del curso al enviar un problema.
-     *  @param pid identificador de problema ('problemid).
+     *  @param pid identificador de problema ('problemid').
      *  @param solved valor que indica si el problema ha sido solucionado correctamente o no ('bool').
      *  \post Actualiza el número de intentos y la lista de problemas disponibles para el usuario. Si no quedan más problemas a solucionar, se desinscribre al usuario del curso.
      *        Devuelve 'true' si se ha encontrado el problema en el curso y 'false' si no sse ha encontrado.

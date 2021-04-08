@@ -1,3 +1,7 @@
+/** @file sesion.hh
+ *  @brief Especificación de la clase 'Sesion'.
+ */
+
 #ifndef SESION_HH
 #define SESION_HH
 
@@ -21,6 +25,7 @@ class Sesion
 {
 private:
     sessionid id;
+    bool has_sessionid;
     int n_problems;
     BinTree<problemid> problems;
 
@@ -36,6 +41,17 @@ public:
      */ 
     Sesion(const sessionid& sid);
 
+    /** @brief Almacena la infomración de una sesión por el 'stdin'
+     *  \pre La información a leer debe estar en un orden correcto.
+     *  \post Se almacena el conjunto de problemas y se inicializa el id.
+     */
+    void read();
+
+    /** @brief Escribe la información de una sesión en el 'stdout'.
+     *  \pre La sesión debe tener identificador y conjunto de problemas.
+     *  \post Se escribe el número de problemas, asi como sus identificadores.
+     */
+    void write();
 };
 
 #endif

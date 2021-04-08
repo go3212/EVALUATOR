@@ -1,3 +1,8 @@
+/** @file cursos.hh
+ *  @brief Especificación de la clase 'Cursos'.
+ */
+
+
 #ifndef CURSOS_HH
 #define CURSOS_HH
 
