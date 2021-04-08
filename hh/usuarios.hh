@@ -18,7 +18,7 @@ class Usuarios
 {
 private:
     int total;
-    map<int, Usuario> userMap;
+    map<userid, Usuario> userMap;
 
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
@@ -47,18 +47,19 @@ public:
     bool delete_user(const Usuario& user);
 
     /** @brief Se inscibe a un usuario en un curso.
-     *  @param uid identificador de usuario ('int')
-     *  @param cid identificador de curso ('int').
-     *  \post el usuario queda inscrito en el curso si se ha encontrado el usuario y el curso en la base de datos, además, el usuario no puede estrar inscrito. En este caso se devuelve 'true', en los otros, 
+     *  @param uid identificador de usuario ('userid')
+     *  @param cid identificador de curso ('courseid').
+     *  @param courses objeto de la clase ('Cursos')
+     *  \post El usuario queda inscrito en el curso si se ha encontrado el usuario y el curso en la base de datos, además, el usuario no puede estrar inscrito. En este caso se devuelve 'true', en los otros, 
      *        se devuelve 'false'. 
      */
-    bool inscribe_user(const int& uid, const int& cid);
+    bool inscribe_user(const userid& uid, const courseid& cid, const Cursos& cursos);
 
     /** @brief Busca un usuario en el conjunto de usuarios.
-     *  @param uid identificador de usuario ('int').
+     *  @param uid identificador de usuario ('userid').
      *  \post devuelve el objeto 'Usuario' por referencia si se encuentra, en caso contrario, devuelve NULL.
      */
-    Usuario& get_user(const int& uid);
+    Usuario& get_user(const userid& uid);
 };
 
 #endif

@@ -6,6 +6,8 @@
 #include <string>
 #include "hh/sesion.hh"
 
+typedef int courseid;
+
 using namespace std;
 
 // N > 0, Sin repeticiones, 
@@ -17,8 +19,8 @@ using namespace std;
 class Curso
 {
 private:
-    int id;
-    vector<Sesion> session;
+    courseid id;
+    vector<sessionid> session;
 
 public:
 
@@ -28,10 +30,15 @@ public:
     Curso();
 
     /** @brief Overloaded class constructor.
-     *  \post Sets the course id ('this->id') to the constructor parameter ('id'). All other private variables are left undefined.
+     *  \post Sets the course id ('this->id') to the constructor parameter ('cid'). All other private variables are left undefined.
      */ 
-    Curso(const int& id);
+    Curso(const courseid& cid);
 
+    /** @brief Añade toda la información de las sesiones desde la entrada 'stdin'.
+     *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.
+     *  \post Las sesiones estaran definidas en el vector. El único parametro no definido será el 'courseid'.
+     */
+    void read();
 };
 
 #endif

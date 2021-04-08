@@ -7,6 +7,8 @@
 #include "hh/BinTree.hh"
 #include "hh/problema.hh"
 
+typedef string sessionid;
+
 using namespace std;
 
 // N > 0, Sin repeticiones, 
@@ -18,7 +20,7 @@ using namespace std;
 class Sesion
 {
 private:
-    string name;
+    sessionid id;
     int n_problems;
     BinTree<problemid> problems;
 
@@ -30,9 +32,9 @@ public:
     Sesion();
 
     /** @brief Overloaded class constructor.
-     *  \post Sets the session name ('this->name') to the constructor parameter ('name'). All other private <em>int</em> variables are set to zero.
+     *  \post Sets the session id ('this->id') to the constructor parameter ('sid'). All other private <em>int</em> variables are set to zero.
      */ 
-    Sesion(const string& name);
+    Sesion(const sessionid& sid);
 
 };
 
