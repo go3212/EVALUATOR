@@ -41,6 +41,11 @@ public:
      */ 
     Sesion(const sessionid& sid);
 
+    /** @brief Devuelve si la sesion tiene identificador.
+     *  \post Devuelve 'true' si la sesión tiene identificador y 'false' si no lo tiene.
+     */
+    const bool has_sessionid() const;
+
     /** @brief Almacena la infomración de una sesión por el 'stdin'
      *  \pre La información a leer debe estar en un orden correcto.
      *  \post Se almacena el conjunto de problemas y se inicializa el id.
