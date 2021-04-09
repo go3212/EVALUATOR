@@ -8,8 +8,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "hh/BinTree.hh"
-#include "hh/problema.hh"
+#include "BinTree.hh"
+#include "problema.hh"
 
 typedef string sessionid;
 

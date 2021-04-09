@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "hh/problema.hh"
+#include "problema.hh"
 
 using namespace std;
 

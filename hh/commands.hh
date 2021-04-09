@@ -3,10 +3,10 @@
 
 #include <iostream>
 #include <string>
-#include "hh/problemas.hh"
-#include "hh/sesiones.hh"
-#include "hh/cursos.hh"
-#include "hh/usuarios.hh"
+#include "problemas.hh"
+#include "sesiones.hh"
+#include "cursos.hh"
+#include "usuarios.hh"
 
 using namespace std;
 

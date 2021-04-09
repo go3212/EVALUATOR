@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "hh/sesion.hh"
+#include "sesion.hh"
 
 typedef int courseid;
 

@@ -1,9 +1,7 @@
 #include <iostream>
-#include <hh/problema.hh>
-#include <hh/usuario.hh>
-#include <hh/BinTree.hh>
-#include <hh/curso.hh>
-#include <hh/sesion.hh>
+#include "hh/problemas.hh"
+#include "hh/usuarios.hh"
+#include "hh/cursos.hh"
 
 using namespace std;
 

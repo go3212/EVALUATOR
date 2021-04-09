@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "hh/curso.hh"
+#include "curso.hh"
 
 using namespace std;
 

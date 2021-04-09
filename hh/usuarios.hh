@@ -10,9 +10,9 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "hh/usuario.hh"
-#include "hh/curso.hh"
-#include "hh/cursos.hh"
+#include "usuario.hh"
+#include "curso.hh"
+#include "cursos.hh"
 
 using namespace std;
 

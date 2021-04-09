@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "hh/problema.hh"
+#include "problema.hh"
 
 typedef int userid;
 
