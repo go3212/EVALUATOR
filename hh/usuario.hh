@@ -13,35 +13,6 @@
 
 using namespace std;
 
-/** @struct ProblemData
- *  @brief Almacena el número de intentos (total) al problema, y su identificador. 
- */
-struct ProblemData
-{
-    Attempts attempts;
-    problemid pid;
-};
-
-/** @struct CourseData
- *  @brief Holds current course data, if inscribed.
- */
-struct CourseData
-{
-    courseid identifier;
-    Attempts total_attempts;
-    vector<ProblemData> solved_problems;
-    vector<ProblemData> available_problems;
-};
-
-/** @struct CourseData
- *  @brief Holds current course data, if inscribed.
- */
-struct AllCoursesData
-{
-    Attempts attempts;
-    vector<CourseData> course;
-};
-
 /** @class User
  *  @brief Holds data for a user: a username ('name') and a sequence of session identifiers ('sessions')
  */
