@@ -49,10 +49,10 @@ class Usuario
 {
 private:
     userid id;
-    bool has_userid;
-    bool is_inscribed;
-    CourseData current_course;
-    AllCoursesData all_courses;
+    bool hasUserid;
+    bool isInscribed;
+    CourseData currentCourse;
+    AllCoursesData allCourses;
 
 public:
 
