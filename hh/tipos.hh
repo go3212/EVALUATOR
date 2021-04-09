@@ -63,5 +63,4 @@ struct AllCoursesData
     vector<CourseData> course;
 };
 
-
 #endif

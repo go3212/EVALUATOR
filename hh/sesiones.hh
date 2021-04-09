@@ -6,8 +6,6 @@
 #define SESIONES_HH
 
 #include <iostream>
-#include <vector>
-#include <string>
 #include <map>
 #include "tipos.hh"
 #include "sesion.hh"

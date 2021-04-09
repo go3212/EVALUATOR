@@ -37,7 +37,7 @@ public:
      *  @param solved valor que indica si el problema ha sido solucionado correctamente o no ('bool').
      *  \post Se incrementa el número de intentos totales en uno. En función de si se ha solucionado correctamente se increamentan los intentos correctos o los incorrectos.
      */
-    void updateAttempts(const bool& solved);
+    void update_attempts(const bool& solved);
 
     /** @brief Devuelve los intentos del problema.
      *  \post Se devuelve por referencia un objeto 'Attempts' constante.
