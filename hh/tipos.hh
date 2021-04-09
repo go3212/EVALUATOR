@@ -11,13 +11,28 @@
 
 using namespace std;
 
+/** @typedef sessionid
+ *  @brief Idenfificador de 'Sesión'.
+ */
 typedef string sessionid;
+
+/** @typedef userid 
+ *  @brief Idenfificador de 'Usuario'.
+*/
 typedef int userid;
+
+/** @typedef courseid 
+ *  @brief Identificador de 'Curso'.
+*/
 typedef int courseid;
+
+/** \typedef courseid 
+ *  @brief Identificador de 'Problema'.
+*/
 typedef string problemid;
 
 /** @struct Attempts
- *  @brief Almacena información sobre los intentos: totales, aceptados y erroneos.
+ *  @brief Almacena información sobre intentos.
  *  \post Todos los tipos de intentos son inicializados a cero.
  */
 struct Attempts
@@ -44,7 +59,7 @@ struct ProblemData
 };
 
 /** @struct CourseData
- *  @brief Holds current course data, if inscribed.
+ *  @brief Almacena información sobre un 'Curso'.
  */
 struct CourseData
 {
@@ -55,7 +70,7 @@ struct CourseData
 };
 
 /** @struct CourseData
- *  @brief Holds current course data, if inscribed.
+ *  @brief Almacena información sobre multiples 'Curso'.
  */
 struct AllCoursesData
 {
