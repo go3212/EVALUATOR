@@ -11,6 +11,8 @@
 #include <string>
 #include <map>
 #include "hh/usuario.hh"
+#include "hh/curso.hh"
+#include "hh/cursos.hh"
 
 using namespace std;
 
@@ -45,26 +47,24 @@ public:
     bool add_user(const Usuario& user);
 
     /** @brief Elimina un usuario del conjunto de usuarios.
-     *  @param user objeto de tipo 'Usuario'.
+     *  @param uid objeto de tipo 'userid'.
      *  \post elimina un usuario del conjunto de usuarios ('userMap').  
      *        Devuelve si se ha eliminado correctamente el usuario ('true') o ha habido un problema al eliminar/no existe ('false').
      */
-    bool delete_user(const Usuario& user);
+    bool delete_user(const userid& uid);
 
     /** @brief Se inscibe a un usuario en un curso.
      *  @param uid identificador de usuario ('userid')
-     *  @param cid identificador de curso ('courseid').
-     *  @param courses objeto de la clase ('Cursos')
      *  \post El usuario queda inscrito en el curso si se ha encontrado el usuario y el curso en la base de datos, además, el usuario no puede estrar inscrito. En este caso se devuelve 'true', en los otros, 
      *        se devuelve 'false'. 
      */
-    bool inscribe_user(const userid& uid, const courseid& cid, const Cursos& cursos);
+    bool inscribe_user(const userid& uid);
 
     /** @brief Busca un usuario en el conjunto de usuarios.
      *  @param uid identificador de usuario ('userid').
      *  \post devuelve el objeto 'Usuario' por referencia si se encuentra, en caso contrario, devuelve NULL.
      */
-    Usuario& get_user(const userid& uid);
+    const Usuario& get_user(const userid& uid) const;
 };
 
 #endif

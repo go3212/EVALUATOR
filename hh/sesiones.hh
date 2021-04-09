@@ -2,7 +2,6 @@
  *  @brief Especificación de la clase 'Sesiones'.
  */
 
-
 #ifndef SESIONES_HH
 #define SESIONES_HH
 
@@ -42,8 +41,13 @@ public:
      *  @param session objeto de tipo 'Sesión'.
      *  \post añade una sesión al mapa de sesiones ('sessionMap') si no existia previamente. Devuelve si la sesión se ha añadido ('true') o si ya existia ('false').
      */
-    bool add_session(const string& id, const Sesion& session);
+    const bool add_session(const string& id, const Sesion& session);
 
+    /** @brief Busca una sesión en el conjunto de sesiones.
+     *  @param sid identificador de sesión ('userid').
+     *  \post Devuelve el objeto 'Sesion' por referencia constante si se encuentra, en caso contrario, devuelve NULL.
+     */
+    const Sesion& get_session(const sessionid& sid) const;
 };
 
 #endif
