@@ -3,6 +3,7 @@
 #include "hh/problemas.hh"
 #include "hh/usuarios.hh"
 #include "hh/cursos.hh"
+#include "hh/comandos.hh"
 
 using namespace std;
 
