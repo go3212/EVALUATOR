@@ -15,6 +15,9 @@
 
 using namespace std;
 
+/** @class Problemas
+ *  @brief Facilita la gestión de un conjunto de problemas (obj. 'Problema').
+ */
 class Problemas
 {
 private:

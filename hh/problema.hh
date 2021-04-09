@@ -15,7 +15,7 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 /** @class Problema
- *  @brief Class which stores problem's data.
+ *  @brief Almacena la información de un problema y facilita su gestión.
  */
 class Problema
 {

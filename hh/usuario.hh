@@ -14,7 +14,7 @@
 using namespace std;
 
 /** @class User
- *  @brief Holds data for a user: a username ('name') and a sequence of session identifiers ('sessions')
+ *  @brief Almacena la información de un usuario y facilita su gestión.
  */
 class Usuario
 {

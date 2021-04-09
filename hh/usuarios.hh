@@ -20,7 +20,7 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 /** @class Usuarios
- *  @brief Almacena todos los usuarios y permite su gestión.
+ *  @brief Facilita la gestión de un conjunto de usuarios (obj. 'Usuario').
  */
 class Usuarios
 {

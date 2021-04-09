@@ -15,8 +15,8 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
-/** @class Course
- *  @brief Holds data for a course: course identifier ('id') and a sequence of session identifiers ('sessions')
+/** @class Curso
+ *  @brief Almacena la información de un curso y facilita su gestión.
  */
 
 class Curso

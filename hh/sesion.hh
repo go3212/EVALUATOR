@@ -17,7 +17,7 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 /** @class Session
- *  @brief Holds data for a session: session name ('name') and a binary tree of problems ('problems') 
+ *  @brief Almacena la información de una sesión y facilita su gestión.
  */
 
 class Sesion

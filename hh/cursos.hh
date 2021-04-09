@@ -18,7 +18,7 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 /** @class Cursos
- *  @brief Almacena todos los cursos y permite su gestión.
+ *  @brief Facilita la gestión de un conjunto de cursos (obj. 'Curso').
  */
 class Cursos
 {

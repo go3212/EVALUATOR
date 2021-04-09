@@ -11,7 +11,7 @@
 using namespace std;
 
 /** @class Comandos
- *  @brief Contiene comandos que gestionan los cursos, usuarios y problemas.
+ *  @brief Contiene comandos que gestionan los cursos, usuarios y problemas (obj's. 'Cursos', 'Usuarios', 'Problemas').
  */
 class Comandos
 {
