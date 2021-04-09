@@ -13,7 +13,7 @@
 
 using namespace std;
 
-/** @class User
+/** @class Usuario
  *  @brief Almacena la información de un usuario y facilita su gestión.
  */
 class Usuario
@@ -22,8 +22,8 @@ private:
     userid id;
     bool hasUserid;
     bool isInscribed;
-    CourseData currentCourse;
-    AllCoursesData allCourses;
+    UserCourseData currentCourse;
+    UserCoursesData allCourses;
 
 public:
 
@@ -58,12 +58,12 @@ public:
     /** @brief Devuelve la información de todos los cursos cursados por el usuario.
      *  \post Devuelve un puntero no modificable que contiene una estructura 'AllCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
      */
-    const vector<AllCoursesData>& all_courses() const;
+    const vector<UserCoursesData>& all_courses() const;
 
     /** @brief Devuelve la información del curso al que está inscrito el usuario.
-     *  \post Devuelve un puntero no modificable que contiene una estructura 'CourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
+     *  \post Devuelve un puntero no modificable que contiene una estructura 'UserCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
      */
-    const vector<CourseData>& current_course() const;
+    const vector<UserCourseData>& current_course() const;
 
     /** @brief Actualiza el estado del curso al enviar un problema.
      *  @param pid identificador de problema ('problemid').

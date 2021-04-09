@@ -32,7 +32,7 @@ typedef int courseid;
 typedef string problemid;
 
 /** @struct Attempts
- *  @brief Almacena información sobre intentos.
+ *  @brief Almacena información sobre los intentos realizados a un 'Problema'.
  *  \post Todos los tipos de intentos son inicializados a cero.
  */
 struct Attempts
@@ -50,7 +50,7 @@ struct Attempts
 };
 
 /** @struct ProblemData
- *  @brief Almacena el número de intentos (total) al problema, y su identificador. 
+ *  @brief Almacena información genérica sobre un 'Problema'.
  */
 struct ProblemData
 {
@@ -58,10 +58,10 @@ struct ProblemData
     problemid pid;
 };
 
-/** @struct CourseData
- *  @brief Almacena información sobre un 'Curso'.
+/** @struct UserCourseData
+ *  @brief Almacena información genérica sobre 'Curso' que cursa un 'Usuario'.
  */
-struct CourseData
+struct UserCourseData
 {
     courseid identifier;
     Attempts totalAttempts;
@@ -69,13 +69,13 @@ struct CourseData
     vector<ProblemData> availableProblems;
 };
 
-/** @struct CourseData
- *  @brief Almacena información sobre multiples 'Curso'.
+/** @struct UserCoursesData
+ *  @brief Almacena información genérica sobre todos los 'Curso' que ha cursado un 'Usuario'.
  */
-struct AllCoursesData
+struct UserCoursesData
 {
     Attempts attempts;
-    vector<CourseData> course;
+    vector<UserCourseData> course;
 };
 
 #endif

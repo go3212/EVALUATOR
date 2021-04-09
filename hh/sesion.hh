@@ -16,7 +16,7 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
-/** @class Session
+/** @class Sesion
  *  @brief Almacena la información de una sesión y facilita su gestión.
  */
 

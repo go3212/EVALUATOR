@@ -2,7 +2,6 @@
  *  @brief Especificación de la clase 'Usuarios'.
  */
 
-
 #ifndef USUARIOS_HH
 #define USUARIOS_HH
 

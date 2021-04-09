@@ -15,13 +15,13 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 /** @class Sesiones
- *  @brief Holds data for a session: session name ('name') and a binary tree of problems ('problems') 
+ *  @brief Facilita la gestión de un conjunto de sesiones (obj. 'Sesion').
  */
 class Sesiones
 {
 private:
     int total;
-    map<string, Sesion> sessionMap;
+    map<sessionid, Sesion> sessionMap;
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \post Número total de sesiones es cero. Conjunto de sesiones ('sessionMap') no definido.
