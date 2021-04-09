@@ -7,12 +7,32 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 typedef string sessionid;
 typedef int userid;
 typedef int courseid;
+typedef string problemid;
+
+/** @struct Attempts
+ *  @brief Almacena información sobre los intentos: totales, aceptados y erroneos.
+ *  \post Todos los tipos de intentos son inicializados a cero.
+ */
+struct Attempts
+{
+    int accepted;
+    int total;
+    int rejected;
+
+    Attempts()
+    {
+        accepted = 0;
+        total = 0;
+        rejected = 0;
+    }
+};
 
 /** @struct ProblemData
  *  @brief Almacena el número de intentos (total) al problema, y su identificador. 

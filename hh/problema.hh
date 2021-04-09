@@ -2,7 +2,6 @@
  *  @brief Especificación de la clase 'Problema'.
  */
 
-
 #ifndef PROBLEMA_HH
 #define PROBLEMA_HH
 
@@ -11,29 +10,9 @@
 #include <string>
 #include "tipos.hh"
 
-typedef string problemid;
-
 using namespace std;
 
 // N > 0, Sin repeticiones, 
-
-/** @struct Attempts
- *  @brief Almacena información sobre los intentos: totales, aceptados y erroneos.
- *  \post Todos los tipos de intentos son inicializados a cero.
- */
-struct Attempts
-{
-    int accepted;
-    int total;
-    int rejected;
-
-    Attempts()
-    {
-        accepted = 0;
-        total = 0;
-        rejected = 0;
-    }
-};
 
 /** @class Problema
  *  @brief Class which stores problem's data.
