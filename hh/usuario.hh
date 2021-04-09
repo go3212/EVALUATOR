@@ -2,14 +2,12 @@
  *  @brief Especificación de la clase 'Usuario'.
  */
 
-
 #ifndef USER_HH
 #define USER_HH
 
 #include <iostream>
 #include <vector>
 #include <string>
-#include <set>
 #include "hh/problema.hh"
 
 typedef int userid;
@@ -23,17 +21,15 @@ struct ProblemData
 {
     Attempts attempts;
     problemid pid;
-    bool is_done;
 };
 
 /** @struct CourseData
  *  @brief Holds current course data, if inscribed.
  */
-struct CurrentCourseData
+struct CourseData
 {
-    bool is_inscribed;
-    int identifier;
-    Attempts attempts;
+    courseid identifier;
+    Attempts total_attempts;
     vector<ProblemData> solved_problems;
     vector<ProblemData> available_problems;
 };
@@ -44,7 +40,7 @@ struct CurrentCourseData
 struct AllCoursesData
 {
     Attempts attempts;
-    vector<ProblemData> solved_problems;
+    vector<CourseData> course;
 };
 
 /** @class User
@@ -54,7 +50,9 @@ class Usuario
 {
 private:
     userid id;
-    CurrentCourseData current_course;
+    bool has_userid;
+    bool is_inscribed;
+    CourseData current_course;
     AllCoursesData all_courses;
 
 public:
@@ -82,20 +80,20 @@ public:
      */
     const bool is_inscribed() const;
 
-    /** @brief Devuelve los problemas solucionados por un usuario.
-     *  \post Devuelve un puntero no modificable que contiene todos los problemas solucionados por un usuario.
+    /** @brief Devuelve si el usuario tiene identificador
+     *  \post Devuelve 'true' si el usuario tiene identificador y 'false' si no lo tiene.
      */
-    const vector<ProblemData>& allSolvedProblems() const;
+    const bool has_userid() const;
 
-    /** @brief Devuelve los problemas solucionados del curso al que está inscrito por un usuario.
-     *  \post Devuelve un puntero no modificable que contiene todos los problemas solucionados del curso por un usuario. Devuelve NULL si el usuario no está inscrito.
+    /** @brief Devuelve la información de todos los cursos cursados por el usuario.
+     *  \post Devuelve un puntero no modificable que contiene una estructura 'AllCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
      */
-    const vector<ProblemData>& courseSolvedProblems() const;
+    const vector<AllCoursesData>& all_courses() const;
 
-    /** @brief Devuelve los problemas no solucionados y disponibles por un usuario (del curso al que está inscrito).
-     *  \post Devuelve puntero a los problemas no solucionados por un usuario y disponibles para solucionar. Además, cada problema contiene los envios intentos hacia el problema.
+    /** @brief Devuelve la información del curso al que está inscrito el usuario.
+     *  \post Devuelve un puntero no modificable que contiene una estructura 'CourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
      */
-    const vector<ProblemData>& availableCourseProblems() const;
+    const vector<CourseData>& current_course() const;
 
     /** @brief Actualiza el estado del curso al enviar un problema.
      *  @param pid identificador de problema ('problemid').
@@ -103,8 +101,13 @@ public:
      *  \post Actualiza el número de intentos y la lista de problemas disponibles para el usuario. Si no quedan más problemas a solucionar, se desinscribre al usuario del curso.
      *        Devuelve 'true' si se ha encontrado el problema en el curso y 'false' si no sse ha encontrado.
      */
-    bool updateProblems(const problemid& pid, const bool& solved);
+    bool update_problems(const problemid& pid, const bool& solved);
 
+    /** @brief Almacena la información de un usuario.
+     *  \pre Los datos en 'stdin' deben estar ordenados correctamente: identificador ('userid').
+     *  \post Se almacena un identificador en el usuario y se establece a 'true' el parámetro implícito ('has_userid').
+     */
+    void read();
 };
 
 #endif
