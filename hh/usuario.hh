@@ -8,9 +8,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "tipos.hh"
 #include "problema.hh"
-
-typedef int userid;
 
 using namespace std;
 

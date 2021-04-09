@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "tipos.hh"
 #include "curso.hh"
 
 using namespace std;

@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "tipos.hh"
 #include "sesion.hh"
 
 using namespace std;

@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "tipos.hh"
 #include "usuario.hh"
 #include "curso.hh"
 #include "cursos.hh"

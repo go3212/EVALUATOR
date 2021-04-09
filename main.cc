@@ -1,4 +1,5 @@
 #include <iostream>
+#include "hh/tipos.hh"
 #include "hh/problemas.hh"
 #include "hh/usuarios.hh"
 #include "hh/cursos.hh"

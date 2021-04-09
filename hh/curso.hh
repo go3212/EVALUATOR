@@ -8,9 +8,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "tipos.hh"
 #include "sesion.hh"
-
-typedef int courseid;
 
 using namespace std;
 

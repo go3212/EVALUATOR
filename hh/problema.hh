@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "tipos.hh"
 
 typedef string problemid;
 

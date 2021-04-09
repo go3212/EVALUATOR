@@ -8,10 +8,9 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "tipos.hh"
 #include "BinTree.hh"
 #include "problema.hh"
-
-typedef string sessionid;
 
 using namespace std;
 
@@ -25,7 +24,7 @@ class Sesion
 {
 private:
     sessionid id;
-    bool has_sessionid;
+    bool hasSessionid;
     int n_problems;
     BinTree<problemid> problems;
 
