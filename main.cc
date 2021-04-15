@@ -9,7 +9,11 @@ using namespace std;
 
 int main ()
 {
-    // Lectura coleccion inicial problemas
+    Problemas problems; problems.read();
+    Sesiones sessions; sessions.read();
+
+    problems.write();
+    sessions.write();
 
     // Lectura repositorio inicial de sesiones
 

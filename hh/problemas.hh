@@ -60,6 +60,17 @@ public:
      *  \post Devuelve 'true' si el problema a actualizar se ha encontrado y 'false' si no se ha encontrado.
      */
     bool updateProblemAttempt(const problemid& pid);
+
+    /** @brief Lee un conjunto de problemas por la entrada 'stdin' y los guarda.
+     *  \pre Número de problemas a leer en la entrada (P > 0), seguido de P problemas.
+     *  \post Se almacenan los datos.
+     */
+    const void read();
+
+    /** @brief Escribe por pantalla todos los problemas del conjunto de problemas
+     *  \post Se imprime por 'stdout' los problemas, de manera ordenada ascendentemente.
+     */
+    const void write();
 };
 
 #endif

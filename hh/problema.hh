@@ -20,7 +20,7 @@ using namespace std;
 class Problema
 {
 private:
-    problemid id;
+    problemid pid;
     Attempts attempts;
 public:
     /** @brief Overloaded default class constructor.
@@ -29,7 +29,7 @@ public:
     Problema();
 
     /** @brief Overloaded class constructor.
-     *  \post Problem identifier ('this->id') set to the constructor parameter ('pid'). All other private <em>int</em> variables are set to zero.
+     *  \post Problem identifier ('this->pid') set to the constructor parameter ('pid'). All other private <em>int</em> variables are set to zero.
      */ 
     Problema(const problemid& pid);
 

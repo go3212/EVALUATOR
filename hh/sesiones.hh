@@ -47,6 +47,17 @@ public:
      *  \post Devuelve el objeto 'Sesion' por referencia constante si se encuentra, en caso contrario, devuelve NULL.
      */
     const Sesion& get_session(const sessionid& sid) const;
+
+    /** @brief Lee un conjunto de sesiones por la entrada 'stdin' y los guarda.
+     *  \pre Número de sesiones a leer en la entrada (S > 0), seguido de S sesiones.
+     *  \post Se almacenan los datos.
+     */
+    const void read();
+
+    /** @brief Escribe por pantalla todas las sesiones del conjunto de sesiones
+     *  \post Se imprime por 'stdout' todas las sesiones y sus problemas, de manera ordenada ascendentemente.
+     */
+    const void write();
 };
 
 #endif

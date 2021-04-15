@@ -23,7 +23,7 @@ using namespace std;
 class Sesion
 {
 private:
-    sessionid id;
+    sessionid sid;
     bool hasSessionid;
     int n_problems;
     BinTree<problemid> problems;
@@ -36,7 +36,8 @@ public:
     Sesion();
 
     /** @brief Overloaded class constructor.
-     *  \post Sets the session id ('this->id') to the constructor parameter ('sid'). All other private <em>int</em> variables are set to zero.
+     *  \pre La entrada tiene que tener la lista de problemas en preorden (árbol binario).
+     *  \post Sets the session id ('this->sid') to the constructor parameter ('sid'). All other private <em>int</em> variables are set to zero.
      */ 
     Sesion(const sessionid& sid);
 
@@ -49,13 +50,13 @@ public:
      *  \pre La información a leer debe estar en un orden correcto.
      *  \post Se almacena el conjunto de problemas y se inicializa el id.
      */
-    void read();
+    const void read();
 
     /** @brief Escribe la información de una sesión en el 'stdout'.
      *  \pre La sesión debe tener identificador y conjunto de problemas.
      *  \post Se escribe el número de problemas, asi como sus identificadores.
      */
-    void write();
+    const void write();
 };
 
 #endif
