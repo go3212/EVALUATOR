@@ -50,6 +50,12 @@ public:
      *  \post devuelve el objeto 'Curso' por referencia si se ha encontrado, en caso opuesto, devuelve NULL.
      */
     Curso& search_course(const courseid& cid);
+
+    /** @brief Lee un conjunto de cursos por la entrada 'stdin' y los guarda.
+     *  \pre Número de cursos a leer en la entrada (C > 0), seguido de C cursos.
+     *  \post Se almacenan los datos.
+     */
+    const void read();
 };
 
 #endif

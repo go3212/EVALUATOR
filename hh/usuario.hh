@@ -19,7 +19,7 @@ using namespace std;
 class Usuario
 {
 private:
-    userid id;
+    userid uid;
     bool hasUserid;
     bool isInscribed;
     UserCourseData currentCourse;
@@ -34,7 +34,7 @@ public:
 
     /** @brief Overloaded class constructor.
      *  @param uid identificador de usuario ('userid')
-     *  \post Sets the user id ('this->id') to the constructor parameter ('uid'). All other private variables are left undefined.
+     *  \post Sets the user id ('this->uid') to the constructor parameter ('uid'). All other private variables are left undefined.
      */ 
     Usuario(const userid& uid);
 

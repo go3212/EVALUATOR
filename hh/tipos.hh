@@ -19,7 +19,7 @@ typedef string sessionid;
 /** @typedef userid 
  *  @brief Idenfificador de 'Usuario'.
 */
-typedef int userid;
+typedef string userid;
 
 /** @typedef courseid 
  *  @brief Identificador de 'Curso'.
@@ -30,6 +30,11 @@ typedef int courseid;
  *  @brief Identificador de 'Problema'.
 */
 typedef string problemid;
+
+/** \typedef command
+ *  @brief Identificador de 'Comandos'.
+*/
+typedef string command;
 
 /** @struct Attempts
  *  @brief Almacena información sobre los intentos realizados a un 'Problema'.

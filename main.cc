@@ -11,17 +11,8 @@ int main ()
 {
     Problemas problems; problems.read();
     Sesiones sessions; sessions.read();
-
-    //problems.write();
-    //sessions.write();
-
-    // Lectura repositorio inicial de sesiones
-
-    // Lectura conjunto inicial de cursos
-
-    // Lectura usuarios iniciales
-
-    // Lee comando
+    Cursos courses; courses.read();
+    Usuarios users; users.read();
 
     /**
      * while (comando != 'fin')

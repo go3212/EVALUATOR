@@ -22,7 +22,8 @@ using namespace std;
 class Curso
 {
 private:
-    courseid id;
+    int total;
+    courseid cid;
     vector<sessionid> session;
 
 public:
@@ -33,7 +34,7 @@ public:
     Curso();
 
     /** @brief Overloaded class constructor.
-     *  \post Sets the course id ('this->id') to the constructor parameter ('cid'). All other private variables are left undefined.
+     *  \post Sets the course id ('this->cid') to the constructor parameter ('cid'). All other private variables are left undefined.
      */ 
     Curso(const courseid& cid);
 
@@ -41,7 +42,7 @@ public:
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.
      *  \post Las sesiones estaran definidas en el vector. El único parametro no definido será el 'courseid'.
      */
-    void read();
+    const void read();
 };
 
 #endif

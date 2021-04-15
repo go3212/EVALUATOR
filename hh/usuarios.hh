@@ -65,6 +65,12 @@ public:
      *  \post devuelve el objeto 'Usuario' por referencia si se encuentra, en caso contrario, devuelve NULL.
      */
     const Usuario& get_user(const userid& uid) const;
+
+    /** @brief Lee un conjunto de usuarios por la entrada 'stdin' y los guarda.
+     *  \pre Número de usuarios a leer en la entrada (U > 0), seguido de U usuarios.
+     *  \post Se almacenan los datos.
+     */
+    const void read();
 };
 
 #endif

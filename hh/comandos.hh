@@ -20,6 +20,8 @@ private:
     Cursos courses;
     Problemas problems;
 
+    map<command, int> commandsMap;
+
 public:
 
     /** @brief Constructor que incicializa los usuarios, cursos y problemas.
