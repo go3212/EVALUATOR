@@ -3,6 +3,8 @@
         "string": "cpp",
         "iostream": "cpp",
         "*.tcc": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "optional": "cpp",
+        "ostream": "cpp"
     }
 }

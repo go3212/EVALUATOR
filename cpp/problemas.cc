@@ -29,6 +29,7 @@ const void Problemas::write()
 
     for (it = problemMap.begin(); it != problemMap.end(); ++it)
     {
-        cout << it->first << endl;
+        (it->second).write(); 
+        cout << endl; 
     }
 }

@@ -12,8 +12,8 @@ int main ()
     Problemas problems; problems.read();
     Sesiones sessions; sessions.read();
 
-    problems.write();
-    sessions.write();
+    //problems.write();
+    //sessions.write();
 
     // Lectura repositorio inicial de sesiones
 
