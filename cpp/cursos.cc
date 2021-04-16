@@ -17,8 +17,7 @@ const void Cursos::read()
     courseid cid;
     while (n != 0)
     {
-        cin >> cid;
-        courses[total - n] = Curso(cid);
+        courses[total - n] = Curso(total - n);
         courses[total - n].read();
         --n;
     }

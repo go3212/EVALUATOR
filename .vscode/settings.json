@@ -5,6 +5,7 @@
         "*.tcc": "cpp",
         "map": "cpp",
         "optional": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "sstream": "cpp"
     }
 }

@@ -36,6 +36,7 @@ typedef string problemid;
 */
 typedef string command;
 
+
 /** @struct Attempts
  *  @brief Almacena información sobre los intentos realizados a un 'Problema'.
  *  \post Todos los tipos de intentos son inicializados a cero.

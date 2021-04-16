@@ -14,6 +14,8 @@ int main ()
     Cursos courses; courses.read();
     Usuarios users; users.read();
 
+    Comandos commands;
+    commands.run();
     /**
      * while (comando != 'fin')
      * {

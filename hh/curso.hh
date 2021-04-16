@@ -38,6 +38,12 @@ public:
      */ 
     Curso(const courseid& cid);
 
+    /** @brief Modifica o inicializa el cid.
+     *  @param cid identificador de curso ('courseid').
+     *  \post El this->cid se modifica por cid.
+     */
+    const void set_cid(const courseid& cid);
+
     /** @brief Almacena la infomración de un curso por el 'stdin'
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.
      *  \post Las sesiones estaran definidas en el vector. El único parametro no definido será el 'courseid'.

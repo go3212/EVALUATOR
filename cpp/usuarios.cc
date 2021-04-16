@@ -4,7 +4,7 @@ using namespace std;
 
 Usuarios::Usuarios()
 {
-
+    userMap = map<userid, Usuario>();
 }
 
 Usuarios::Usuarios(const Usuario& user)

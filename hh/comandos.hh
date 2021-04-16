@@ -22,6 +22,11 @@ private:
 
     map<command, int> commandsMap;
 
+    /** @brief Funcion que inicializa todos los valores del mapa y asigna el número de comandos.
+     *  \post El mapa contiene todos los valores de los comandos.
+     */
+    const void set_default_commandsMap();
+    
 public:
 
     /** @brief Constructor que incicializa los usuarios, cursos y problemas.
@@ -29,6 +34,11 @@ public:
      *  \post Se inicializan los usuarios, cursos y problemas.
      */
     Comandos();
+
+    /** @brief Ejecuta la consola de comandos.
+     *  \post Si los parámetros implícitos no están definidos devuelve false, a modo de error.
+     */
+    const bool run();
 
     /** @brief Añade un nuevo problema a la lista de problemas.
      *  @param pid identificador del problema ('problemid').
