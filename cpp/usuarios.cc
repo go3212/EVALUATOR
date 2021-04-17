@@ -12,6 +12,12 @@ Usuarios::Usuarios(const Usuario& user)
 
 }
 
+void Usuarios::get_iterators(map<userid, Usuario>::iterator& myBeginIterator, map<userid, Usuario>::iterator& myEndIterator)
+{
+    myBeginIterator = userMap.begin();
+    myEndIterator = userMap.end();
+}
+
 const void Usuarios::read()
 {
     int n; cin >> n;

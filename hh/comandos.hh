@@ -19,6 +19,7 @@ private:
     Usuarios users;
     Cursos courses;
     Problemas problems;
+    Sesiones sessions;
 
     map<command, int> commandsMap;
 
@@ -34,6 +35,12 @@ public:
      *  \post Se inicializan los usuarios, cursos y problemas.
      */
     Comandos();
+
+    /** @brief Constructor que incicializa los usuarios, cursos y problemas.
+     *  \pre En la entrada debe de estar toda la información a inicializar sobre los usuarios, cursos y problemas.
+     *  \post Se inicializan los usuarios, cursos y problemas.
+     */
+    Comandos(Usuarios& users, Cursos& courses, Problemas& problems, Sesiones& sessions);
 
     /** @brief Ejecuta la consola de comandos.
      *  \post Si los parámetros implícitos no están definidos devuelve false, a modo de error.

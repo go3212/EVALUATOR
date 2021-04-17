@@ -24,12 +24,11 @@ const void Problemas::read()
 
 const void Problemas::write()
 {
-    cout << "#listar_problemas" << endl;
-    map<problemid, Problema>::iterator it = problemMap.begin();
 
-    for (it = problemMap.begin(); it != problemMap.end(); ++it)
-    {
-        (it->second).write(); 
-        cout << endl; 
-    }
+}
+
+void Problemas::get_iterators(map<problemid, Problema>::iterator& myBeginIterator, map<problemid, Problema>::iterator& myEndIterator)
+{
+    myBeginIterator = problemMap.begin();
+    myEndIterator = problemMap.end();
 }

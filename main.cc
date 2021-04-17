@@ -14,13 +14,6 @@ int main ()
     Cursos courses; courses.read();
     Usuarios users; users.read();
 
-    Comandos commands;
+    Comandos commands(users, courses, problems, sessions);
     commands.run();
-    /**
-     * while (comando != 'fin')
-     * {
-     *      procesar comando
-     *      leer comando
-     * }
-     * */
 }

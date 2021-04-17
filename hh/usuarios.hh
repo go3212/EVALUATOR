@@ -66,6 +66,13 @@ public:
      */
     const Usuario& get_user(const userid& uid) const;
 
+    /** @brief Devuelve los iteradores del mapa de problemas 
+     *  @param myBeginIterator iterador de la posición inicial.
+     *  @param myEndIterator iterador de la posición final.
+     *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
+     */
+    void get_iterators(map<userid, Usuario>::iterator& myBeginIterator, map<userid, Usuario>::iterator& myEndIterator);
+
     /** @brief Lee un conjunto de usuarios por la entrada 'stdin' y los guarda.
      *  \pre Número de usuarios a leer en la entrada (U > 0), seguido de U usuarios.
      *  \post Se almacenan los datos.

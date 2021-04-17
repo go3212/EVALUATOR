@@ -78,6 +78,12 @@ public:
      *  \post Se almacena un identificador en el usuario y se establece a 'true' el parámetro implícito ('has_userid').
      */
     void read();
+
+    /** @brief Imprime por pantalla información sobre el usuario
+     *  \post Se imprime por pantalla la infomación del problema en este formato:
+     *        uid(intentos totales, intentos exitosos, problemas intentados (número), courseid)
+     */
+    const void write();
 };
 
 #endif

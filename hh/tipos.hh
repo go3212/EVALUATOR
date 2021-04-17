@@ -46,12 +46,14 @@ struct Attempts
     int accepted;
     int total;
     int rejected;
+    int unique;
 
     Attempts()
     {
         accepted = 0;
         total = 0;
         rejected = 0;
+        unique = 0;
     }
 };
 

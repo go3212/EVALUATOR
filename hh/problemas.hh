@@ -55,6 +55,13 @@ public:
      */
     Problema& get_problem(const problemid& pid);
 
+    /** @brief Devuelve los iteradores del mapa de problemas 
+     *  @param myBeginIterator iterador de la posición inicial.
+     *  @param myEndIterator iterador de la posición final.
+     *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
+     */
+    void get_iterators(map<problemid, Problema>::iterator& myBeginIterator, map<problemid, Problema>::iterator& myEndIterator);
+
     /** @brief Función que actualiza el número de intentos a un problema.
      *  @param pid identificador de problema ('problemid').
      *  \post Devuelve 'true' si el problema a actualizar se ha encontrado y 'false' si no se ha encontrado.
