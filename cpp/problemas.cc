@@ -27,7 +27,14 @@ const void Problemas::write()
 
 }
 
-void Problemas::get_iterators(map<problemid, Problema>::iterator& myBeginIterator, map<problemid, Problema>::iterator& myEndIterator)
+const bool Problemas::get_problem(const problemid& pid, map<problemid, Problema>::const_iterator& myIter) const
+{
+    myIter = problemMap.find(pid);
+    if (myIter != problemMap.end()) return true;
+    return false;
+}
+
+const void Problemas::get_iterators(map<problemid, Problema>::const_iterator& myBeginIterator, map<problemid, Problema>::const_iterator& myEndIterator)
 {
     myBeginIterator = problemMap.begin();
     myEndIterator = problemMap.end();

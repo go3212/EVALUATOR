@@ -8,6 +8,19 @@ Sesiones::Sesiones()
     sessionMap = map<sessionid, Sesion>();
 }
 
+void Sesiones::get_iterators(map<sessionid, Sesion>::const_iterator& myBeginIterator, map<sessionid, Sesion>::const_iterator& myEndIterator) const
+{
+    myBeginIterator = sessionMap.begin();
+    myEndIterator = sessionMap.end();
+}
+
+const bool Sesiones::get_session(const sessionid& sid, map<userid, Sesion>::const_iterator& myIter) const
+{
+    myIter = sessionMap.find(sid);
+    if(myIter != sessionMap.end()) return true;
+    return false;
+}
+
 const void Sesiones::read()
 {
     int n; cin >> n;
@@ -19,18 +32,5 @@ const void Sesiones::read()
         cin >> sid;
         sessionMap[sid] = Sesion(sid);
         --n;
-    }
-}
-
-const void Sesiones::write()
-{
-    cout << "#listar_sesiones" << endl;
-    map<problemid, Sesion>::iterator it = sessionMap.begin();
-
-    for (it = sessionMap.begin(); it != sessionMap.end(); ++it)
-    {
-        cout << it->first << " ";
-        (it->second).write();
-        cout << endl;
     }
 }

@@ -56,7 +56,13 @@ public:
      *  \pre La sesión debe tener identificador y conjunto de problemas.
      *  \post Se escribe el número de problemas, asi como sus identificadores.
      */
-    const void write();
+    const void write() const;
+
+    /** @brief Escribe en el 'stdout' el identificador de sesión.
+     */
+    const void cout_sid() const;
+
+    
 };
 
 #endif

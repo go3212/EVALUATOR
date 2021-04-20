@@ -45,11 +45,18 @@ public:
      */
     bool add_course(const Curso& course);
 
+    /** @brief Adquirir iteradores del vector de cursos. 
+     *  @param myBeginIterator iterador de la posición inicial.
+     *  @param myEndIterator iterador de la posición final.
+     *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del vector de cursos.
+     */
+    void get_iterators(vector<Curso>::const_iterator& myBeginIterator, vector<Curso>::const_iterator& myEndIterator) const;
+
     /** @brief Busca un curso en el conjunto de cursos.
      *  @param cid identificador de curso ('courseid')
      *  \post devuelve el objeto 'Curso' por referencia si se ha encontrado, en caso opuesto, devuelve NULL.
      */
-    Curso& search_course(const courseid& cid);
+    const bool get_course(const courseid& cid, vector<Curso>::const_iterator& myIter) const;
 
     /** @brief Lee un conjunto de cursos por la entrada 'stdin' y los guarda.
      *  \pre Número de cursos a leer en la entrada (C > 0), seguido de C cursos.

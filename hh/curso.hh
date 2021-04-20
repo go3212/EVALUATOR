@@ -26,6 +26,20 @@ private:
     courseid cid;
     vector<sessionid> session;
 
+    struct UserData
+    {
+        int inscribed_users;
+        int alltime_users;
+
+        UserData()
+        {
+            inscribed_users = 0;
+            alltime_users = 0;
+        }
+    };
+
+    UserData userdata;
+
 public:
 
     /** @brief Overloaded default class null constructor.
@@ -43,6 +57,13 @@ public:
      *  \post El this->cid se modifica por cid.
      */
     const void set_cid(const courseid& cid);
+
+
+    /** @brief Imprime por pantalla información sobre el curso
+     *  \post Se imprime por pantalla la infomación del curso en este formato:
+     *        cid total_users inscribed_users total (vect[0..total - 1])
+     */
+    const void write() const;
 
     /** @brief Almacena la infomración de un curso por el 'stdin'
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.

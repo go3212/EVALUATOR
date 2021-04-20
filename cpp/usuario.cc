@@ -7,7 +7,7 @@ Usuario::Usuario()
     hasUserid = false;
 }
 
-const void Usuario::write()
+const void Usuario::write() const
 {
     cout << uid << '(' << allCourses.attempts.total;
     cout << ',' << allCourses.attempts.accepted << ',' << allCourses.attempts.unique << ',';

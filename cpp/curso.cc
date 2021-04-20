@@ -12,6 +12,19 @@ Curso::Curso(const courseid& cid)
     this->cid = cid;
 }
 
+const void Curso::write() const
+{
+    cout << cid << ' ' << userdata.alltime_users << ' ';
+    cout << userdata.inscribed_users << ' ' << total << " (";
+    for (int i = 0; i < total - 1; ++i)
+    {
+        cout << session[i];
+        cout << ' ';
+    }
+    cout << session[total - 1];
+    cout << ')';
+}   
+
 const void Curso::read()
 {
     int n; cin >> n;

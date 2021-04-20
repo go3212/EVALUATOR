@@ -53,14 +53,14 @@ public:
      *  @param pid identificador de problema ('problemid').
      *  \post Devuelve un puntero al objeto 'Problema' buscado. Si no se ha encontrado, devuelve NULL. 
      */
-    Problema& get_problem(const problemid& pid);
+    const bool get_problem(const problemid& pid, map<problemid, Problema>::const_iterator& myIter) const;
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param myBeginIterator iterador de la posición inicial.
      *  @param myEndIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
      */
-    void get_iterators(map<problemid, Problema>::iterator& myBeginIterator, map<problemid, Problema>::iterator& myEndIterator);
+    const void get_iterators(map<problemid, Problema>::const_iterator& myBeginIterator, map<problemid, Problema>::const_iterator& myEndIterator);
 
     /** @brief Función que actualiza el número de intentos a un problema.
      *  @param pid identificador de problema ('problemid').

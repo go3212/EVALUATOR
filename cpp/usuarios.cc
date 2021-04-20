@@ -12,10 +12,17 @@ Usuarios::Usuarios(const Usuario& user)
 
 }
 
-void Usuarios::get_iterators(map<userid, Usuario>::iterator& myBeginIterator, map<userid, Usuario>::iterator& myEndIterator)
+void Usuarios::get_iterators(map<userid, Usuario>::const_iterator& myBeginIterator, map<userid, Usuario>::const_iterator& myEndIterator) const
 {
     myBeginIterator = userMap.begin();
     myEndIterator = userMap.end();
+}
+
+const bool Usuarios::get_user(const userid& uid, map<userid, Usuario>::const_iterator& myIter) const
+{
+    myIter = userMap.find(uid);
+    if (myIter != userMap.end()) return true;
+    return false;
 }
 
 const void Usuarios::read()

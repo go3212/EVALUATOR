@@ -62,16 +62,16 @@ public:
 
     /** @brief Busca un usuario en el conjunto de usuarios.
      *  @param uid identificador de usuario ('userid').
-     *  \post devuelve el objeto 'Usuario' por referencia si se encuentra, en caso contrario, devuelve NULL.
+     *  \post devuelve true si se ha asignado correctamente el usuario, en cualquier otro caso, false.
      */
-    const Usuario& get_user(const userid& uid) const;
+    const bool get_user(const userid& uid, map<userid, Usuario>::const_iterator& myIter) const;
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param myBeginIterator iterador de la posición inicial.
      *  @param myEndIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
      */
-    void get_iterators(map<userid, Usuario>::iterator& myBeginIterator, map<userid, Usuario>::iterator& myEndIterator);
+    void get_iterators(map<userid, Usuario>::const_iterator& myBeginIterator, map<userid, Usuario>::const_iterator& myEndIterator) const;
 
     /** @brief Lee un conjunto de usuarios por la entrada 'stdin' y los guarda.
      *  \pre Número de usuarios a leer en la entrada (U > 0), seguido de U usuarios.

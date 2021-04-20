@@ -83,7 +83,7 @@ public:
      *  \post Se imprime por pantalla la infomación del problema en este formato:
      *        uid(intentos totales, intentos exitosos, problemas intentados (número), courseid)
      */
-    const void write();
+    const void write() const;
 };
 
 #endif

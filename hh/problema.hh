@@ -48,7 +48,7 @@ public:
      *  \post Se imprime por pantalla la infomación del problema en este formato:
      *        pid(intentos totales, intentos exitosos, ratio (t+1)/(e+1))
      */
-    const void write();
+    const void write() const;
 };
 
 #endif

@@ -17,6 +17,7 @@ Comandos::Comandos(Usuarios& users, Cursos& courses, Problemas& problems, Sesion
     *users_p = users;
     *courses_p = courses;
     *problems_p = problems;
+    *sessions_p = sessions;
 
     set_default_commandsMap();
 }
@@ -32,97 +33,103 @@ const bool Comandos::run()
     while (!end)
     {
         cin >> com;
-        cout << "command: " << com << "  int: " << commandsMap[com] << endl;
+        cout << '#' << com << ' ';
+        //cout << "command: " << com << "  int: " << commandsMap[com] << endl;
         switch (commandsMap[com])
         {
             case 1:
-                cout << "#nuevo_problema" << endl;
-                cin >> pid;
+                //cout << "#nuevo_problema" << endl;
+                cin >> pid; cout << pid << endl;
                 nuevo_problema(pid);
                 break;
             case 2:
-                cout << "#nueva_sesion" << endl;
-                cin >> sid;
+                //cout << "#nueva_sesion" << endl;
+                cin >> sid; cout << endl;
                 nueva_sesion(sid);
                 break;
             case 3:
-                cout << "#nuevo_curso" << endl;
+                //cout << "#nuevo_curso" << endl;
+                cout << endl;
                 nuevo_curso();
                 break;
             case 4:
-                cout << "#alta_usuario" << endl;
-                cin >> uid;
+                //cout << "#alta_usuario" << endl;
+                cin >> uid; cout << uid << endl;
                 alta_usuario(uid);
                 break;
             case 5:
-                cout << "#baja_usuario" << endl;
-                cin >> uid;
+                //cout << "#baja_usuario" << endl;
+                cin >> uid; cout << uid << endl;
                 baja_usuario(uid);
                 break;
             case 6:
-                cout << "#inscribir_curso" << endl;
-                cin >> uid >> cid;
+                //cout << "#inscribir_curso" << endl;
+                cin >> uid >> cid; cout << uid << ' ' << cid << endl;
                 inscribir_curso(uid, cid);
                 break;
             case 7:
-                cout << "#curso_usuario" << endl;
-                cin >> uid;
+                //cout << "#curso_usuario" << endl;
+                cin >> uid; cout << uid << endl;
                 curso_usuario(uid);
                 break;
             case 8:
-                cout << "#sesion_problema" << endl;
-                cin >> cid >> pid;
+                //cout << "#sesion_problema" << endl;
+                cin >> cid >> pid; cout << cid << ' ' << pid << endl;
                 sesion_problema(cid, pid);
                 break;
             case 9:
-                cout << "#problemas_resueltos" << endl;
-                cin >> uid;
+                //cout << "#problemas_resueltos" << endl;
+                cin >> uid; cout << uid << endl;
                 problemas_resueltos(uid);
                 break;
             case 10:
-                cout << "#problemas_enviables" << endl;
-                cin >> uid;
+                //cout << "#problemas_enviables" << endl;
+                cin >> uid; cout << uid << endl;
                 problemas_enviables(uid);
                 break;
             case 11:
-                cout << "#envio" << endl;
-                cin >> uid >> pid >> r;
+                //cout << "#envio" << endl;
+                cin >> uid >> pid >> r; cout << uid << ' ' << pid << endl;
                 envio(uid, pid, r);
                 break;
             case 12:
-                cout << "#listar_problemas" << endl;
+                //cout << "#listar_problemas" << endl;
+                cout << endl;
                 listar_problemas();
                 break;
             case 13:
-                cout << "#escribir_problema" << endl;
-                cin >> pid;
+                //cout << "#escribir_problema" << endl;
+                cin >> pid; cout << pid << endl;
                 escribir_problema(pid);
                 break;
             case 14:
-                cout << "#listar_sesiones" << endl;
+                //cout << "#listar_sesiones" << endl;
+                cout << endl;
                 listar_sesiones();
                 break;
             case 15:
-                cout << "#escribir_sesion" << endl;
-                cin >> sid;
+                //cout << "#escribir_sesion" << endl;
+                cin >> sid; cout << sid << endl;
                 escribir_sesion(sid);
                 break;
             case 16:
-                cout << "#listar_cursos" << endl;
+                //cout << "#listar_cursos" << endl;
+                cout << endl;
                 listar_cursos();
                 break;
             case 17:
-                cout << "#escribir_curso" << endl;
-                cin >> cid;
+                //cout << "#escribir_curso" << endl;
+                cin >> cid; cout << cid << endl;
                 escribir_curso(cid);
                 break;
             case 18:
-                cout << "#listar_usuarios" << endl;
+                //cout << "#listar_usuarios" << endl;
+                cout << endl;
                 listar_usuarios();
                 break;
             case 19:
-                cout << "#escribir_usuario" << endl;
-                cin >> uid;
+                //cout << "#escribir_usuario" << endl;
+                cin >> uid; cout << uid << endl;
                 escribir_usuario(uid);
                 break;
             case 20:
@@ -194,7 +201,7 @@ void Comandos::envio(const userid& uid, const problemid& pid, const bool& solved
 
 void Comandos::listar_problemas()
 {
-    map<problemid, Problema>::iterator myBeginIterator, myEndIterator;
+    map<problemid, Problema>::const_iterator myBeginIterator, myEndIterator;
     problems.get_iterators(myBeginIterator, myEndIterator);
 
     while (myBeginIterator != myEndIterator)
@@ -207,32 +214,75 @@ void Comandos::listar_problemas()
 
 void Comandos::escribir_problema(const problemid& pid)
 {
-
+    map<problemid, Problema>::const_iterator myIter;
+    if(problems.get_problem(pid, myIter))
+    {
+        (*myIter).second.write();
+    }
+    else
+    {
+        cout << "error: el problema no existe";
+    }
+    cout << endl;
 }
 
 void Comandos::listar_sesiones()
 {
+    map<sessionid, Sesion>::const_iterator myBeginIterator, myEndIterator;
+    sessions.get_iterators(myBeginIterator, myEndIterator);
 
+    while (myBeginIterator != myEndIterator)
+    {
+        (*myBeginIterator).second.write();
+        cout << endl;
+        ++myBeginIterator;
+    }
 }
 
 void Comandos::escribir_sesion(const sessionid& sid)
 {
-
+    map<sessionid, Sesion>::const_iterator myIter;
+    if (sessions.get_session(sid, myIter))
+    {
+        (*myIter).second.write();
+    }
+    else
+    {
+        cout << "error: la sesion no existe";
+    }
+    cout << endl;
 }
 
 void Comandos::listar_cursos()
 {
+   vector<Curso>::const_iterator myBeginIterator, myEndIterator;
+   courses.get_iterators(myBeginIterator, myEndIterator);
 
+   while (myBeginIterator != myEndIterator)
+   {
+       (*myBeginIterator).write();
+       cout << endl;
+       ++myBeginIterator;
+   }
 }
 
 void Comandos::escribir_curso(const courseid& cid)
 {
-
+    vector<Curso>::const_iterator myIter;
+    if(courses.get_course(cid, myIter))
+    {
+        (*myIter).write();
+    }
+    else
+    {
+        cout << "error: el curso no existe";
+    }
+    cout << endl;
 }
 
 void Comandos::listar_usuarios()
 {
-    map<userid, Usuario>::iterator myBeginIterator, myEndIterator;
+    map<userid, Usuario>::const_iterator myBeginIterator, myEndIterator;
     users.get_iterators(myBeginIterator, myEndIterator);
 
     while (myBeginIterator != myEndIterator)
@@ -245,7 +295,16 @@ void Comandos::listar_usuarios()
 
 void Comandos::escribir_usuario(const userid& uid)
 {
-
+    map<userid, Usuario>::const_iterator myIter;
+    if(users.get_user(uid, myIter))
+    {
+        (*myIter).second.write();
+    }
+    else
+    {
+        cout << "error: el usuario no existe";
+    }
+    cout << endl;
 }
 
 const void Comandos::set_default_commandsMap()
