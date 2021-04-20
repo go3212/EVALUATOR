@@ -356,7 +356,7 @@ const void Comandos::set_default_commandsMap()
     commandsMap["es"] = 15;
 
     commandsMap["listar_cursos"] = 16;
-    commandsMap["ls"] = 16;
+    commandsMap["lc"] = 16;
 
     commandsMap["escribir_curso"] = 17;
     commandsMap["ec"] = 17;

@@ -1,1 +1,5 @@
 out/
+bin/
+main.o
+evaluator
+.vscode
