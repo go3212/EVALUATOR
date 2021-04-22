@@ -27,7 +27,7 @@ private:
     bool hasSessionid;
     int n_problems;
     BinTree<problemid> problems;
-
+    vector<problemid> problemVect;
 public:
 
     /** @brief Overloaded default class null constructor.
@@ -46,8 +46,11 @@ public:
      */
     const bool has_sessionid() const;
 
+    const bool has_problem(const problemid& pid) const;
+
     const int get_problems_as_vector(vector<problemid>& pidVector) const;
 
+    const int get_problems (vector<problemid>& pidVector) const;
 
     const sessionid session_id() const;
 

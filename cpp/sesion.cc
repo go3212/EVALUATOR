@@ -1,4 +1,5 @@
 #include "../hh/sesion.hh"
+#include <algorithm>
 
 using namespace std;
 
@@ -59,11 +60,6 @@ Sesion::Sesion()
     
 }
 
-const void get_sorted_prob_vector()
-{
-
-}
-
 const sessionid Sesion::session_id() const
 {
     return sid;
@@ -81,11 +77,32 @@ const int Sesion::get_problems_as_vector(vector<problemid>& pidVect) const
     return vectorize_BinTree(pidVect, problems);;
 }
 
+const bool Sesion::has_problem(const problemid& pid) const
+{
+    int left = 0, right = n_problems - 1, m;
+    while (left <= right)
+    {
+        m = (right + left)/2;
+        if (problemVect[m] > pid) right = m - 1;
+        else if (problemVect[m] < pid) left = m + 1;
+        else return true;
+    }
+    return false;
+}
+
+const int Sesion::get_problems (vector<problemid>& pidVector) const
+{
+    pidVector = problemVect;
+    return n_problems;
+}
+
 Sesion::Sesion(const sessionid& sid)
 {
     this->sid = sid;
     hasSessionid = true;
     n_problems = read_BinTree(problems);
+    get_problems_as_vector(problemVect);
+    sort(problemVect.begin(), problemVect.end());
 }
 
 const void Sesion::write() const

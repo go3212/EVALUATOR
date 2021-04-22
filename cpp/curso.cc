@@ -38,7 +38,7 @@ const bool Curso::is_valid_course(const Sesiones& sessions)
     for (int i = 0; i < total; ++i)
     {
         sessions.get_session(this->sessions[i], myIter);
-        int n = (*myIter).second.get_problems_as_vector(pidVector);
+        int n = (*myIter).second.get_problems (pidVector);
         for (int k = 0; k < n; ++k)
         {   
             ret = mySet.insert(pidVector[k]);

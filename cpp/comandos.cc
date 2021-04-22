@@ -259,14 +259,10 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
         while(!found && courseIterBegin != courseIterEnd)
         {
             sessions.get_session((*courseIterBegin), sessionIter);
-            n = (*sessionIter).second.get_problems_as_vector(problemVect);
-            for (int i = 0; i < n && !found; ++i)
+            if ((*sessionIter).second.has_problem(pid))
             {
-                if (problemVect[i] == pid) 
-                {
                     found = true;
                     cout << (*sessionIter).second.session_id();
-                }
             }
             ++courseIterBegin;
         }   
@@ -277,7 +273,7 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
 
 void Comandos::problemas_resueltos(const userid& uid)
 {
-    
+
 }
 
 void Comandos::problemas_enviables(const userid& uid)
