@@ -69,6 +69,10 @@ public:
      */
     const bool is_valid_course(const Sesiones& sessions);
 
+    const int inscribed_users() const;
+
+    const bool inscribe_user(const userid& uid);
+
     /** @brief Imprime por pantalla información sobre el curso
      *  \post Se imprime por pantalla la infomación del curso en este formato:
      *        cid total_users inscribed_users total (vect[0..total - 1])

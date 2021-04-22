@@ -57,6 +57,7 @@ public:
 
     /** @brief Se inscibe a un usuario en un curso.
      *  @param uid identificador de usuario ('userid')
+     *  \pre El curso al que se inscribe debe existir.
      *  \post El usuario queda inscrito en el curso si se ha encontrado el usuario y el curso en la base de datos, además, el usuario no puede estrar inscrito. En este caso se devuelve 'true', en los otros, 
      *        se devuelve 'false'. 
      */
@@ -66,7 +67,7 @@ public:
      *  @param uid identificador de usuario ('userid').
      *  \post devuelve true si se ha asignado correctamente el usuario, en cualquier otro caso, false.
      */
-    const bool get_user(const userid& uid, map<userid, Usuario>::const_iterator& myIter) const;
+    const bool get_user(const userid& uid, map<userid, Usuario>::iterator& myIter);
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param myBeginIterator iterador de la posición inicial.

@@ -27,7 +27,7 @@ void Cursos::get_iterators(vector<Curso>::const_iterator& myBeginIterator, vecto
     myEndIterator = courses.end();
 }
 
-const bool Cursos::get_course(const courseid& cid, vector<Curso>::const_iterator& myIter) const
+const bool Cursos::get_course(const courseid& cid, vector<Curso>::iterator& myIter)
 {
     if (cid != 0 and cid <= total)
     {
@@ -35,7 +35,6 @@ const bool Cursos::get_course(const courseid& cid, vector<Curso>::const_iterator
         return true;
     }
     return false;
-   
 }
 
 const void Cursos::read()

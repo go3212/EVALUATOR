@@ -59,6 +59,17 @@ Sesion::Sesion()
     
 }
 
+const void get_sorted_prob_vector()
+{
+
+}
+
+const sessionid Sesion::session_id() const
+{
+    return sid;
+}
+
+
 const int Sesion::get_number_of_problems() const
 {
     return n_problems;

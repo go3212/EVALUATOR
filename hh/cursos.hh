@@ -59,7 +59,7 @@ public:
      *  @param cid identificador de curso ('courseid')
      *  \post devuelve el objeto 'Curso' por referencia si se ha encontrado, en caso opuesto, devuelve NULL.
      */
-    const bool get_course(const courseid& cid, vector<Curso>::const_iterator& myIter) const;
+    const bool get_course(const courseid& cid, vector<Curso>::iterator& myIter);
 
     /** @brief Lee un conjunto de cursos por la entrada 'stdin' y los guarda.
      *  \pre Número de cursos a leer en la entrada (C > 0), seguido de C cursos.

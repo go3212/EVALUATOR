@@ -48,6 +48,9 @@ public:
 
     const int get_problems_as_vector(vector<problemid>& pidVector) const;
 
+
+    const sessionid session_id() const;
+
     const int get_number_of_problems() const;
 
     /** @brief Almacena la infomración de una sesión por el 'stdin'

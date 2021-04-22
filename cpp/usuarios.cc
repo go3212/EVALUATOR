@@ -24,6 +24,8 @@ const bool Usuarios::add_user (const userid& uid)
     return false;
 }
 
+
+
 const bool Usuarios::delete_user(const userid& uid) 
 {
     map<userid, Usuario>::iterator myIter = userMap.find(uid);
@@ -47,7 +49,7 @@ void Usuarios::get_iterators(map<userid, Usuario>::const_iterator& myBeginIterat
     myEndIterator = userMap.end();
 }
 
-const bool Usuarios::get_user(const userid& uid, map<userid, Usuario>::const_iterator& myIter) const
+const bool Usuarios::get_user(const userid& uid, map<userid, Usuario>::iterator& myIter)
 {
     myIter = userMap.find(uid);
     if (myIter != userMap.end()) return true;

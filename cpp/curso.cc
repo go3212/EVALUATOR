@@ -18,6 +18,17 @@ const bool Curso::set_cid(const courseid& cid)
     return true;
 }
 
+const int Curso::inscribed_users() const
+{
+    return userdata.inscribed_users;
+}
+
+const bool Curso::inscribe_user(const userid& uid)
+{
+    userdata.inscribed_users += 1;
+    return true;
+}
+
 const bool Curso::is_valid_course(const Sesiones& sessions)
 {
     set<problemid> mySet;

@@ -43,7 +43,7 @@ public:
      *  \pre El usuario debe tener 'uid' != NULL. El curso debe existir.
      *  \post Si el usuario no está inscrito en ningún curso se le inscribe al parámetro de la función y se devuelve ('true'), en caso opuesto, no se modifica la inscripción y se devuelve ('false').
      */
-    bool inscribe(const courseid& cid);
+    const bool inscribe(const courseid& cid);
 
     /** @brief Devuelve si el usuario está inscrito en un curso.
      *  \post Devuelve 'true' si el usuario está inscrito y 'false' si no lo está.
@@ -54,6 +54,8 @@ public:
      *  \post Devuelve 'true' si el usuario tiene identificador y 'false' si no lo tiene.
      */
     const bool has_userid() const;
+
+    const bool inscribed_course_id() const;
 
     /** @brief Devuelve la información de todos los cursos cursados por el usuario.
      *  \post Devuelve un puntero no modificable que contiene una estructura 'AllCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
