@@ -44,7 +44,7 @@ const bool Comandos::run()
                 break;
             case 2:
                 //cout << "#nueva_sesion" << endl;
-                cin >> sid; cout << endl;
+                cin >> sid; cout << sid << endl;
                 nueva_sesion(sid);
                 break;
             case 3:
@@ -146,17 +146,43 @@ const bool Comandos::run()
 
 void Comandos::nuevo_problema(const problemid& pid)
 {
-
+    if(problems.add_problem(pid))
+    {
+        cout << problems.get_number_of_problems();
+    }
+    else
+    {
+        cout << "error: el problema ya existe";
+    }
+    cout << endl;
 }
 
 void Comandos::nueva_sesion(const sessionid& sid)
 {
-
+    if(sessions.add_session(sid))
+    {
+        cout << sessions.get_number_of_sessions();
+    }
+    else
+    {
+        cout << "error: la sesion ya existe";
+    }
+    cout << endl;
 }
 
 void Comandos::nuevo_curso()
 {
-
+    Curso course; course.read();
+    if(course.is_valid_course(sessions))
+    {
+        courses.add_course(course);
+        cout << courses.get_number_of_courses();
+    }
+    else
+    {
+        cout << "error: el curso no es valido";
+    }
+    cout << endl;
 }
 
 void Comandos::alta_usuario(const userid& uid)

@@ -7,6 +7,19 @@
         "optional": "cpp",
         "ostream": "cpp",
         "sstream": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "vector": "cpp",
+        "deque": "cpp",
+        "unordered_map": "cpp",
+        "functional": "cpp",
+        "memory_resource": "cpp",
+        "algorithm": "cpp",
+        "random": "cpp",
+        "istream": "cpp",
+        "memory": "cpp",
+        "numeric": "cpp",
+        "cmath": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
     }
 }

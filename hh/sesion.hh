@@ -46,6 +46,10 @@ public:
      */
     const bool has_sessionid() const;
 
+    const int get_problems_as_vector(vector<problemid>& pidVector) const;
+
+    const int get_number_of_problems() const;
+
     /** @brief Almacena la infomración de una sesión por el 'stdin'
      *  \pre La información a leer debe estar en un orden correcto.
      *  \post Se almacena el conjunto de problemas y se inicializa el id.
@@ -57,10 +61,6 @@ public:
      *  \post Se escribe el número de problemas, asi como sus identificadores.
      */
     const void write() const;
-
-    /** @brief Escribe en el 'stdout' el identificador de sesión.
-     */
-    const void cout_sid() const;
 
     
 };

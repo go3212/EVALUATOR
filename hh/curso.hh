@@ -8,8 +8,9 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <set>
 #include "tipos.hh"
-#include "sesion.hh"
+#include "sesiones.hh"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ class Curso
 private:
     int total;
     courseid cid;
-    vector<sessionid> session;
+    vector<sessionid> sessions;
 
     struct UserData
     {
@@ -56,8 +57,17 @@ public:
      *  @param cid identificador de curso ('courseid').
      *  \post El this->cid se modifica por cid.
      */
-    const void set_cid(const courseid& cid);
+    const bool set_cid(const courseid& cid);
 
+    /** @brief Asigna los iteradores del vector de identificadores de sesiones a los parámetros
+     * 
+     */
+    const void get_iterators(vector<sessionid>::const_iterator& myBeginIterator, vector<sessionid>::const_iterator& myEndIterator) const;
+
+    /** @brief Verifica que el conjunto de sesiones sea válido.
+     * 
+     */
+    const bool is_valid_course(const Sesiones& sessions);
 
     /** @brief Imprime por pantalla información sobre el curso
      *  \post Se imprime por pantalla la infomación del curso en este formato:

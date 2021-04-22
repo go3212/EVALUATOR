@@ -35,12 +35,16 @@ public:
      */ 
     Sesiones(const string& id, const Sesion& session);
 
+    /** @brief Devuelve el número de sesiones
+     * 
+     */
+    const int get_number_of_sessions() const;
+
     /** @brief Añade una nueva sesión a la lista de sesiones.
-     *  @param id identificador de la sesión.
-     *  @param session objeto de tipo 'Sesión'.
+     *  @param sid identificador de la sesión.
      *  \post añade una sesión al mapa de sesiones ('sessionMap') si no existia previamente. Devuelve si la sesión se ha añadido ('true') o si ya existia ('false').
      */
-    const bool add_session(const string& id, const Sesion& session);
+    const bool add_session(const sessionid& sid);
 
     /** @brief Busca una sesión en el conjunto de sesiones.
      *  @param sid identificador de sesión ('userid').

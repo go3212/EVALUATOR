@@ -4,7 +4,21 @@ using namespace std;
 
 Cursos::Cursos()
 {
+    total = 0;
+}
 
+const bool Cursos::add_course(Curso& course)
+{
+    courses.push_back(course);
+    total += 1;
+    courses[total - 1].set_cid(total);
+    return true;
+
+}
+
+const int Cursos::get_number_of_courses() const
+{
+    return total;
 }
 
 void Cursos::get_iterators(vector<Curso>::const_iterator& myBeginIterator, vector<Curso>::const_iterator& myEndIterator) const

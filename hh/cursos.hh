@@ -39,11 +39,12 @@ public:
     Cursos(const courseid& cid, const Curso& course);
 
     /** @brief Añade un nuevo curso al vector de cursos.
-     *  @param course objeto de tipo 'Sesión'.
+     *  @param course objeto de tipo 'Curso'.
+     *  \pre Las sesiones no tienen intersección de problema
      *  \post añade un curso al vector de cursos ('courses') en la posicion size(courses) + 1. Solo añade si no se repiten problemas en el curso.  
      *        Devuelve si se ha añadido correctamente el curso ('true') o ha habido un problema al añadirlo ('false').
      */
-    bool add_course(const Curso& course);
+    const bool add_course(Curso& course);
 
     /** @brief Adquirir iteradores del vector de cursos. 
      *  @param myBeginIterator iterador de la posición inicial.
@@ -51,6 +52,8 @@ public:
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del vector de cursos.
      */
     void get_iterators(vector<Curso>::const_iterator& myBeginIterator, vector<Curso>::const_iterator& myEndIterator) const;
+
+    const int get_number_of_courses() const;
 
     /** @brief Busca un curso en el conjunto de cursos.
      *  @param cid identificador de curso ('courseid')

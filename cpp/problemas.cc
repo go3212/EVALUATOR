@@ -8,6 +8,11 @@ Problemas::Problemas()
     problemMap = map<problemid, Problema>();
 }
 
+const int Problemas::get_number_of_problems() const
+{
+    return total;
+}
+
 const void Problemas::read()
 {
     int n; cin >> n;
@@ -20,6 +25,14 @@ const void Problemas::read()
         problemMap[pid] = Problema(pid);
         --n;
     }
+}
+
+const bool Problemas::add_problem(const problemid& pid)
+{
+    pair<map<problemid, Problema>::const_iterator, bool> myPair; 
+    myPair = problemMap.insert(pair<problemid, Problema>(pid, Problema(pid)));
+    if(myPair.second) total += 1;
+    return myPair.second;
 }
 
 const void Problemas::write()

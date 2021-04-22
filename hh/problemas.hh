@@ -31,17 +31,21 @@ public:
 
     /** @brief Constructor de clase sobrecargado, añade un problema al instanciar la clase.
      *  @param pid identificador del problema ('problemid').
-     *  @param problem objeto del tipo 'Problema'.
      *  \post Se añade un problema y se incializa el conjunto de problemas.
      */ 
-    Problemas(const problemid& pid, const Problema& problem);
+    Problemas(const problemid& pid);
+
+    /** @brief Devuelve el número total de problemas.
+     * 
+     */
+    const int get_number_of_problems() const;
 
     /** @brief Añade un nuevo problema a la lista de problemas.
      *  @param pid identificador del problema ('problemid').
      *  @param problem objeto de tipo 'Problema'.
      *  \post añade un problema al objeto 'Problemas' si no existia previamente. Devuelve si el problema se ha añadido ('true') o si ya existia ('false').
      */
-    bool add_problem(const problemid& pid, const Problema& problem);
+    const bool add_problem(const problemid& pid);
 
     /** @brief Busca un problema en el conjunto de problemas.
      *  @param pid identificador de problema ('problemid').
