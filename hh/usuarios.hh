@@ -40,18 +40,20 @@ public:
     Usuarios(const Usuario& user);
 
     /** @brief Añade un nuevo usuario al conjunto de usuarios.
-     *  @param user objeto de tipo 'Usuario'.
+     *  @param user objeto de tipo 'userid'.
      *  \post añade un usuario al conjunto de usuarios ('userMap') si no existe otro usuario con el mismo identificador.  
      *        Devuelve si se ha añadido correctamente el usuario ('true') o ha habido un problema al añadirlo ('false').
      */
-    bool add_user(const Usuario& user);
+    const bool add_user(const userid& user);
+
+    const int get_number_of_users() const;
 
     /** @brief Elimina un usuario del conjunto de usuarios.
      *  @param uid objeto de tipo 'userid'.
      *  \post elimina un usuario del conjunto de usuarios ('userMap').  
      *        Devuelve si se ha eliminado correctamente el usuario ('true') o ha habido un problema al eliminar/no existe ('false').
      */
-    bool delete_user(const userid& uid);
+    const bool delete_user(const userid& uid);
 
     /** @brief Se inscibe a un usuario en un curso.
      *  @param uid identificador de usuario ('userid')

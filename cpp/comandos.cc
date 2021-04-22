@@ -187,12 +187,28 @@ void Comandos::nuevo_curso()
 
 void Comandos::alta_usuario(const userid& uid)
 {
-
+    if (users.add_user(uid))
+    {
+        cout << users.get_number_of_users();
+    }
+    else
+    {
+        cout << "error: el usuario ya existe";
+    }
+    cout << endl;
 }
 
 void Comandos::baja_usuario(const userid& uid)
 {
-
+    if (users.delete_user(uid))
+    {
+        cout << users.get_number_of_users();
+    }
+    else
+    {
+        cout << "error: el usuario no existe";
+    }
+    cout << endl;
 }
 
 void Comandos::inscribir_curso(const userid& uid, const courseid& cid)
