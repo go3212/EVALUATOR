@@ -213,10 +213,10 @@ void Comandos::baja_usuario(const userid& uid)
 
 void Comandos::inscribir_curso(const userid& uid, const courseid& cid)
 {
-    vector<Curso>::iterator courseIter;
+    CourseVector::iterator courseIter;
     if(courses.get_course(cid, courseIter))
     {
-        map<userid, Usuario>::iterator userIter;
+        UserMap::iterator userIter;
         if(users.get_user(uid, userIter))
         {
             if ((*userIter).second.inscribe(cid, (*courseIter), sessions))
@@ -231,7 +231,7 @@ void Comandos::inscribir_curso(const userid& uid, const courseid& cid)
 
 void Comandos::curso_usuario(const userid& uid)
 {
-    map<userid, Usuario>::iterator userIter;
+    UserMap::iterator userIter;
     if (users.get_user(uid, userIter))
     {
         cout << (((*userIter).second.is_inscribed()) ? (*userIter).second.inscribed_course_id() : 0);
@@ -242,17 +242,18 @@ void Comandos::curso_usuario(const userid& uid)
 void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
 {
     bool found = false;
-    vector<Curso>::iterator courseIter;
-    map<problemid, Problema>::const_iterator problemIter;
+    CourseVector::iterator courseIter;
+    ProblemMap::const_iterator problemIter;
     if(!problems.get_problem(pid, problemIter)) 
     {
         cout << "error: el problema no existe" << endl;
         return void();
     }
+
     if (courses.get_course(cid, courseIter))
     {
-        map<sessionid, Sesion>::const_iterator sessionIter;
-        vector<sessionid>::const_iterator courseIterBegin, courseIterEnd;
+        SessionMap::const_iterator sessionIter;
+        CourseSessionVector::const_iterator courseIterBegin, courseIterEnd;
         (*courseIter).get_iterators(courseIterBegin, courseIterEnd);
         int n;
         while(!found && courseIterBegin != courseIterEnd)
@@ -272,13 +273,11 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
 
 void Comandos::problemas_resueltos(const userid& uid)
 {
-    map<userid, Usuario>::iterator userIter;
+    UserMap::iterator userIter;
     if(users.get_user(uid, userIter))
     {
         (*userIter).second.print_all_time_solved_problems();
     } else cout << "error: el usuario no existe" << endl;
-    
-
 }
 
 void Comandos::problemas_enviables(const userid& uid)
@@ -293,23 +292,23 @@ void Comandos::envio(const userid& uid, const problemid& pid, const bool& solved
 
 void Comandos::listar_problemas()
 {
-    map<problemid, Problema>::const_iterator myBeginIterator, myEndIterator;
-    problems.get_iterators(myBeginIterator, myEndIterator);
+    ProblemMap::const_iterator beginIterator, endIterator;
+    problems.get_iterators(beginIterator, endIterator);
 
-    while (myBeginIterator != myEndIterator)
+    while (beginIterator != endIterator)
     {
-        (myBeginIterator->second).write();
+        (beginIterator->second).write();
         cout << endl; 
-        ++myBeginIterator;
+        ++beginIterator;
     }
 }
 
 void Comandos::escribir_problema(const problemid& pid)
 {
-    map<problemid, Problema>::const_iterator myIter;
-    if(problems.get_problem(pid, myIter))
+    ProblemMap::const_iterator mapIter;
+    if(problems.get_problem(pid, mapIter))
     {
-        (*myIter).second.write();
+        (*mapIter).second.write();
     }
     else
     {
@@ -320,23 +319,23 @@ void Comandos::escribir_problema(const problemid& pid)
 
 void Comandos::listar_sesiones()
 {
-    map<sessionid, Sesion>::const_iterator myBeginIterator, myEndIterator;
-    sessions.get_iterators(myBeginIterator, myEndIterator);
+    SessionMap::const_iterator beginIterator, endIterator;
+    sessions.get_iterators(beginIterator, endIterator);
 
-    while (myBeginIterator != myEndIterator)
+    while (beginIterator != endIterator)
     {
-        (*myBeginIterator).second.write();
+        (*beginIterator).second.write();
         cout << endl;
-        ++myBeginIterator;
+        ++beginIterator;
     }
 }
 
 void Comandos::escribir_sesion(const sessionid& sid)
 {
-    map<sessionid, Sesion>::const_iterator myIter;
-    if (sessions.get_session(sid, myIter))
+    SessionMap::const_iterator mapIter;
+    if (sessions.get_session(sid, mapIter))
     {
-        (*myIter).second.write();
+        (*mapIter).second.write();
     }
     else
     {
@@ -347,23 +346,23 @@ void Comandos::escribir_sesion(const sessionid& sid)
 
 void Comandos::listar_cursos()
 {
-   vector<Curso>::const_iterator myBeginIterator, myEndIterator;
-   courses.get_iterators(myBeginIterator, myEndIterator);
+   vector<Curso>::const_iterator beginIterator, endIterator;
+   courses.get_iterators(beginIterator, endIterator);
 
-   while (myBeginIterator != myEndIterator)
+   while (beginIterator != endIterator)
    {
-       (*myBeginIterator).write();
+       (*beginIterator).write();
        cout << endl;
-       ++myBeginIterator;
+       ++beginIterator;
    }
 }
 
 void Comandos::escribir_curso(const courseid& cid)
 {
-    vector<Curso>::iterator myIter;
-    if(courses.get_course(cid, myIter))
+    CourseVector::iterator vectIter;
+    if(courses.get_course(cid, vectIter))
     {
-        (*myIter).write();
+        (*vectIter).write();
     }
     else
     {
@@ -374,23 +373,23 @@ void Comandos::escribir_curso(const courseid& cid)
 
 void Comandos::listar_usuarios()
 {
-    map<userid, Usuario>::const_iterator myBeginIterator, myEndIterator;
-    users.get_iterators(myBeginIterator, myEndIterator);
+    map<userid, Usuario>::const_iterator beginIterator, endIterator;
+    users.get_iterators(beginIterator, endIterator);
 
-    while (myBeginIterator != myEndIterator)
+    while (beginIterator != endIterator)
     {
-        (myBeginIterator->second).write();
+        (beginIterator->second).write();
         cout << endl; 
-        ++myBeginIterator;
+        ++beginIterator;
     }
 }
 
 void Comandos::escribir_usuario(const userid& uid)
 {
-    map<userid, Usuario>::iterator myIter;
-    if(users.get_user(uid, myIter))
+    UserMap::iterator mapIter;
+    if(users.get_user(uid, mapIter))
     {
-        (*myIter).second.write();
+        (*mapIter).second.write();
     }
     else
     {

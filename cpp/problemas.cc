@@ -29,10 +29,10 @@ const void Problemas::read()
 
 const bool Problemas::add_problem(const problemid& pid)
 {
-    pair<map<problemid, Problema>::const_iterator, bool> myPair; 
-    myPair = problemMap.insert(pair<problemid, Problema>(pid, Problema(pid)));
-    if(myPair.second) total += 1;
-    return myPair.second;
+    pair<ProblemMap::const_iterator, bool> mapPair; 
+    mapPair = problemMap.insert(ProblemMapSet(pid, Problema(pid)));
+    if(mapPair.second) total += 1;
+    return mapPair.second;
 }
 
 const void Problemas::write()
@@ -40,15 +40,15 @@ const void Problemas::write()
 
 }
 
-const bool Problemas::get_problem(const problemid& pid, map<problemid, Problema>::const_iterator& myIter) const
+const bool Problemas::get_problem(const problemid& pid, ProblemMap::const_iterator& mapIter) const
 {
-    myIter = problemMap.find(pid);
-    if (myIter != problemMap.end()) return true;
+    mapIter = problemMap.find(pid);
+    if (mapIter != problemMap.end()) return true;
     return false;
 }
 
-const void Problemas::get_iterators(map<problemid, Problema>::const_iterator& myBeginIterator, map<problemid, Problema>::const_iterator& myEndIterator)
+const void Problemas::get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& endIterator)
 {
-    myBeginIterator = problemMap.begin();
-    myEndIterator = problemMap.end();
+    beginIterator = problemMap.begin();
+    endIterator = problemMap.end();
 }

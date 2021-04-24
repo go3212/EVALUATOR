@@ -15,6 +15,10 @@
 
 using namespace std;
 
+typedef map<problemid, Problema> ProblemMap;
+
+typedef pair<problemid, Problema> ProblemMapSet;
+
 /** @class Problemas
  *  @brief Facilita la gestión de un conjunto de problemas (obj. 'Problema').
  */
@@ -22,7 +26,7 @@ class Problemas
 {
 private:
     int total;
-    map<problemid, Problema> problemMap;
+    ProblemMap problemMap;
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \post Número total de problemas es cero. Conjunto de problemas ('problemMap') no definido.
@@ -57,14 +61,14 @@ public:
      *  @param pid identificador de problema ('problemid').
      *  \post Devuelve un puntero al objeto 'Problema' buscado. Si no se ha encontrado, devuelve NULL. 
      */
-    const bool get_problem(const problemid& pid, map<problemid, Problema>::const_iterator& myIter) const;
+    const bool get_problem(const problemid& pid, ProblemMap::const_iterator& mapIter) const;
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param myBeginIterator iterador de la posición inicial.
      *  @param myEndIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
      */
-    const void get_iterators(map<problemid, Problema>::const_iterator& myBeginIterator, map<problemid, Problema>::const_iterator& myEndIterator);
+    const void get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& rndIterator);
 
     /** @brief Función que actualiza el número de intentos a un problema.
      *  @param pid identificador de problema ('problemid').
