@@ -2,20 +2,18 @@
  *  @brief Especificación de la clase 'Cursos'.
  */
 
-
 #ifndef CURSOS_HH
 #define CURSOS_HH
 
 #include <iostream>
-#include <vector>
-#include <string>
-#include <map>
 #include "tipos.hh"
 #include "curso.hh"
 
 using namespace std;
 
 // N > 0, Sin repeticiones, 
+
+typedef vector<Curso> CourseVector;
 
 /** @class Cursos
  *  @brief Facilita la gestión de un conjunto de cursos (obj. 'Curso').
@@ -24,7 +22,7 @@ class Cursos
 {
 private:
     int total;
-    vector<Curso> courses;
+    CourseVector courseVector;
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \post Número total de cursos es cero. Vector de cursos ('curso') no definido.
@@ -51,7 +49,7 @@ public:
      *  @param myEndIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del vector de cursos.
      */
-    void get_iterators(vector<Curso>::const_iterator& myBeginIterator, vector<Curso>::const_iterator& myEndIterator) const;
+    void get_iterators(CourseVector::const_iterator& beginIterator, CourseVector::const_iterator& endIterator) const;
 
     const int get_number_of_courses() const;
 
@@ -59,7 +57,7 @@ public:
      *  @param cid identificador de curso ('courseid')
      *  \post devuelve el objeto 'Curso' por referencia si se ha encontrado, en caso opuesto, devuelve NULL.
      */
-    const bool get_course(const courseid& cid, vector<Curso>::iterator& myIter);
+    const bool get_course(const courseid& cid, CourseVector::iterator& vectorIter);
 
     /** @brief Lee un conjunto de cursos por la entrada 'stdin' y los guarda.
      *  \pre Número de cursos a leer en la entrada (C > 0), seguido de C cursos.

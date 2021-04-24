@@ -10,6 +10,10 @@
 #include "tipos.hh"
 #include "sesion.hh"
 
+typedef map<sessionid, Sesion> SessionMap;
+
+typedef pair<sessionid, Sesion> SessionMapPair;
+
 using namespace std;
 
 // N > 0, Sin repeticiones, 
@@ -21,7 +25,7 @@ class Sesiones
 {
 private:
     int total;
-    map<sessionid, Sesion> sessionMap;
+    SessionMap sessionMap;
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \post Número total de sesiones es cero. Conjunto de sesiones ('sessionMap') no definido.
@@ -50,14 +54,14 @@ public:
      *  @param sid identificador de sesión ('userid').
      *  \post Devuelve el objeto 'Sesion' por referencia constante si se encuentra, en caso contrario, devuelve NULL.
      */
-    const bool get_session(const sessionid& sid, map<userid, Sesion>::const_iterator& myIter) const;
+    const bool get_session(const sessionid& sid, SessionMap::const_iterator& mapIter) const;
 
     /** @brief Devuelve los iteradores del mapa de sesiones 
      *  @param myBeginIterator iterador de la posición inicial.
      *  @param myEndIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
      */
-    void get_iterators(map<sessionid, Sesion>::const_iterator& myBeginIterator, map<sessionid, Sesion>::const_iterator& myEndIterator) const;
+    void get_iterators(SessionMap::const_iterator& beginIterator, SessionMap::const_iterator& endIterator) const;
 
     /** @brief Lee un conjunto de sesiones por la entrada 'stdin' y los guarda.
      *  \pre Número de sesiones a leer en la entrada (S > 0), seguido de S sesiones.

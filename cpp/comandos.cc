@@ -33,18 +33,18 @@ const bool Comandos::run()
     while (!end)
     {
         cin >> com;
-        cout << '#' << com << ' ';
+        cout << '#' << com;
         //cout << "command: " << com << "  int: " << commandsMap[com] << endl;
         switch (commandsMap[com])
         {
             case 1:
                 //cout << "#nuevo_problema" << endl;
-                cin >> pid; cout << pid << endl;
+                cin >> pid; cout << ' ' << pid << endl;
                 nuevo_problema(pid);
                 break;
             case 2:
                 //cout << "#nueva_sesion" << endl;
-                cin >> sid; cout << sid << endl;
+                cin >> sid; cout <<  ' ' << sid << endl;
                 nueva_sesion(sid);
                 break;
             case 3:
@@ -54,42 +54,42 @@ const bool Comandos::run()
                 break;
             case 4:
                 //cout << "#alta_usuario" << endl;
-                cin >> uid; cout << uid << endl;
+                cin >> uid; cout <<  ' ' << uid << endl;
                 alta_usuario(uid);
                 break;
             case 5:
                 //cout << "#baja_usuario" << endl;
-                cin >> uid; cout << uid << endl;
+                cin >> uid; cout <<  ' ' << uid << endl;
                 baja_usuario(uid);
                 break;
             case 6:
                 //cout << "#inscribir_curso" << endl;
-                cin >> uid >> cid; cout << uid << ' ' << cid << endl;
+                cin >> uid >> cid; cout <<  ' ' << uid << ' ' << cid << endl;
                 inscribir_curso(uid, cid);
                 break;
             case 7:
                 //cout << "#curso_usuario" << endl;
-                cin >> uid; cout << uid << endl;
+                cin >> uid; cout <<  ' ' << uid << endl;
                 curso_usuario(uid);
                 break;
             case 8:
                 //cout << "#sesion_problema" << endl;
-                cin >> cid >> pid; cout << cid << ' ' << pid << endl;
+                cin >> cid >> pid; cout <<  ' ' << cid << ' ' << pid << endl;
                 sesion_problema(cid, pid);
                 break;
             case 9:
                 //cout << "#problemas_resueltos" << endl;
-                cin >> uid; cout << uid << endl;
+                cin >> uid; cout <<  ' ' << uid << endl;
                 problemas_resueltos(uid);
                 break;
             case 10:
                 //cout << "#problemas_enviables" << endl;
-                cin >> uid; cout << uid << endl;
+                cin >> uid; cout <<  ' ' << uid << endl;
                 problemas_enviables(uid);
                 break;
             case 11:
                 //cout << "#envio" << endl;
-                cin >> uid >> pid >> r; cout << uid << ' ' << pid << endl;
+                cin >> uid >> pid >> r; cout <<  ' ' << uid << ' ' << pid << endl;
                 envio(uid, pid, r);
                 break;
             case 12:
@@ -99,7 +99,7 @@ const bool Comandos::run()
                 break;
             case 13:
                 //cout << "#escribir_problema" << endl;
-                cin >> pid; cout << pid << endl;
+                cin >> pid; cout <<  ' ' << pid << endl;
                 escribir_problema(pid);
                 break;
             case 14:
@@ -109,7 +109,7 @@ const bool Comandos::run()
                 break;
             case 15:
                 //cout << "#escribir_sesion" << endl;
-                cin >> sid; cout << sid << endl;
+                cin >> sid; cout <<  ' ' << sid << endl;
                 escribir_sesion(sid);
                 break;
             case 16:
@@ -119,7 +119,7 @@ const bool Comandos::run()
                 break;
             case 17:
                 //cout << "#escribir_curso" << endl;
-                cin >> cid; cout << cid << endl;
+                cin >> cid; cout <<  ' ' << cid << endl;
                 escribir_curso(cid);
                 break;
             case 18:
@@ -129,7 +129,7 @@ const bool Comandos::run()
                 break;
             case 19:
                 //cout << "#escribir_usuario" << endl;
-                cin >> uid; cout << uid << endl;
+                cin >> uid; cout <<  ' ' << uid << endl;
                 escribir_usuario(uid);
                 break;
             case 20:
@@ -219,7 +219,7 @@ void Comandos::inscribir_curso(const userid& uid, const courseid& cid)
         map<userid, Usuario>::iterator userIter;
         if(users.get_user(uid, userIter))
         {
-            if ((*userIter).second.inscribe(cid))
+            if ((*userIter).second.inscribe(cid, (*courseIter), sessions))
             {
                 (*courseIter).inscribe_user(uid);
                 cout << (*courseIter).inscribed_users();
@@ -252,7 +252,6 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
     if (courses.get_course(cid, courseIter))
     {
         map<sessionid, Sesion>::const_iterator sessionIter;
-        vector<problemid> problemVect;
         vector<sessionid>::const_iterator courseIterBegin, courseIterEnd;
         (*courseIter).get_iterators(courseIterBegin, courseIterEnd);
         int n;
@@ -273,6 +272,12 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
 
 void Comandos::problemas_resueltos(const userid& uid)
 {
+    map<userid, Usuario>::iterator userIter;
+    if(users.get_user(uid, userIter))
+    {
+        (*userIter).second.print_all_time_solved_problems();
+    } else cout << "error: el usuario no existe" << endl;
+    
 
 }
 

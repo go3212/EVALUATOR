@@ -18,6 +18,8 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
+typedef map<userid, Usuario> UserMap;
+
 /** @class Usuarios
  *  @brief Facilita la gestión de un conjunto de usuarios (obj. 'Usuario').
  */
@@ -25,7 +27,7 @@ class Usuarios
 {
 private:
     int total;
-    map<userid, Usuario> userMap;
+    UserMap userMap;
 
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
@@ -67,14 +69,14 @@ public:
      *  @param uid identificador de usuario ('userid').
      *  \post devuelve true si se ha asignado correctamente el usuario, en cualquier otro caso, false.
      */
-    const bool get_user(const userid& uid, map<userid, Usuario>::iterator& myIter);
+    const bool get_user(const userid& uid, UserMap::iterator& mapIter);
 
     /** @brief Devuelve los iteradores del mapa de problemas 
-     *  @param myBeginIterator iterador de la posición inicial.
-     *  @param myEndIterator iterador de la posición final.
+     *  @param beginIterator iterador de la posición inicial.
+     *  @param endIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
      */
-    void get_iterators(map<userid, Usuario>::const_iterator& myBeginIterator, map<userid, Usuario>::const_iterator& myEndIterator) const;
+    void get_iterators(UserMap::const_iterator& beginIterator, UserMap::const_iterator& endIterator) const;
 
     /** @brief Lee un conjunto de usuarios por la entrada 'stdin' y los guarda.
      *  \pre Número de usuarios a leer en la entrada (U > 0), seguido de U usuarios.

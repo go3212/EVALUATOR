@@ -15,22 +15,22 @@ const int Sesiones::get_number_of_sessions() const
 
 const bool Sesiones::add_session(const sessionid& sid)
 {
-    pair<map<sessionid, Sesion>::const_iterator, bool> myPair;
-    myPair = sessionMap.insert(pair<sessionid, Sesion>(sid, Sesion(sid)));
-    if (myPair.second) total += 1;
-    return myPair.second;
+    pair<SessionMap::const_iterator, bool> mapPair;
+    mapPair = sessionMap.insert(SessionMapPair(sid, Sesion(sid)));
+    if (mapPair.second) total += 1;
+    return mapPair.second;
 }
 
-void Sesiones::get_iterators(map<sessionid, Sesion>::const_iterator& myBeginIterator, map<sessionid, Sesion>::const_iterator& myEndIterator) const
+void Sesiones::get_iterators(SessionMap::const_iterator& beginIterator, SessionMap::const_iterator& endIterator) const
 {
-    myBeginIterator = sessionMap.begin();
-    myEndIterator = sessionMap.end();
+    beginIterator = sessionMap.begin();
+    endIterator = sessionMap.end();
 }
 
-const bool Sesiones::get_session(const sessionid& sid, map<userid, Sesion>::const_iterator& myIter) const
+const bool Sesiones::get_session(const sessionid& sid, SessionMap::const_iterator& mapIter) const
 {
-    myIter = sessionMap.find(sid);
-    if(myIter != sessionMap.end()) return true;
+    mapIter = sessionMap.find(sid);
+    if(mapIter != sessionMap.end()) return true;
     return false;
 }
 

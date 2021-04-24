@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "curso.hh"
 #include "tipos.hh"
 #include "problema.hh"
 
@@ -43,7 +44,7 @@ public:
      *  \pre El usuario debe tener 'uid' != NULL. El curso debe existir.
      *  \post Si el usuario no está inscrito en ningún curso se le inscribe al parámetro de la función y se devuelve ('true'), en caso opuesto, no se modifica la inscripción y se devuelve ('false').
      */
-    const bool inscribe(const courseid& cid);
+    const bool inscribe(const courseid& cid, const Curso& course, Sesiones& sessions);
 
     /** @brief Devuelve si el usuario está inscrito en un curso.
      *  \post Devuelve 'true' si el usuario está inscrito y 'false' si no lo está.
@@ -61,6 +62,8 @@ public:
      *  \post Devuelve un puntero no modificable que contiene una estructura 'AllCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
      */
     const vector<UserCoursesData>& all_courses() const;
+
+    const void print_all_time_solved_problems() const;
 
     /** @brief Devuelve la información del curso al que está inscrito el usuario.
      *  \post Devuelve un puntero no modificable que contiene una estructura 'UserCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.

@@ -16,6 +16,8 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
+typedef vector<sessionid> CourseSessionVector; 
+
 /** @class Curso
  *  @brief Almacena la información de un curso y facilita su gestión.
  */
@@ -25,7 +27,7 @@ class Curso
 private:
     int total;
     courseid cid;
-    vector<sessionid> sessions;
+    CourseSessionVector sessionVector;
 
     struct UserData
     {
@@ -62,7 +64,7 @@ public:
     /** @brief Asigna los iteradores del vector de identificadores de sesiones a los parámetros
      * 
      */
-    const void get_iterators(vector<sessionid>::const_iterator& myBeginIterator, vector<sessionid>::const_iterator& myEndIterator) const;
+    const void get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
 
     /** @brief Verifica que el conjunto de sesiones sea válido.
      * 

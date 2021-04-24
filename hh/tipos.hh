@@ -8,8 +8,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
+#include "BinTree.hh"
 
 using namespace std;
+
+/* TIPOS DE VARIABLES/OBJETOS */
 
 /** @typedef sessionid
  *  @brief Idenfificador de 'Sesión'.
@@ -36,6 +40,79 @@ typedef string problemid;
 */
 typedef string command;
 
+template <typename T> class sortedVector
+{
+private:
+    vector<T> classVector;
+    int classVectorSize;  
+public:
+    sortedVector()
+    {
+        classVectorSize = 0;
+    }
+
+    sortedVector(int size)
+    {
+        classVector = vector<T>(size);
+        classVectorSize = size;
+    };
+
+    // sortedVector(vector<T>& inpVect)
+    // {
+    //     sort(inpVect.begin(), inpVect.end());
+    //     classVectorSize = inpVect.size();
+    //     classVector = inpVect; // Mirar de optimizar
+    // }
+
+    template<typename U> sortedVector& operator=(const sortedVector<U>& inpVect)
+    {
+        if (this != &inpVect)
+        {
+            classVector = inpVect;
+        }
+        return *this;
+    }
+
+    T& operator[] (const int& index)
+    {
+        return classVector[index];
+    };
+
+    const int find(const T& classtype) const
+    {
+        int left = 0, right = classVectorSize - 1, m;
+        while (left <= right)
+        {   
+            m = (left+right)/2;
+            if (classVector[m] < classtype) left = m + 1;
+            else if (classVector[m] > classtype) right = m - 1;
+            else return m;
+        }
+        return -1;
+    }
+
+    const bool push_back(const T& classtype)
+    {
+        classVector.push_back(classtype);
+        ++classVectorSize;
+        int i = classVectorSize - 1; 
+        T temp;
+        while(i > 0 && classVector[i - 1] > classVector[i])
+        {
+            temp = classVector[i - 1];
+            classVector[i-1] = classVector[i];
+            classVector[i] = temp;
+            --i;
+        }
+
+        return true;
+    }
+
+    const int size() const
+    {
+        return classVectorSize;
+    }
+};
 
 /** @struct Attempts
  *  @brief Almacena información sobre los intentos realizados a un 'Problema'.
@@ -73,8 +150,9 @@ struct UserCourseData
 {
     courseid identifier;
     Attempts totalAttempts;
+    //vector<pair<sessionid, BinTree<pair<bool, problemid>>>> sessions; 
     vector<ProblemData> solvedProblems;
-    vector<ProblemData> availableProblems;
+    //vector<ProblemData> availableProblems;
 };
 
 /** @struct UserCoursesData
@@ -83,7 +161,14 @@ struct UserCourseData
 struct UserCoursesData
 {
     Attempts attempts;
-    vector<UserCourseData> course;
+    vector<problemid> coursesVect; /*Ordenado en orden creciente*/
+    int sizeCoursesVect;
+
+    UserCoursesData()
+    {
+        sizeCoursesVect = 0;
+        coursesVect = vector<problemid>(sizeCoursesVect);
+    }
 };
 
 #endif

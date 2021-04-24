@@ -9,10 +9,17 @@
 #include <vector>
 #include <string>
 #include "tipos.hh"
-#include "BinTree.hh"
 #include "problema.hh"
 
 using namespace std;
+
+/** @typedef ProblemTree
+ *  @brief Tipo de variable que almacena problemas de sesiones en forma de árbol binario.
+ */
+typedef BinTree<problemid> ProblemTree;
+
+typedef sortedVector<problemid> ProblemVector;
+
 
 // N > 0, Sin repeticiones, 
 
@@ -26,8 +33,8 @@ private:
     sessionid sid;
     bool hasSessionid;
     int n_problems;
-    BinTree<problemid> problems;
-    vector<problemid> problemVect;
+    ProblemTree problemTree;
+    ProblemVector problemVect;
 public:
 
     /** @brief Overloaded default class null constructor.
@@ -41,6 +48,8 @@ public:
      */ 
     Sesion(const sessionid& sid);
 
+    ProblemTree get_problemTree() const;
+
     /** @brief Devuelve si la sesion tiene identificador.
      *  \post Devuelve 'true' si la sesión tiene identificador y 'false' si no lo tiene.
      */
@@ -48,9 +57,9 @@ public:
 
     const bool has_problem(const problemid& pid) const;
 
-    const int get_problems_as_vector(vector<problemid>& pidVector) const;
+    const int get_problems_as_vector(ProblemVector& pidVector) const;
 
-    const int get_problems (vector<problemid>& pidVector) const;
+    const int get_problems (ProblemVector& pidVector) const;
 
     const sessionid session_id() const;
 

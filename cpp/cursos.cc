@@ -9,9 +9,9 @@ Cursos::Cursos()
 
 const bool Cursos::add_course(Curso& course)
 {
-    courses.push_back(course);
+    courseVector.push_back(course);
     total += 1;
-    courses[total - 1].set_cid(total);
+    courseVector[total - 1].set_cid(total);
     return true;
 
 }
@@ -21,17 +21,17 @@ const int Cursos::get_number_of_courses() const
     return total;
 }
 
-void Cursos::get_iterators(vector<Curso>::const_iterator& myBeginIterator, vector<Curso>::const_iterator& myEndIterator) const
+void Cursos::get_iterators(CourseVector::const_iterator& beginIterator, CourseVector::const_iterator& endIterator) const
 {
-    myBeginIterator = courses.begin();
-    myEndIterator = courses.end();
+    beginIterator = courseVector.begin();
+    endIterator = courseVector.end();
 }
 
-const bool Cursos::get_course(const courseid& cid, vector<Curso>::iterator& myIter)
+const bool Cursos::get_course(const courseid& cid, CourseVector::iterator& vectorIter)
 {
     if (cid != 0 and cid <= total)
     {
-        myIter = courses.begin() + cid - 1;
+        vectorIter = courseVector.begin() + cid - 1;
         return true;
     }
     return false;
@@ -42,13 +42,13 @@ const void Cursos::read()
     int n; cin >> n;
     total = n;
     
-    courses = vector<Curso>(total);
+    courseVector = CourseVector(total);
 
     courseid cid;
     while (n != 0)
     {
-        courses[total - n] = Curso(total - n + 1);
-        courses[total - n].read();
+        courseVector[total - n] = Curso(total - n + 1);
+        courseVector[total - n].read();
         --n;
     }
 }

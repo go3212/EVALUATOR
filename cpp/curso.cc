@@ -31,27 +31,27 @@ const bool Curso::inscribe_user(const userid& uid)
 
 const bool Curso::is_valid_course(const Sesiones& sessions)
 {
-    set<problemid> mySet;
-    map<sessionid, Sesion>::const_iterator myIter;
+    SessionMap::const_iterator sessionMap;
+    set<problemid> problemSet;
     pair<set<problemid>::iterator, bool> ret;
-    vector<problemid> pidVector;
+    ProblemVector problemVector;
     for (int i = 0; i < total; ++i)
     {
-        sessions.get_session(this->sessions[i], myIter);
-        int n = (*myIter).second.get_problems (pidVector);
+        sessions.get_session(this->sessionVector[i], sessionMap);
+        int n = (*sessionMap).second.get_problems (problemVector);
         for (int k = 0; k < n; ++k)
         {   
-            ret = mySet.insert(pidVector[k]);
+            ret = problemSet.insert(problemVector[k]);
             if (ret.second == false) return false;
         }
     }
     return true;
 }
 
-const void Curso::get_iterators(vector<sessionid>::const_iterator& myBeginIterator, vector<sessionid>::const_iterator& myEndIterator) const
+const void Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const
 {
-    myBeginIterator = sessions.begin();
-    myEndIterator = sessions.end();
+    beginIterator = sessionVector.begin();
+    endIterator = sessionVector.end();
 }
 
 const void Curso::write() const
@@ -60,10 +60,10 @@ const void Curso::write() const
     cout << userdata.inscribed_users << ' ' << total << " (";
     for (int i = 0; i < total - 1; ++i)
     {
-        cout << sessions[i];
+        cout << sessionVector[i];
         cout << ' ';
     }
-    cout << sessions[total - 1];
+    cout << sessionVector[total - 1];
     cout << ')';
 }   
 
@@ -72,13 +72,13 @@ const void Curso::read()
     int n; cin >> n;
     total = n;
 
-    sessions = vector<sessionid>(total);
+    sessionVector = CourseSessionVector(total);
 
     sessionid sid;
     while (n != 0)
     {   
         cin >> sid;
-        sessions[total - n] = sid;
+        sessionVector[total - n] = sid;
         --n;
     }
 }

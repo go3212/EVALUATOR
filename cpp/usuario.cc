@@ -7,11 +7,35 @@ Usuario::Usuario()
     hasUserid = false;
 }
 
-const bool Usuario::inscribe(const courseid& cid)
+const void Usuario::print_all_time_solved_problems() const
+{
+    int i = 0;
+    for (i = 0; i < allCourses.sizeCoursesVect - 1; ++i)
+    {
+        cout << allCourses.coursesVect[i] << ' ';
+    }
+    if (allCourses.sizeCoursesVect != 0) cout << allCourses.coursesVect[i] << endl;
+}
+
+const bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessions)
 {
     if (isInscribed) return false;
     currentCourse.identifier = cid;
     isInscribed = true;
+
+    // vector<sessionid>::const_iterator myBeginIter, myEndIter;
+    // map<sessionid, Sesion>::const_iterator sessionIter;
+    // //pair<sessionid, BinTree<pair<bool, problemid>>> vectPair;
+    // course.get_iterators(myBeginIter, myEndIter);
+    // while (myBeginIter != myEndIter)
+    // {
+    //     //sessions.get_session((*myBeginIter), sessionIter);
+    //     //vectPair.first = (*myBeginIter);
+    //     //vectPair.second = (*sessionIter).second.get_problemsTree();
+    //     //currentCourse.sessions.push_back(vectPair);
+    //     //++myBeginIter;
+    // }
+
     return true; 
 }
 

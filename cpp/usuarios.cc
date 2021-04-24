@@ -4,7 +4,7 @@ using namespace std;
 
 Usuarios::Usuarios()
 {
-    userMap = map<userid, Usuario>();
+    userMap = UserMap();
 }
 
 Usuarios::Usuarios(const Usuario& user)
@@ -14,7 +14,7 @@ Usuarios::Usuarios(const Usuario& user)
 
 const bool Usuarios::add_user (const userid& uid)
 {
-    map<userid, Usuario>::const_iterator myIter = userMap.find(uid);
+    UserMap::const_iterator myIter = userMap.find(uid);
     if (myIter == userMap.end())
     {
         userMap[uid] = Usuario(uid);
@@ -24,11 +24,9 @@ const bool Usuarios::add_user (const userid& uid)
     return false;
 }
 
-
-
 const bool Usuarios::delete_user(const userid& uid) 
 {
-    map<userid, Usuario>::iterator myIter = userMap.find(uid);
+    UserMap::iterator myIter = userMap.find(uid);
     if (myIter != userMap.end())
     {
         userMap.erase(myIter);
@@ -43,16 +41,16 @@ const int Usuarios::get_number_of_users() const
     return total;
 }
 
-void Usuarios::get_iterators(map<userid, Usuario>::const_iterator& myBeginIterator, map<userid, Usuario>::const_iterator& myEndIterator) const
+void Usuarios::get_iterators(UserMap::const_iterator& beginIterator, UserMap::const_iterator& endIterator) const
 {
-    myBeginIterator = userMap.begin();
-    myEndIterator = userMap.end();
+    beginIterator = userMap.begin();
+    endIterator = userMap.end();
 }
 
-const bool Usuarios::get_user(const userid& uid, map<userid, Usuario>::iterator& myIter)
+const bool Usuarios::get_user(const userid& uid, UserMap::iterator& mapIter)
 {
-    myIter = userMap.find(uid);
-    if (myIter != userMap.end()) return true;
+    mapIter = userMap.find(uid);
+    if (mapIter != userMap.end()) return true;
     return false;
 }
 
