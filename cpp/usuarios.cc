@@ -5,46 +5,45 @@ using namespace std;
 
 Usuarios::Usuarios()
 {
-    userMap = UserMap();
     total = 0;
+    userMap = UserMap();
 }
-
-// Usuarios::Usuarios(const Usuario& user)
-// {
-
-// }
 
 bool Usuarios::add_user (const userid& uid)
 {
-    UserMap::const_iterator myIter = userMap.find(uid);
-    if (myIter == userMap.end())
-    {
-        //userMap.insert(UserMapPair(uid, Usuario(uid)));
-        userMap[uid] = Usuario(uid);
-        total += 1;
-        return true;
-    }
-    return false;
+    // Miramos si el usuario existe, si existe, no añadimos nada.
+    UserMap::const_iterator userIter = userMap.find(uid);
+    if (userIter != userMap.end()) return false;
+    // A partir de aquí, seguro que el usuario no está registrado.
+    userMap[uid] = Usuario(uid);
+    total += 1;
+    return true;
 }
 
-bool Usuarios::delete_user(const userid& uid, Cursos& courses)
+bool Usuarios::delete_user(const userid& uid)
 {
-    UserMap::iterator myIter = userMap.find(uid);
-    if (myIter == userMap.end()) return false;
-    
-    if ((*myIter).second.is_inscribed())
-    {
-        CourseVector::iterator courseIter;
-        courses.get_course((*myIter).second.inscribed_course_id(), courseIter);
-        (*courseIter).uninscribe_user();
-    }
-    userMap.erase(myIter);
+    // Miramos si el usuario existe, si no existe, no eliminamos nada.
+    UserMap::iterator userIter = userMap.find(uid);
+    if (userIter == userMap.end()) return false;
+    // A partir de aquí, seguro que el usuario está registrado.
+    userMap.erase(userIter);
+    total -= 1;
+    return true;
+}
+
+bool Usuarios::delete_user(const UserMap::iterator& userIter)
+{
+    // Seguro que el iterador es válido, entonces si es el del final del mapa, no podemos eliminar usuario.
+    if (userIter == userMap.end()) return false;
+    // Seguro que el iterador corresponde a un usuario.
+    userMap.erase(userIter);
     total -= 1;
     return true;
 }
 
 int Usuarios::get_number_of_users() const
 {
+    // El número total de usuarios siempre está inicializado.
     return total;
 }
 
@@ -56,18 +55,21 @@ void Usuarios::get_iterators(UserMap::const_iterator& beginIterator, UserMap::co
 
 bool Usuarios::get_user(const userid& uid, UserMap::iterator& mapIter)
 {
+    // Buscamos el iterador en el mapa.
     mapIter = userMap.find(uid);
+    // Si no existe el usuario en el mapa, devolvemos false.
     if (mapIter == userMap.end()) return false;
     return true;
 }
 
 void Usuarios::read()
 {
+    // Se lee el número de usuarios en el 'stdin'. n >= 0
     int n; cin >> n;
-    total = n;
+    total += n; // Añadimos n usuarios al total.
 
     userid uid;
-    while (n != 0)
+    while (n > 0)
     {   
         cin >> uid;
         userMap[uid] = Usuario(uid);

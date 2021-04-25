@@ -203,8 +203,20 @@ void Comandos::alta_usuario(const userid& uid)
 
 void Comandos::baja_usuario(const userid& uid)
 {
-    if (users.delete_user(uid, courses))
+    UserMap::iterator userIter;
+    UserMap::const_iterator userIterBegin, userIterEnd;
+    users.get_iterators(userIterBegin, userIterEnd);
+    users.get_user(uid, userIter);
+
+    if (userIter != userIterEnd)
     {
+        if ((*userIter).second.is_inscribed())
+        {
+            CourseVector::iterator courseIter;
+            courses.get_course((*userIter).second.inscribed_course_id(), courseIter);
+            (*courseIter).uninscribe_user();
+        }
+        users.delete_user(userIter);
         cout << users.get_number_of_users();
     }
     else
