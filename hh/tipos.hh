@@ -108,7 +108,7 @@ public:
     template<typename U> sortedVector& operator=(const sortedVector<U>& inpVect)
     {
         classVector = inpVect;
-        
+        classVectorSize = inpVect.size();
         return *this;
     }
 
