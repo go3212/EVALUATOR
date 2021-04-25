@@ -42,13 +42,13 @@ public:
     /** @brief Devuelve los intentos del problema.
      *  \post Se devuelve por referencia un objeto 'Attempts' constante.
      */
-    const Attempts& get_attempts() const;
+    Attempts& get_attempts() const;
 
     /** @brief Imprime por pantalla información sobre el problema
      *  \post Se imprime por pantalla la infomación del problema en este formato:
      *        pid(intentos totales, intentos exitosos, ratio (t+1)/(e+1))
      */
-    const void write() const;
+    void write() const;
 };
 
 #endif

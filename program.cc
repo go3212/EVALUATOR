@@ -4,6 +4,7 @@
 #include "hh/usuarios.hh"
 #include "hh/cursos.hh"
 #include "hh/comandos.hh"
+#include "hh/timer.hh"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ int main ()
     Sesiones sessions; sessions.read();
     Cursos courses; courses.read();
     Usuarios users; users.read();
-
+    
     Comandos commands(users, courses, problems, sessions);
     commands.run();
 }

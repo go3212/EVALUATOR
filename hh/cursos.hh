@@ -42,7 +42,7 @@ public:
      *  \post añade un curso al vector de cursos ('courses') en la posicion size(courses) + 1. Solo añade si no se repiten problemas en el curso.  
      *        Devuelve si se ha añadido correctamente el curso ('true') o ha habido un problema al añadirlo ('false').
      */
-    const bool add_course(Curso& course);
+    bool add_course(Curso& course);
 
     /** @brief Adquirir iteradores del vector de cursos. 
      *  @param myBeginIterator iterador de la posición inicial.
@@ -51,19 +51,19 @@ public:
      */
     void get_iterators(CourseVector::const_iterator& beginIterator, CourseVector::const_iterator& endIterator) const;
 
-    const int get_number_of_courses() const;
+    int get_number_of_courses() const;
 
     /** @brief Busca un curso en el conjunto de cursos.
      *  @param cid identificador de curso ('courseid')
      *  \post devuelve el objeto 'Curso' por referencia si se ha encontrado, en caso opuesto, devuelve NULL.
      */
-    const bool get_course(const courseid& cid, CourseVector::iterator& vectorIter);
+    bool get_course(const courseid& cid, CourseVector::iterator& vectorIter);
 
     /** @brief Lee un conjunto de cursos por la entrada 'stdin' y los guarda.
      *  \pre Número de cursos a leer en la entrada (C > 0), seguido de C cursos.
      *  \post Se almacenan los datos.
      */
-    const void read();
+    void read();
 };
 
 #endif

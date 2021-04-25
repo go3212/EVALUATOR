@@ -4,32 +4,43 @@ using namespace std;
 
 Curso::Curso()
 {
-
+    total = 0;
+    sessionVector = CourseSessionVector();
+    userdata = UserData();
 }
 
 Curso::Curso(const courseid& cid)
 {
     this->cid = cid;
+    total = 0;
+    sessionVector = CourseSessionVector();
+    userdata = UserData();
 }
 
-const bool Curso::set_cid(const courseid& cid)
+bool Curso::set_cid(const courseid& cid)
 {
     this->cid = cid;
     return true;
 }
 
-const int Curso::inscribed_users() const
+int Curso::inscribed_users() const
 {
     return userdata.inscribed_users;
 }
 
-const bool Curso::inscribe_user(const userid& uid)
+bool Curso::inscribe_user() // const userid& uid
 {
     userdata.inscribed_users += 1;
     return true;
 }
 
-const bool Curso::is_valid_course(const Sesiones& sessions)
+bool Curso::uninscribe_user() // const userid& uid
+{
+    userdata.inscribed_users -= 1;
+    return true;
+}
+
+bool Curso::is_valid_course(const Sesiones& sessions)
 {
     SessionMap::const_iterator sessionMap;
     set<problemid> problemSet;
@@ -48,13 +59,13 @@ const bool Curso::is_valid_course(const Sesiones& sessions)
     return true;
 }
 
-const void Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const
+void Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const
 {
     beginIterator = sessionVector.begin();
     endIterator = sessionVector.end();
 }
 
-const void Curso::write() const
+void Curso::write() const
 {
     cout << cid << ' ' << userdata.alltime_users << ' ';
     cout << userdata.inscribed_users << ' ' << total << " (";
@@ -67,7 +78,7 @@ const void Curso::write() const
     cout << ')';
 }   
 
-const void Curso::read()
+void Curso::read()
 {
     int n; cin >> n;
     total = n;

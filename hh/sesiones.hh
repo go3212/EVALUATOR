@@ -42,19 +42,19 @@ public:
     /** @brief Devuelve el número de sesiones
      * 
      */
-    const int get_number_of_sessions() const;
+    int get_number_of_sessions() const;
 
     /** @brief Añade una nueva sesión a la lista de sesiones.
      *  @param sid identificador de la sesión.
      *  \post añade una sesión al mapa de sesiones ('sessionMap') si no existia previamente. Devuelve si la sesión se ha añadido ('true') o si ya existia ('false').
      */
-    const bool add_session(const sessionid& sid);
+    bool add_session(const sessionid& sid);
 
     /** @brief Busca una sesión en el conjunto de sesiones.
      *  @param sid identificador de sesión ('userid').
      *  \post Devuelve el objeto 'Sesion' por referencia constante si se encuentra, en caso contrario, devuelve NULL.
      */
-    const bool get_session(const sessionid& sid, SessionMap::const_iterator& mapIter) const;
+    bool get_session(const sessionid& sid, SessionMap::const_iterator& mapIter) const;
 
     /** @brief Devuelve los iteradores del mapa de sesiones 
      *  @param myBeginIterator iterador de la posición inicial.
@@ -67,7 +67,7 @@ public:
      *  \pre Número de sesiones a leer en la entrada (S > 0), seguido de S sesiones.
      *  \post Se almacenan los datos.
      */
-    const void read();
+    void read();
 };
 
 #endif

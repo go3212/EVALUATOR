@@ -8,8 +8,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "curso.hh"
 #include "tipos.hh"
+#include "curso.hh"
 #include "problema.hh"
 
 using namespace std;
@@ -44,31 +44,33 @@ public:
      *  \pre El usuario debe tener 'uid' != NULL. El curso debe existir.
      *  \post Si el usuario no está inscrito en ningún curso se le inscribe al parámetro de la función y se devuelve ('true'), en caso opuesto, no se modifica la inscripción y se devuelve ('false').
      */
-    const bool inscribe(const courseid& cid, const Curso& course, Sesiones& sessions);
+    bool inscribe(const courseid& cid, const Curso& course, Sesiones& sessions);
 
     /** @brief Devuelve si el usuario está inscrito en un curso.
      *  \post Devuelve 'true' si el usuario está inscrito y 'false' si no lo está.
      */
-    const bool is_inscribed() const;
+    bool is_inscribed() const;
+
+    int available_problems(vector<ProblemData>& problemVect) const;
 
     /** @brief Devuelve si el usuario tiene identificador
      *  \post Devuelve 'true' si el usuario tiene identificador y 'false' si no lo tiene.
      */
-    const bool has_userid() const;
+    bool has_userid() const;
 
-    const bool inscribed_course_id() const;
+    courseid inscribed_course_id() const;
 
     /** @brief Devuelve la información de todos los cursos cursados por el usuario.
      *  \post Devuelve un puntero no modificable que contiene una estructura 'AllCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
      */
-    const vector<UserCoursesData>& all_courses() const;
+    vector<UserCoursesData>& all_courses() const;
 
-    const void print_all_time_solved_problems() const;
+    void print_all_time_solved_problems() const;
 
     /** @brief Devuelve la información del curso al que está inscrito el usuario.
      *  \post Devuelve un puntero no modificable que contiene una estructura 'UserCourseData'. Devuelve NULL si el usuario no está inscrito en un curso.
      */
-    const vector<UserCourseData>& current_course() const;
+    vector<UserCourseData>& current_course() const;
 
     /** @brief Actualiza el estado del curso al enviar un problema.
      *  @param pid identificador de problema ('problemid').
@@ -88,7 +90,7 @@ public:
      *  \post Se imprime por pantalla la infomación del problema en este formato:
      *        uid(intentos totales, intentos exitosos, problemas intentados (número), courseid)
      */
-    const void write() const;
+    void write() const;
 };
 
 #endif

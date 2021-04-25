@@ -1,22 +1,25 @@
 #include "../hh/usuarios.hh"
+#include "../hh/usuario.hh"
 
 using namespace std;
 
 Usuarios::Usuarios()
 {
     userMap = UserMap();
+    total = 0;
 }
 
-Usuarios::Usuarios(const Usuario& user)
-{
+// Usuarios::Usuarios(const Usuario& user)
+// {
 
-}
+// }
 
-const bool Usuarios::add_user (const userid& uid)
+bool Usuarios::add_user (const userid& uid)
 {
     UserMap::const_iterator myIter = userMap.find(uid);
     if (myIter == userMap.end())
     {
+        //userMap.insert(UserMapPair(uid, Usuario(uid)));
         userMap[uid] = Usuario(uid);
         total += 1;
         return true;
@@ -24,19 +27,23 @@ const bool Usuarios::add_user (const userid& uid)
     return false;
 }
 
-const bool Usuarios::delete_user(const userid& uid) 
+bool Usuarios::delete_user(const userid& uid, Cursos& courses)
 {
     UserMap::iterator myIter = userMap.find(uid);
-    if (myIter != userMap.end())
+    if (myIter == userMap.end()) return false;
+    
+    if ((*myIter).second.is_inscribed())
     {
-        userMap.erase(myIter);
-        total -= 1;
-        return true;
+        CourseVector::iterator courseIter;
+        courses.get_course((*myIter).second.inscribed_course_id(), courseIter);
+        (*courseIter).uninscribe_user();
     }
-    return false;
+    userMap.erase(myIter);
+    total -= 1;
+    return true;
 }
 
-const int Usuarios::get_number_of_users() const
+int Usuarios::get_number_of_users() const
 {
     return total;
 }
@@ -47,14 +54,14 @@ void Usuarios::get_iterators(UserMap::const_iterator& beginIterator, UserMap::co
     endIterator = userMap.end();
 }
 
-const bool Usuarios::get_user(const userid& uid, UserMap::iterator& mapIter)
+bool Usuarios::get_user(const userid& uid, UserMap::iterator& mapIter)
 {
     mapIter = userMap.find(uid);
-    if (mapIter != userMap.end()) return true;
-    return false;
+    if (mapIter == userMap.end()) return false;
+    return true;
 }
 
-const void Usuarios::read()
+void Usuarios::read()
 {
     int n; cin >> n;
     total = n;

@@ -59,33 +59,35 @@ public:
      *  @param cid identificador de curso ('courseid').
      *  \post El this->cid se modifica por cid.
      */
-    const bool set_cid(const courseid& cid);
+    bool set_cid(const courseid& cid);
 
     /** @brief Asigna los iteradores del vector de identificadores de sesiones a los parámetros
      * 
      */
-    const void get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
+    void get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
 
     /** @brief Verifica que el conjunto de sesiones sea válido.
      * 
      */
-    const bool is_valid_course(const Sesiones& sessions);
+    bool is_valid_course(const Sesiones& sessions);
 
-    const int inscribed_users() const;
+    int inscribed_users() const;
 
-    const bool inscribe_user(const userid& uid);
+    bool inscribe_user(); // const userid& uid
+
+    bool uninscribe_user(); // const userid& uid
 
     /** @brief Imprime por pantalla información sobre el curso
      *  \post Se imprime por pantalla la infomación del curso en este formato:
      *        cid total_users inscribed_users total (vect[0..total - 1])
      */
-    const void write() const;
+    void write() const;
 
     /** @brief Almacena la infomración de un curso por el 'stdin'
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.
      *  \post Las sesiones estaran definidas en el vector. El único parametro no definido será el 'courseid'.
      */
-    const void read();
+    void read();
 };
 
 #endif

@@ -16,7 +16,7 @@ using namespace std;
 /** @typedef ProblemTree
  *  @brief Tipo de variable que almacena problemas de sesiones en forma de árbol binario.
  */
-typedef BinTree<problemid> ProblemTree;
+typedef BinTree<ProblemData> ProblemTree;
 
 typedef sortedVector<problemid> ProblemVector;
 
@@ -53,29 +53,29 @@ public:
     /** @brief Devuelve si la sesion tiene identificador.
      *  \post Devuelve 'true' si la sesión tiene identificador y 'false' si no lo tiene.
      */
-    const bool has_sessionid() const;
+    bool has_sessionid() const;
 
-    const bool has_problem(const problemid& pid) const;
+    bool has_problem(const problemid& pid) const;
 
-    const int get_problems_as_vector(ProblemVector& pidVector) const;
+    int get_problems_as_vector(ProblemVector& pidVector) const;
 
-    const int get_problems (ProblemVector& pidVector) const;
+    int get_problems (ProblemVector& pidVector) const;
 
-    const sessionid session_id() const;
+    sessionid session_id() const;
 
-    const int get_number_of_problems() const;
+    int get_number_of_problems() const;
 
     /** @brief Almacena la infomración de una sesión por el 'stdin'
      *  \pre La información a leer debe estar en un orden correcto.
      *  \post Se almacena el conjunto de problemas y se inicializa el id.
      */
-    const void read();
+    void read();
 
     /** @brief Escribe la información de una sesión en el 'stdout'.
      *  \pre La sesión debe tener identificador y conjunto de problemas.
      *  \post Se escribe el número de problemas, asi como sus identificadores.
      */
-    const void write() const;
+    void write() const;
 
     
 };

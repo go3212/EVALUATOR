@@ -19,6 +19,7 @@ using namespace std;
 // N > 0, Sin repeticiones, 
 
 typedef map<userid, Usuario> UserMap;
+typedef pair<userid, Usuario> UserMapPair;
 
 /** @class Usuarios
  *  @brief Facilita la gestión de un conjunto de usuarios (obj. 'Usuario').
@@ -35,27 +36,27 @@ public:
      */ 
     Usuarios();
 
-    /** @brief Constructor de clase sobrecargado, añade un usuario al instanciar la clase.
-     *  @param user objeto del tipo 'Usuario'.
-     *  \post Se añade un usuario y se incializa el conjunto de usuarios ('userMap').
-     */ 
-    Usuarios(const Usuario& user);
+    // /** @brief Constructor de clase sobrecargado, añade un usuario al instanciar la clase.
+    //  *  @param user objeto del tipo 'Usuario'.
+    //  *  \post Se añade un usuario y se incializa el conjunto de usuarios ('userMap').
+    //  */ 
+    // Usuarios(const Usuario& user);
 
     /** @brief Añade un nuevo usuario al conjunto de usuarios.
      *  @param user objeto de tipo 'userid'.
      *  \post añade un usuario al conjunto de usuarios ('userMap') si no existe otro usuario con el mismo identificador.  
      *        Devuelve si se ha añadido correctamente el usuario ('true') o ha habido un problema al añadirlo ('false').
      */
-    const bool add_user(const userid& user);
+    bool add_user(const userid& user);
 
-    const int get_number_of_users() const;
+    int get_number_of_users() const;
 
     /** @brief Elimina un usuario del conjunto de usuarios.
      *  @param uid objeto de tipo 'userid'.
      *  \post elimina un usuario del conjunto de usuarios ('userMap').  
      *        Devuelve si se ha eliminado correctamente el usuario ('true') o ha habido un problema al eliminar/no existe ('false').
      */
-    const bool delete_user(const userid& uid);
+    bool delete_user(const userid& uid, Cursos& courses);
 
     /** @brief Se inscibe a un usuario en un curso.
      *  @param uid identificador de usuario ('userid')
@@ -69,7 +70,7 @@ public:
      *  @param uid identificador de usuario ('userid').
      *  \post devuelve true si se ha asignado correctamente el usuario, en cualquier otro caso, false.
      */
-    const bool get_user(const userid& uid, UserMap::iterator& mapIter);
+    bool get_user(const userid& uid, UserMap::iterator& mapIter);
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param beginIterator iterador de la posición inicial.
@@ -82,7 +83,7 @@ public:
      *  \pre Número de usuarios a leer en la entrada (U > 0), seguido de U usuarios.
      *  \post Se almacenan los datos.
      */
-    const void read();
+    void read();
 };
 
 #endif

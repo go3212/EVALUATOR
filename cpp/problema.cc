@@ -12,7 +12,7 @@ Problema::Problema(const problemid& pid)
 
 
 
-const void Problema::write() const
+void Problema::write() const
 {
     cout << pid << '(' << attempts.total << ',' << attempts.accepted;
     cout << ',' << (attempts.total + 1)/(attempts.accepted + 1) << ')';

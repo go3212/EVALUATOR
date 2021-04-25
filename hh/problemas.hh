@@ -42,14 +42,14 @@ public:
     /** @brief Devuelve el número total de problemas.
      * 
      */
-    const int get_number_of_problems() const;
+    int get_number_of_problems() const;
 
     /** @brief Añade un nuevo problema a la lista de problemas.
      *  @param pid identificador del problema ('problemid').
      *  @param problem objeto de tipo 'Problema'.
      *  \post añade un problema al objeto 'Problemas' si no existia previamente. Devuelve si el problema se ha añadido ('true') o si ya existia ('false').
      */
-    const bool add_problem(const problemid& pid);
+    bool add_problem(const problemid& pid);
 
     /** @brief Busca un problema en el conjunto de problemas.
      *  @param pid identificador de problema ('problemid').
@@ -61,14 +61,14 @@ public:
      *  @param pid identificador de problema ('problemid').
      *  \post Devuelve un puntero al objeto 'Problema' buscado. Si no se ha encontrado, devuelve NULL. 
      */
-    const bool get_problem(const problemid& pid, ProblemMap::const_iterator& mapIter) const;
+    bool get_problem(const problemid& pid, ProblemMap::const_iterator& mapIter) const;
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param myBeginIterator iterador de la posición inicial.
      *  @param myEndIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
      */
-    const void get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& rndIterator);
+    void get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& rndIterator);
 
     /** @brief Función que actualiza el número de intentos a un problema.
      *  @param pid identificador de problema ('problemid').
@@ -80,12 +80,12 @@ public:
      *  \pre Número de problemas a leer en la entrada (P > 0), seguido de P problemas.
      *  \post Se almacenan los datos.
      */
-    const void read();
+    void read();
 
     /** @brief Escribe por pantalla todos los problemas del conjunto de problemas
      *  \post Se imprime por 'stdout' los problemas, de manera ordenada ascendentemente.
      */
-    const void write();
+    void write();
 };
 
 #endif
