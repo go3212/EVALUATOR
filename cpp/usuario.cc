@@ -13,19 +13,25 @@ void get_session_available_problems(const BinTree<ProblemData>& problemTree, vec
 {
     // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
     // considera que la raíz (la primera) siempre es solucionable.
-    if (!problemTree.value().solved) 
+    
+    if (!problemTree.value().solved) // El único caso que puede entrar (o no) en este condicional es el primero.
     {
         problemVector.push_back(problemTree.value()); 
-        return void();
+        return void(); // No hau que revisar más.
     }
     BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
+    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
     if (!left.empty())
-    {
+    {   
+        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
         if (left.value().solved) get_session_available_problems(left, problemVector);
         else problemVector.push_back(left.value());
     }
     if (!right.empty())
     {
+        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
         if (right.value().solved) get_session_available_problems (right, problemVector);
         else problemVector.push_back(right.value());
     }
@@ -110,20 +116,19 @@ int Usuario::available_problems(vector<ProblemData>& problemVect) const
     return size;
 }
 
+void Usuario::print_all_time_solved_problems() const
+{
+    int i = 0;
+    for (i = 0; i < allCourses.sizeCoursesVect - 1; ++i)
+    {
+        cout << allCourses.coursesVect[i].pid << ' ';
+    }
+    if (allCourses.sizeCoursesVect != 0) cout << allCourses.coursesVect[i].pid;
+}
+
 void Usuario::write() const
 {
     cout << uid << '(' << allCourses.attempts.total;
     cout << ',' << allCourses.attempts.accepted << ',' << allCourses.attempts.unique << ',';
     cout << ((isInscribed) ? currentCourse.identifier : 0) << ')';
 }
-
-
-// void Usuario::print_all_time_solved_problems() const
-// {
-//     int i = 0;
-//     for (i = 0; i < allCourses.sizeCoursesVect - 1; ++i)
-//     {
-//         cout << allCourses.coursesVect[i].pid << ' ';
-//     }
-//     if (allCourses.sizeCoursesVect != 0) cout << allCourses.coursesVect[i].pid << endl;
-// }

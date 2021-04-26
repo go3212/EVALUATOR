@@ -85,6 +85,13 @@ public:
      */
     int available_problems(vector<ProblemData>& problemVect) const;
 
+    /** @brief Función que imprime por pantalla todos los cursos solucionados por un usuario.
+     *  \pre El usuario debe tener identificador.
+     *  \post No se realizan modificaciones en ningún objeto.
+     *  @return void
+     */
+    void print_all_time_solved_problems() const;
+
     /** @brief Imprime por pantalla información sobre el usuario
      *  \pre true.
      *  \post Se imprime por pantalla la infomación del problema en este formato:
@@ -111,11 +118,6 @@ public:
     //  */
     // bool update_problems(const problemid& pid, const bool& solved);
 
-    // /**
-    //  * @brief 
-    //  * 
-    //  */
-    // void print_all_time_solved_problems() const;
 };
 
 /**
