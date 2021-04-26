@@ -63,7 +63,9 @@ public:
 
     /** @brief Busca un usuario en el conjunto de usuarios.
      *  @param uid identificador de usuario ('userid').
-     *  \post devuelve true si se ha asignado correctamente el usuario, en cualquier otro caso, false.
+     *  \pre true.
+     *  \post No se modifica ningún objeto de la clase.
+     *  @return devuelve true si se ha asignado correctamente el usuario, en cualquier otro caso, false.
      */
     bool get_user(const userid& uid, UserMap::iterator& mapIter);
 
@@ -79,6 +81,7 @@ public:
      *  \pre El curso al que se inscribe debe existir.
      *  \post El usuario queda inscrito en el curso si se ha encontrado el usuario y el curso en la base de datos, además, el usuario no puede estrar inscrito. En este caso se devuelve 'true', en los otros, 
      *        se devuelve 'false'. 
+     *  @return true si el usuario a inscribir existe y true si no existe.
      */
     bool inscribe_user(const userid& uid);  // NO EN USO
 
