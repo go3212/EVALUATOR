@@ -25,67 +25,101 @@ typedef vector<sessionid> CourseSessionVector;
 class Curso
 {
 private:
-    int total;
-    courseid cid;
-    CourseSessionVector sessionVector;
+    int total;                          //!< Número de sesiones que tiene el curso.
+    courseid cid;                       //!< Identificador del curso.
+    CourseSessionVector sessionVector;  //!< Vector de sesiones del curso, contiene 'total' elementos.   
 
+    /** @struct UserData
+     *  @brief Estructura que almacena información general sobre los usuarios que se han inscrito al curso.
+     */
     struct UserData
     {
-        int inscribed_users;
-        int alltime_users;
+        int inscribed_users;            //!< Usuarios inscritos actualmente en el curso.
+        int alltime_users;              //!< Usuarios que han completado el curso.
 
-        UserData()
-        {
-            inscribed_users = 0;
-            alltime_users = 0;
-        }
+        /** @brief Constructor por defecto de la estructura.
+         *  \pre true.
+         *  \post Todas las variables son inicializadas a cero.
+         */
+        UserData();
     };
 
-    UserData userdata;
+    UserData userdata;                  //!< Objeto del tipo 'UserData'
 
 public:
 
-    /** @brief Overloaded default class null constructor.
-     *  \post Null course id ('id'). All other private variables are also undefined.
+    /** @brief Constructor por defecto de la clase.
+     *  \pre true.
+     *  \post Todas las variables son inicializadas excepto el identificador del curso ('courseid').
      */ 
     Curso();
 
-    /** @brief Overloaded class constructor.
-     *  \post Sets the course id ('this->cid') to the constructor parameter ('cid'). All other private variables are left undefined.
+    /** @brief Constructor sobrecargado de la clase.
+     *  @param cid identificador de curso ('courseid').
+     *  \pre true.
+     *  \post Todas las variables de la clase son inicializadas y el identificador del curso es el parámetro.
      */ 
     Curso(const courseid& cid);
 
     /** @brief Modifica o inicializa el cid.
      *  @param cid identificador de curso ('courseid').
+     *  \pre true.
      *  \post El this->cid se modifica por cid.
+     *  @return bool: true.
      */
     bool set_cid(const courseid& cid);
 
-    /** @brief Asigna los iteradores del vector de identificadores de sesiones a los parámetros
-     * 
+    /** @brief Inscribe a un usuario en un curso.
+     *  \pre true.
+     *  \post Se aumenta (en uno) el número de usuarios inscritos en el curso.
+     *  @return true
+     */
+    bool inscribe_user(); // const userid& uid
+
+    /** @brief Desincribe a un usuario en un curso.
+     *  \pre true.
+     *  \post Se disminuye (en uno) el número de usuarios inscritos en el curso.
+     *  @return true
+     */    
+    bool uninscribe_user(); // const userid& uid
+
+    /** @brief Función que indica el número de usuarios inscritos en el curso.
+     *  \pre true.
+     *  \post No se modifica ningún objeto de la clase.
+     *  @return int: número de usuarios inscritos en el curso. (int >= 0).
+     */    
+    int inscribed_users() const;
+
+    /** @brief Asigna los iteradores del vector 'sessionVector' a los parámetros.
+     *  @param beginIterator iterador del inicio del vector 'sessionVector'. Tipo 'CourseSessionVector::const_iterator'.
+     *  @param endIterator iterador del final del vector 'sessionVector'. Tipo 'CourseSessionVector::const_iterator'.
+     *  \pre true.
+     *  \post No se modifica ningún objeto de la clase.
+     *  @return void. 
      */
     void get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
 
-    /** @brief Verifica que el conjunto de sesiones sea válido.
-     * 
+    /** @brief Verifica que el curso sea válido de acuerdo con el objeto 'Sesiones'.
+     *  @param sessions objeto del tipo 'Sesiones' que se utilizará para verificar si el 'Curso' es válido.
+     *  \pre EL parámetro 'sessions' no está incializado, el curso contiene sesiones. 
+     *       Todas las sesiones del curso existen en el objeto 'Sesiones' (son válidas).
+     *  \post No se modifica ningún objeto de la clase.
+     *  @return bool: true si el 'Curso' es válido y false si no lo es.
      */
-    bool is_valid_course(const Sesiones& sessions);
-
-    int inscribed_users() const;
-
-    bool inscribe_user(); // const userid& uid
-
-    bool uninscribe_user(); // const userid& uid
+    bool is_valid_course(const Sesiones& sessions) const;
 
     /** @brief Imprime por pantalla información sobre el curso
+     *  \pre true.
      *  \post Se imprime por pantalla la infomación del curso en este formato:
      *        cid total_users inscribed_users total (vect[0..total - 1])
+     *  @return void.
      */
     void write() const;
 
     /** @brief Almacena la infomración de un curso por el 'stdin'
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.
-     *  \post Las sesiones estaran definidas en el vector. El único parametro no definido será el 'courseid'.
+     *  \post Las sesiones estaran definidas en el vector. El único parametro que no se modifica es el 'courseid'.
+     *  @return void.
      */
     void read();
 };

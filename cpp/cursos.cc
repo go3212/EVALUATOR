@@ -47,6 +47,7 @@ void Cursos::read()
     {
         courseVector[total - n] = Curso(total - n + 1);
         courseVector[total - n].read();
+        
         --n;
     }
 }
