@@ -15,6 +15,7 @@ int Sesiones::get_number_of_sessions() const
 
 bool Sesiones::add_session(const sessionid& sid)
 {
+    // Para añadir una sesión, 
     pair<SessionMap::const_iterator, bool> mapPair;
     mapPair = sessionMap.insert(SessionMapPair(sid, Sesion(sid)));
     if (mapPair.second) total += 1;

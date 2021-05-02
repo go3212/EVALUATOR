@@ -17,4 +17,5 @@ int main ()
     
     Comandos commands(users, courses, problems, sessions);
     commands.run();
+
 }

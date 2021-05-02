@@ -13,6 +13,9 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
+/** @typedef CourseVector
+ *  @brief Vector para almacenar cursos. 
+ */
 typedef vector<Curso> CourseVector;
 
 /** @class Cursos
@@ -30,7 +33,7 @@ public:
      */ 
     Cursos();
 
-    /** @brief Función que indica el número de cursos que tiene el objeto 'Cursos'
+    /** @brief Función que indica el número de cursos que tiene el objeto.
      *  \pre true.
      *  \post No se modifica ningún objeto de la clase.
      *  @return int: número de cursos.
@@ -50,6 +53,7 @@ public:
      *  @param endIterator iterador de la posición final.
      *  \pre true.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del vector de cursos.
+     *  @return void
      */
     void get_iterators(CourseVector::const_iterator& beginIterator, CourseVector::const_iterator& endIterator) const;
 

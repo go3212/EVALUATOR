@@ -228,19 +228,19 @@ void Comandos::baja_usuario(const userid& uid)
 
 void Comandos::inscribir_curso(const userid& uid, const courseid& cid)
 {
-    CourseVector::iterator courseIter;
-    if(courses.get_course(cid, courseIter))
+    UserMap::iterator userIter;
+    if(users.get_user(uid, userIter))
     {
-        UserMap::iterator userIter;
-        if(users.get_user(uid, userIter))
+        CourseVector::iterator courseIter;
+        if(courses.get_course(cid, courseIter))
         {
             if ((*userIter).second.inscribe(cid, (*courseIter), sessions))
             {
                 (*courseIter).inscribe_user();
                 cout << (*courseIter).inscribed_users();
             } else cout << "error: usuario inscrito en otro curso";
-        } else cout << "error: el usuario no existe";
-    }  else cout << "error: el curso no existe"; 
+        }  else cout << "error: el curso no existe"; 
+    } else cout << "error: el usuario no existe";
     cout << endl;
 
     // CourseVector::iterator courseIter;
@@ -274,30 +274,31 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
     bool found = false;
     CourseVector::iterator courseIter;
     ProblemMap::const_iterator problemIter;
+    if (!courses.get_course(cid, courseIter)) 
+    {
+        cout << "error: el curso no existe" << endl;
+        return void();
+    }
     if(!problems.get_problem(pid, problemIter)) 
     {
         cout << "error: el problema no existe" << endl;
         return void();
     }
 
-    if (courses.get_course(cid, courseIter))
+    SessionMap::const_iterator sessionIter;
+    CourseSessionVector::const_iterator courseIterBegin, courseIterEnd;
+    (*courseIter).get_iterators(courseIterBegin, courseIterEnd);
+    while(!found && courseIterBegin != courseIterEnd)
     {
-        SessionMap::const_iterator sessionIter;
-        CourseSessionVector::const_iterator courseIterBegin, courseIterEnd;
-        (*courseIter).get_iterators(courseIterBegin, courseIterEnd);
-
-        while(!found && courseIterBegin != courseIterEnd)
+        sessions.get_session((*courseIterBegin), sessionIter);
+        if ((*sessionIter).second.has_problem(pid))
         {
-            sessions.get_session((*courseIterBegin), sessionIter);
-            if ((*sessionIter).second.has_problem(pid))
-            {
-                    found = true;
-                    cout << (*sessionIter).second.session_id();
-            }
-            ++courseIterBegin;
-        }   
-        if (!found) cout << "error: el problema no pertenece al curso";
-    } else cout << "error: el curso no existe";
+                found = true;
+                cout << (*sessionIter).second.session_id();
+        }
+        ++courseIterBegin;
+    }   
+    if (!found) cout << "error: el problema no pertenece al curso";
     cout << endl;
 }
 

@@ -30,11 +30,11 @@ typedef sortedVector<problemid> ProblemVector;
 class Sesion
 {
 private:
-    sessionid sid;
-    bool hasSessionid;
-    int n_problems;
-    ProblemTree problemTree;
-    ProblemVector problemVect;
+    sessionid sid;                  //<! Identificador de sesión.
+    bool hasSessionid;              //<! Variable 'bool' que indica si la sesión tiene identificador o no.
+    int n_problems;                 //<! Número de problemas de la sesión.
+    ProblemTree problemTree;        //<! Árbol binario de tipo 'ProblemTree' que almacena los problemas de la clase.
+    ProblemVector problemVect;      //<! Vector ordenado crecientemente de tipo 'ProblemVector' que almacena los problemas de la clase.
 public:
 
     /** @brief Overloaded default class null constructor.
@@ -79,5 +79,32 @@ public:
 
     
 };
+
+/**
+ * @brief Función que lee de la entrada un árbol binario de identificadores de problema en preorden.
+ * @param myTree variable de tipo ProblemTree en la que se almacenará la raíz del árbol.
+ * \pre En la entrada 'stdin' debe estar un conjunto de 'problemid que representan los nodos del árbol binario.
+ *      Se lee en preorden y se considera el '0' como "nodo vacío", es decir, es el marcador de la lectura en preorden.
+ * \post Se modifica la variable 'myTree' asignandole el árbol leido.
+ * @return int: número de elementos que tiene el árbol binario.
+ */
+int read_BinTree(ProblemTree& myTree);
+
+/**
+ * @brief Función que imprime un árbol binario de tipo PtoblemTree.
+ * @param myTree variable de tipo 'ProblemTree'.
+ * \pre El parámetro de entrada debe ser un árbol valido.
+ * \post No se modifica ninguna variable.
+ * @return void.
+ */
+void print_BinTree(const ProblemTree& myTree);
+
+/**
+ * @brief Función que inserta los elementos de un árbol binario en un vector ordenado crecientemente.
+ * @param myVect vector de tipo 'ProblemVector' al que se le insertaran los nodos del árbol.
+ * @param myTree árbol binario de tipo 'ProblemTree'.
+ * @return void.
+ */
+void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree);
 
 #endif

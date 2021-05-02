@@ -2,7 +2,9 @@
 #include <algorithm>
 
 using namespace std;
-
+//######################################//
+//      FUNCIONES AJENAS A LA CLASE     //
+//######################################//
 int read_BinTree(ProblemTree& myTree)
 {
     int sum = 0;
@@ -33,28 +35,21 @@ void print_BinTree(const ProblemTree& myTree)
     }
 }
 
-void vectorize_BinTree(int& i, ProblemVector& myVect, const ProblemTree& myTree)
-{
-    myVect[i] = myTree.value().pid;
-    ProblemTree myTreeLeft = myTree.left();
-    ProblemTree myTreeRight = myTree.right();
-    if(!myTreeLeft.empty()) vectorize_BinTree (++i, myVect, myTreeLeft);
-    if(!myTreeRight.empty()) vectorize_BinTree (++i, myVect, myTreeRight);
-}
-
-int vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
+void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
 {   
-    int i = 0;
-    if (myTree.empty()) return 0;
-    myVect[i] = myTree.value().pid;
+    if (myTree.empty()) return void();
+    myVect.push_back(myTree.value().pid);
     ProblemTree myTreeLeft = myTree.left();
     ProblemTree myTreeRight = myTree.right();
-    if(!myTreeLeft.empty()) vectorize_BinTree (++i, myVect, myTreeLeft);
-    if(!myTreeRight.empty())  vectorize_BinTree(++i, myVect, myTreeRight);
+    if(!myTreeLeft.empty()) vectorize_BinTree (myVect, myTreeLeft);
+    if(!myTreeRight.empty())  vectorize_BinTree(myVect, myTreeRight);
 
-    return 1 + i;
+    return void();
 }
 
+//######################################//
+//        FUNCIONES DE A LA CLASE       //
+//######################################//
 Sesion::Sesion()
 {
     
@@ -77,13 +72,15 @@ ProblemTree Sesion::get_problemTree() const
 
 int Sesion::get_problems_as_vector(ProblemVector& pidVect) const
 {
-    pidVect = ProblemVector(n_problems);
-    return vectorize_BinTree(pidVect, problemTree);;
+    // Hay que solucionar la asignacion de vectores.
+    // pidVect = ProblemVector(n_problems);
+    vectorize_BinTree(pidVect, problemTree);
+    return n_problems;
 }
 
 bool Sesion::has_problem(const problemid& pid) const
 {
-    return ((problemVect.find(pid) == -1) ? false : true);
+    return ((problemVect.find(pid) != -1) ? true : false);
 }
 
 int Sesion::get_problems (ProblemVector& pidVector) const

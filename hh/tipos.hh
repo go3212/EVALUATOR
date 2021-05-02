@@ -112,7 +112,13 @@ public:
         return *this;
     }
 
-    
+    // sortedVector& operator=(const sortedVector<problemid>& inpVect)
+    // {
+    //     classVector = inpVect;
+    //     classVectorSize = inpVect.size();
+    //     sort(classVector.begin(), classVector.end());
+    //     return *this;
+    // }
 
     T& operator[] (const int& index)
     {
@@ -121,6 +127,11 @@ public:
 
     int find(const T& classtype) const
     {
+        //sort(classVector.begin(), classVector.end());
+        // for (int i = 0; i < classVectorSize; ++i)
+        // {
+        //     cout << classVector[i] << ' ';
+        // }
         int left = 0, right = classVectorSize - 1, m;
         while (left <= right)
         {   
@@ -141,11 +152,10 @@ public:
         while(i > 0 && classVector[i - 1] > classVector[i])
         {
             temp = classVector[i - 1];
-            classVector[i-1] = classVector[i];
+            classVector[i - 1] = classVector[i];
             classVector[i] = temp;
             --i;
         }
-
         return true;
     }
 

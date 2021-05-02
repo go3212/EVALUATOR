@@ -3,7 +3,9 @@
 
 using namespace std;
 
-// Funciones que no son de la clase.
+//######################################//
+//      FUNCIONES AJENAS A LA CLASE     //
+//######################################//
 bool sort_vect(ProblemData& a, ProblemData& b)
 {
     return a.pid < b.pid;
@@ -37,7 +39,9 @@ void get_session_available_problems(const BinTree<ProblemData>& problemTree, vec
     }
 }
 
-// Funciones de la clase.
+//######################################//
+//        FUNCIONES DE A LA CLASE       //
+//######################################//
 Usuario::Usuario()
 {
     currentCourse = UserCourseData();
