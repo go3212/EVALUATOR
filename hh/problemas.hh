@@ -16,8 +16,7 @@
 using namespace std;
 
 typedef map<problemid, Problema> ProblemMap;
-
-typedef pair<problemid, Problema> ProblemMapSet;
+typedef pair<problemid, Problema> ProblemPair;
 
 /** @class Problemas
  *  @brief Facilita la gestión de un conjunto de problemas (obj. 'Problema').
@@ -27,6 +26,7 @@ class Problemas
 private:
     int total;
     ProblemMap problemMap;
+
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \post Número total de problemas es cero. Conjunto de problemas ('problemMap') no definido.
@@ -61,7 +61,7 @@ public:
      *  @param pid identificador de problema ('problemid').
      *  \post Devuelve un puntero al objeto 'Problema' buscado. Si no se ha encontrado, devuelve NULL. 
      */
-    bool get_problem(const problemid& pid, ProblemMap::const_iterator& mapIter) const;
+    bool get_problem(const problemid& pid, ProblemMap::iterator& mapIter);
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param myBeginIterator iterador de la posición inicial.

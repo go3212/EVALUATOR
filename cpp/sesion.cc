@@ -47,6 +47,17 @@ void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
     return void();
 }
 
+void binTreeCopy(ProblemTree& copyBinTree, const ProblemTree& binTree)
+{
+    if (binTree.empty()) return void();
+    ProblemTree copyBinTreeLeft, copyBinTreeRight;
+
+    binTreeCopy(copyBinTreeLeft, binTree.left());
+    binTreeCopy(copyBinTreeRight, binTree.right());
+
+    copyBinTree = ProblemTree(binTree.value_cpy(), copyBinTreeLeft, copyBinTreeRight);
+}
+
 //######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
@@ -67,7 +78,9 @@ int Sesion::get_number_of_problems() const
 
 ProblemTree Sesion::get_problemTree() const
 {
-    return problemTree;
+    ProblemTree copyBinTree;
+    binTreeCopy (copyBinTree, problemTree);
+    return copyBinTree;
 }   
 
 int Sesion::get_problems_as_vector(ProblemVector& pidVect) const

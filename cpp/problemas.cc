@@ -30,7 +30,7 @@ void Problemas::read()
 bool Problemas::add_problem(const problemid& pid)
 {
     pair<ProblemMap::const_iterator, bool> mapPair; 
-    mapPair = problemMap.insert(ProblemMapSet(pid, Problema(pid)));
+    mapPair = problemMap.insert(ProblemPair(pid, Problema(pid)));
     if(mapPair.second) total += 1;
     return mapPair.second;
 }
@@ -40,7 +40,7 @@ void Problemas::write()
 
 }
 
-bool Problemas::get_problem(const problemid& pid, ProblemMap::const_iterator& mapIter) const
+bool Problemas::get_problem(const problemid& pid, ProblemMap::iterator& mapIter)
 {
     mapIter = problemMap.find(pid);
     if (mapIter != problemMap.end()) return true;

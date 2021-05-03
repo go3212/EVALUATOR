@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "../hh/comandos.hh"
 #include "../hh/timer.hh"
 
@@ -93,7 +94,7 @@ bool Comandos::run()
                 break;
             case 11:
                 //cout << "#envio" << endl;
-                cin >> uid >> pid >> r; cout <<  ' ' << uid << ' ' << pid << endl;
+                cin >> uid >> pid >> r; cout <<  ' ' << uid << ' ' << pid << ' ' << r << endl;
                 envio(uid, pid, r);
                 break;
             case 12:
@@ -183,7 +184,7 @@ void Comandos::nuevo_curso()
     }
     else
     {
-        cout << "error: el curso no es valido";
+        cout << "error: curso mal formado";
     }
     cout << endl;
 }
@@ -273,7 +274,7 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
 {
     bool found = false;
     CourseVector::iterator courseIter;
-    ProblemMap::const_iterator problemIter;
+    ProblemMap::iterator problemIter;
     if (!courses.get_course(cid, courseIter)) 
     {
         cout << "error: el curso no existe" << endl;
@@ -307,7 +308,8 @@ void Comandos::problemas_resueltos(const userid& uid)
     UserMap::iterator userIter;
     if(users.get_user(uid, userIter))
     {
-        (*userIter).second.print_all_time_solved_problems();
+        int n = (*userIter).second.print_all_time_solved_problems();
+        if (n != 0) cout << endl;
     } else cout << "error: el usuario no existe" << endl;
 }
 
@@ -333,28 +335,48 @@ void Comandos::problemas_enviables(const userid& uid)
 
 void Comandos::envio(const userid& uid, const problemid& pid, const bool& solved)
 {
-    userid uid2 = uid;
-    string pid2 = pid;
-    bool sol = solved;
-    if(sol) sol = false;
+    // Se garantiza que uid está inscrito y el problema pid pertenece a el curso al que uid esta inscrito
+    // Además, u cumple los prerrequisitos de pid.
+    UserMap::iterator userIter;
+    CourseVector::iterator courseIter;
+    if (users.get_user(uid, userIter))
+    {
+        courses.get_course ((*userIter).second.inscribed_course_id(), courseIter);
+        (*userIter).second.update_problem(pid, solved);
+        (*courseIter).update_problem (pid, problems, solved, (*userIter).second.is_inscribed());
+
+    } else cout << "error: el usuario no existe" << endl;
+}
+
+bool problemVectorSort(const ProblemPair& a, const ProblemPair& b)
+{
+    if (a.second.ratio() < b.second.ratio()) return true;
+    else if (a.second.ratio() == b.second.ratio()) return (a.first < b.first);
+    return false;
 }
 
 void Comandos::listar_problemas()
 {
     ProblemMap::const_iterator beginIterator, endIterator;
     problems.get_iterators(beginIterator, endIterator);
-
+    vector<ProblemPair> problemVector;
+    int size = 0;
     while (beginIterator != endIterator)
     {
-        (beginIterator->second).write();
-        cout << endl; 
+        problemVector.push_back((*beginIterator));
+        ++size;
         ++beginIterator;
     }
+
+    sort(problemVector.begin(), problemVector.end(), problemVectorSort);
+
+    for (int i = 0; i < size; ++i) problemVector[i].second.write(), cout << endl;
+
 }
 
 void Comandos::escribir_problema(const problemid& pid)
 {
-    ProblemMap::const_iterator mapIter;
+    ProblemMap::iterator mapIter;
     if(problems.get_problem(pid, mapIter))
     {
         (*mapIter).second.write();

@@ -2,6 +2,23 @@
 
 using namespace std;
 
+//######################################//
+//      FUNCIONES AJENAS A LA CLASE     //
+//######################################//
+// bool get_problemDataNode (const problemid& pid, ProblemData& problemData, const BinTree<ProblemData>& problemTree)
+// {
+//     if (problemTree.empty()) return false;
+//     if (problemTree.value().pid == pid)
+//     {
+//         problemData = problemTree.value();
+//         return true;
+//     }
+//     return (get_problemDataNode (pid, problemData, problemTree.left()) or get_problemDataNode (pid, problemData, problemTree.right()));
+// }
+
+//######################################//
+//        FUNCIONES DE A LA CLASE       //
+//######################################//
 Curso::Curso()
 {
     total = 0;
@@ -45,6 +62,17 @@ int Curso::inscribed_users() const
     return userdata.inscribed_users;
 }
 
+void Curso::update_problem (const problemid& pid, Problemas& problems, const bool& isSolved, const bool& isInscribed)
+{
+    // Actualizamos el registro de usuarios (inscritos y los que han superado el curso)
+    userdata.alltime_users += 1*(!isInscribed);
+    userdata.inscribed_users -= 1*(!isInscribed);
+
+    // Buscamos el problema y actualizamos su información.
+    ProblemMap::iterator problemIter;
+    problems.get_problem(pid, problemIter);
+    problemIter->second.update_attempts(isSolved);
+}
 
 void Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const
 {

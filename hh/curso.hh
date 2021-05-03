@@ -11,6 +11,7 @@
 #include <set>
 #include "tipos.hh"
 #include "sesiones.hh"
+#include "problemas.hh"
 
 using namespace std;
 
@@ -89,6 +90,15 @@ public:
      *  @return int: número de usuarios inscritos en el curso. (int >= 0).
      */    
     int inscribed_users() const;
+
+    /**
+     * @brief Función que actualiza el estado de los problemas del curso resueltos por un usuario.
+     * @param pid identificador de problema que ha resuelto el usuario. Tipo 'problemid'.
+     * @param isInscribed si el usuario está inscrito o no en el curso.
+     * \pre El usuario estaba (o está) inscrito en el curso.
+     * \post Se actualiza el registro de problemas del curso en función de si el usuario ha solucionado el problema o no.
+     */
+    void update_problem (const problemid& pid, Problemas& problems, const bool& isSolved, const bool& isInscribed);
 
     /** @brief Asigna los iteradores del vector 'sessionVector' a los parámetros.
      *  @param beginIterator iterador del inicio del vector 'sessionVector'. Tipo 'CourseSessionVector::const_iterator'.

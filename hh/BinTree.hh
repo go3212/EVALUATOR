@@ -75,6 +75,16 @@ public:
         return p->x;
     }
 
+    const T& value_cpy () const {
+        assert(not empty());
+        return p->x;
+    }
+
+    T& non_const_value () {
+        assert(not empty());
+        return (p->x);
+    }
+
 };
 
 #endif

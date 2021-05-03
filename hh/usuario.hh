@@ -76,6 +76,14 @@ public:
     bool inscribe(const courseid& cid, const Curso& course, Sesiones& sessions);
 
     /**
+     * @brief Función que actualiza el conjunto de problemas de acuerdo con las reglas establecidas previamente.
+     * \pre El usuario está inscrito y el problema a solucionar no ha sido solucionado previamente y existe en el curso.
+     * \post Se actualiza la estructura 'currentCourse' y la estructura 'allCourses'. Se actualiza el estado del curso en el que está inscrito el usuario
+     * @return bool: 'true' si el curso se ha completado, 'false' si no ha sido completado.
+     */
+    bool update_problem(const problemid& pid, const bool& isSolved);
+
+    /**
      * @brief Función que sirve para "visualizar" los problemas que tiene el usuario disponibles a solucionar.
      * @param problemVect objeto que contendrá todos los problemas disponibles (que cumple todos los requisitos) a solucionar por el usuario. 
      * \pre true.
@@ -88,9 +96,9 @@ public:
     /** @brief Función que imprime por pantalla todos los cursos solucionados por un usuario.
      *  \pre El usuario debe tener identificador.
      *  \post No se realizan modificaciones en ningún objeto.
-     *  @return void
+     *  @return int: número de problemas resueltos.
      */
-    void print_all_time_solved_problems() const;
+    int print_all_time_solved_problems() const;
 
     /** @brief Imprime por pantalla información sobre el usuario
      *  \pre true.

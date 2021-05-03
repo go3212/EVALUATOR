@@ -37,7 +37,15 @@ public:
      *  @param solved valor que indica si el problema ha sido solucionado correctamente o no ('bool').
      *  \post Se incrementa el número de intentos totales en uno. En función de si se ha solucionado correctamente se increamentan los intentos correctos o los incorrectos.
      */
-    void update_attempts(const bool& solved);
+    void update_attempts(const bool& isSolved);
+
+    /**
+     * @brief Función que obtiene el ratio del problema.
+     * \pre true.
+     * \post No se modifica ningun parámetro de la clase.
+     * @return const double: 
+     */
+    const double ratio() const;
 
     /** @brief Devuelve los intentos del problema.
      *  \post Se devuelve por referencia un objeto 'Attempts' constante.
@@ -50,5 +58,6 @@ public:
      */
     void write() const;
 };
+
 
 #endif
