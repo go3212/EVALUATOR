@@ -1,8 +1,0 @@
-Usuarios.hh y Usuarios.cc
-Usuario.hh y Usuario.cc
-Curso.hh y Curso.cc
-Cursos.hh y Cursos.cc
-Sesion.cc y 
-Sesiones.hh y
-
-el error no tiene que ver con baja de usuario
