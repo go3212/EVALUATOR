@@ -136,17 +136,18 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
 
 bool Usuario::update_problem(const problemid& pid, const bool& isSolved)
 {
-    // Primero buscamos el problema en curso (árbol de problemas) y actualizamos su información
+    // Primero buscamos el problema en curso (árbol de problemas) y actualizamos su información.
     ProblemData problemData;
 
     bool found = false;
     int i = 0;
     while (!found and i < currentCourse.num_problemTree)
     {
+        // Básicamente, como la intersección de conjuntos de sesiones es el vacío, cada problema es único del curso.
         found = update_problemDataNode (pid, problemData, isSolved, currentCourse.problemTreeVector[i]);
         ++i;
     }
-    // Asumimos que el problema siempre existe, actualizamos toda su información.
+    // Asumimos que el problema siempre existe, actualizamos toda su información, la información del problema actual es problemData.
     currentCourse.update_attempts (problemData, isSolved);
     allCourses.update_attempts (problemData, isSolved);
 

@@ -191,11 +191,9 @@ struct UserCourseData
     courseid identifier;
     Attempts totalAttempts;
     int num_problems;
-    vector<ProblemData> solvedProblems;
-    int solvedProblemsSize;
-    //vector<pair<sessionid, BinTree<pair<bool, problemid>>>> sessions; 
-    //vector<ProblemData> availableProblems;
     int num_problemTree;
+    int solvedProblemsSize;
+    vector<ProblemData> solvedProblems;
     vector<BinTree<ProblemData>> problemTreeVector;
 
     UserCourseData()
@@ -280,10 +278,12 @@ struct UserCoursesData
 
     bool update_attempts (const ProblemData& problemData, const bool& isSolved)
     {
-        int i = binary_search_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
         attempts.update_attempts(isSolved);
+        int i = binary_search_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
+        // Si se ha solucionado, añadimos problemData al vector de problemas solucionados.
         if (isSolved) insert_solved_problem (problemData);
-
+        // En cualquier caso, actualizamos 
+        if (i != -1) 
         if (i == -1)
         {
             insertion_sort_LH (problemData, attemptedProblemsVect, sizeAttemptedProblemsVect);
