@@ -1,4 +1,4 @@
-#include "../hh/cursos.hh"
+#include "cursos.hh"
 
 using namespace std;
 

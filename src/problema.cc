@@ -1,4 +1,4 @@
-#include "../hh/problema.hh"
+#include "problema.hh"
 
 Problema::Problema()
 {

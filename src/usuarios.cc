@@ -1,5 +1,5 @@
-#include "../hh/usuarios.hh"
-#include "../hh/usuario.hh"
+#include "usuarios.hh"
+#include "usuario.hh"
 
 using namespace std;
 

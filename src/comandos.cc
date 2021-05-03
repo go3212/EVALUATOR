@@ -1,6 +1,6 @@
 #include <algorithm>
-#include "../hh/comandos.hh"
-#include "../hh/timer.hh"
+#include "comandos.hh"
+#include "timer.hh"
 
 #include<unistd.h>
 

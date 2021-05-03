@@ -1,10 +1,10 @@
 #include <iostream>
-#include "hh/tipos.hh"
-#include "hh/problemas.hh"
-#include "hh/usuarios.hh"
-#include "hh/cursos.hh"
-#include "hh/comandos.hh"
-#include "hh/timer.hh"
+#include "src/tipos.hh"
+#include "src/problemas.hh"
+#include "src/usuarios.hh"
+#include "src/cursos.hh"
+#include "src/comandos.hh"
+#include "src/timer.hh"
 
 using namespace std;
 

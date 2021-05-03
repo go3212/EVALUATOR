@@ -1,4 +1,4 @@
-#include "../hh/tipos.hh"
+#include "tipos.hh"
 
 
 const int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, int vectSize)
