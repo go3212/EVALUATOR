@@ -49,23 +49,12 @@ struct Attempts
     int accepted;
     int total;
     int rejected;
-    int unique;
 
-    Attempts()
-    {
-        total = 0;
-        accepted = 0;
-        rejected = 0;
-    }
+    Attempts();
 
-    bool update_attempts (const bool& isCorrect)
-    {
-        total += 1;
-        if (isCorrect) accepted += 1;
-        else rejected += 1;
-        return isCorrect;
-    }
+    bool update_attempts (const bool& isCorrect);
 };
+
 
 /** @struct ProblemData
  *  @brief Almacena información genérica sobre un 'Problema'.
@@ -76,24 +65,16 @@ struct ProblemData
     problemid pid;
     bool solved;
 
-    ProblemData()
-    {
-        solved = false;
-    }
+    ProblemData();
 
-    ProblemData(const problemid& pid)
-    {
-        this->pid = pid;
-        solved = false;
-    }
+    ProblemData(const problemid& pid);
 
-    bool solve(const bool& isSolved)
-    {
-        solved = isSolved;
-        attempts.update_attempts(isSolved);
-        return solved;
-    }
+    bool solve(const bool& isSolved);
 };
+
+const int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, int vectSize);
+
+const int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize);
 
 template <typename T> class sortedVector
 {
@@ -112,27 +93,12 @@ public:
         classVectorSize = size;
     };
 
-    // sortedVector(vector<T>& inpVect)
-    // {
-    //     sort(inpVect.begin(), inpVect.end());
-    //     classVectorSize = inpVect.size();
-    //     classVector = inpVect; // Mirar de optimizar
-    // }
-
     template<typename U> sortedVector& operator=(const sortedVector<U>& inpVect)
     {
         classVector = inpVect;
         classVectorSize = inpVect.size();
         return *this;
     }
-
-    // sortedVector& operator=(const sortedVector<problemid>& inpVect)
-    // {
-    //     classVector = inpVect;
-    //     classVectorSize = inpVect.size();
-    //     sort(classVector.begin(), classVector.end());
-    //     return *this;
-    // }
 
     T& operator[] (const int& index)
     {
@@ -141,11 +107,6 @@ public:
 
     int find(const T& classtype) const
     {
-        //sort(classVector.begin(), classVector.end());
-        // for (int i = 0; i < classVectorSize; ++i)
-        // {
-        //     cout << classVector[i] << ' ';
-        // }
         int left = 0, right = classVectorSize - 1, m;
         while (left <= right)
         {   
@@ -179,9 +140,6 @@ public:
     }
 };
 
-const int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, int vectSize);
-
-int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize);
 
 /** @struct UserCourseData
  *  @brief Almacena información genérica sobre 'Curso' que cursa un 'Usuario'.
@@ -190,42 +148,22 @@ struct UserCourseData
 {
     courseid identifier;
     Attempts totalAttempts;
-    int num_problems;
-    int num_problemTree;
-    int solvedProblemsSize;
     vector<ProblemData> solvedProblems;
     vector<BinTree<ProblemData>> problemTreeVector;
+    int numProblems;
+    int solvedProblemsSize;
+    int sizeProblemTreeVector;
 
-    UserCourseData()
-    {
-        num_problemTree = 0;
-        num_problems = 0;
-        solvedProblemsSize = 0;
-        problemTreeVector = vector<BinTree<ProblemData>>(num_problemTree);
-        solvedProblems = vector<ProblemData>(0);
-    }
+    UserCourseData();
 
-    UserCourseData(const courseid& cid)
-    {
-        identifier = cid;
-        num_problemTree = 0;
-        num_problems = 0;
-        solvedProblemsSize = 0;
-        problemTreeVector = vector<BinTree<ProblemData>>(num_problemTree);
-        solvedProblems = vector<ProblemData>(0);
-    }
+    UserCourseData(const courseid& cid);
 
-    int notsolved_problems ()
-    {
-        return num_problems - solvedProblemsSize;
-    }
+    int notsolved_problems () const;
 
-    bool update_attempts (const ProblemData& problemData, const bool& isSolved)
-    {
-        totalAttempts.update_attempts(isSolved);
-        if (isSolved) insertion_sort_LH (problemData, solvedProblems, solvedProblemsSize);
-        return isSolved;
-    }
+    bool update_tree_problem (const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree);
+
+    ProblemData update_data (const problemid& pid, const bool& isSolved);
+
 };
 
 /** @struct UserCoursesData
@@ -240,64 +178,16 @@ struct UserCoursesData
     int sizeCoursesVect;
     int sizeAttemptedProblemsVect;
 
-    UserCoursesData()
-    {
-        attemptedProblemsVect = vector<ProblemData>(0);
-        coursesVect = vector<ProblemData>(0);
-        sizeCoursesVect = 0;
-        sizeAttemptedProblemsVect = 0;
-        unique_attempts = 0;
-    }
+    UserCoursesData();
 
-    bool insert_attempted_problem(const ProblemData& problemData)
-    {
-        int i = binary_search_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
-        if (i != -1) return false;
+    // HACER UN REWORK COMPLETO A ESTA CLASE POR FAVOR
+    bool insert_attempted_problem(const ProblemData& problemData);
 
-        insertion_sort_LH(problemData, attemptedProblemsVect, sizeAttemptedProblemsVect);
-        unique_attempts += 1;
-        return true;
-    }
+    int insert_solved_problem (const ProblemData& problemData);
 
-    int insert_solved_problem (const ProblemData& problemData)
-    {
-        // Se asume que el problema no existe en el vector.
-        coursesVect.push_back(problemData);
-        ++sizeCoursesVect;
-        int i = sizeCoursesVect - 1; 
-        ProblemData temp;
-        while(i > 0 && coursesVect[i - 1].pid > coursesVect[i].pid)
-        {
-            temp = coursesVect[i - 1];
-            coursesVect[i - 1] = coursesVect[i];
-            coursesVect[i] = temp;
-            --i;
-        }
-        return i;
-    }
+    bool update_attempts (const ProblemData& problemData, const bool& isSolved);
 
-    bool update_attempts (const ProblemData& problemData, const bool& isSolved)
-    {
-        attempts.update_attempts(isSolved);
-        int i = binary_search_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
-        // Si se ha solucionado, añadimos problemData al vector de problemas solucionados.
-        if (isSolved) insert_solved_problem (problemData);
-        // En cualquier caso, actualizamos 
-        if (i != -1) 
-        if (i == -1)
-        {
-            insertion_sort_LH (problemData, attemptedProblemsVect, sizeAttemptedProblemsVect);
-            unique_attempts += 1;
-        }
-        return isSolved;
-    }
-
-    const int find (const problemid& pid)
-    {
-        int i = binary_search_LH (pid, coursesVect, sizeCoursesVect);
-        if (i == -1) return -1;
-        return i;
-    }
+    const int find (const problemid& pid);
 };
 
 #endif

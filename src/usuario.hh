@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include "tipos.hh"
 #include "curso.hh"
 #include "problema.hh"
@@ -145,5 +146,11 @@ bool sort_vect(ProblemData& a, ProblemData& b);
  *  @return void
  */
 void get_session_available_problems(const BinTree<ProblemData>& problemTree, vector<ProblemData>& problemVector);
+
+/**
+ * @brief Función que actualiza 
+ * 
+ */
+bool update_problemDataNode (const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree);
 
 #endif

@@ -80,7 +80,7 @@ public:
         return p->x;
     }
 
-    T& non_const_value () {
+    T& value () {
         assert(not empty());
         return (p->x);
     }

@@ -1,5 +1,4 @@
 #include "usuario.hh"
-#include <algorithm>
 
 using namespace std;
 
@@ -39,26 +38,13 @@ void get_session_available_problems(const BinTree<ProblemData>& problemTree, vec
     }
 }
 
-bool update_problemDataNode (const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree)
-{
-    if (problemTree.empty()) return false;
-    if (problemTree.value().pid == pid)
-    {
-        problemTree.non_const_value().solve(solved);
-        problemData = problemTree.non_const_value();
-        return true;
-    }
-    BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
-    return (update_problemDataNode (pid, problemData, solved, left) or update_problemDataNode (pid, problemData, solved, right));
-}
-
 void initialize_solved_problems (UserCoursesData& userCoursesData, BinTree<ProblemData> problemTree)
 {
     if (problemTree.empty()) return void();
     int i = userCoursesData.find(problemTree.value().pid);
     if (i != -1)
     {
-        problemTree.non_const_value() = userCoursesData.coursesVect[i];
+        problemTree.value() = userCoursesData.coursesVect[i];
     }
     BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
     initialize_solved_problems(userCoursesData, left);
@@ -125,8 +111,8 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
         // Insertamos el árbol de problemas de la sesión en el vector de árboles de problemas del usuario.
         currentCourse.problemTreeVector.push_back(problemTree);
 
-        currentCourse.num_problems += sessionIter->second.get_number_of_problems();
-        ++currentCourse.num_problemTree;
+        currentCourse.numProblems += sessionIter->second.get_number_of_problems();
+        ++currentCourse.sizeProblemTreeVector;
         ++courseSessionVectorBegin;
     }
     // Seguro que se ha inscrito.
@@ -136,19 +122,9 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
 
 bool Usuario::update_problem(const problemid& pid, const bool& isSolved)
 {
-    // Primero buscamos el problema en curso (árbol de problemas) y actualizamos su información.
-    ProblemData problemData;
 
-    bool found = false;
-    int i = 0;
-    while (!found and i < currentCourse.num_problemTree)
-    {
-        // Básicamente, como la intersección de conjuntos de sesiones es el vacío, cada problema es único del curso.
-        found = update_problemDataNode (pid, problemData, isSolved, currentCourse.problemTreeVector[i]);
-        ++i;
-    }
     // Asumimos que el problema siempre existe, actualizamos toda su información, la información del problema actual es problemData.
-    currentCourse.update_attempts (problemData, isSolved);
+    ProblemData problemData = currentCourse.update_data (pid, isSolved);
     allCourses.update_attempts (problemData, isSolved);
 
     // Si el usuario ha completado todos los problemas, se desinscribe del curso.
@@ -164,7 +140,7 @@ int Usuario::available_problems(vector<ProblemData>& problemVect) const
     // Los problemas a enviar son aquellos que no han sido solucionados y que son precedidos por problemas solucionados
     // Por defecto, el primer problema de una sesión se puede enviar. 
     // Inv: cada iteración incrementa el tamaño de problemVect.
-    for (int i = 0; i < currentCourse.num_problemTree; ++i)
+    for (int i = 0; i < currentCourse.sizeProblemTreeVector; ++i)
     {
         // Se insertan detras de problemVect los problemas a solucionar del problemTreeVector[i].
         get_session_available_problems(currentCourse.problemTreeVector[i], problemVect);
