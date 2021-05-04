@@ -38,20 +38,6 @@ void get_session_available_problems(const BinTree<ProblemData>& problemTree, vec
     }
 }
 
-void initialize_solved_problems (UserCoursesData& userCoursesData, BinTree<ProblemData> problemTree)
-{
-    if (problemTree.empty()) return void();
-    int i = userCoursesData.find(problemTree.value().pid);
-    if (i != -1)
-    {
-        problemTree.value() = userCoursesData.coursesVect[i];
-    }
-    BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
-    initialize_solved_problems(userCoursesData, left);
-    initialize_solved_problems(userCoursesData, right);
-    return void();
-}
-
 //######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
@@ -106,17 +92,19 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
         // Seguro que la sesión a buscar existe.
         sessions.get_session(*courseSessionVectorBegin, sessionIter);
         // Para cada problema del árbol, tenemos que revisar si ha sido solucionado o no.
-        BinTree<ProblemData> problemTree = sessionIter->second.get_problemTree();
-        initialize_solved_problems(allCourses, problemTree);
+        // [BORRAR] BinTree<ProblemData> problemTree = sessionIter->second.get_problemTree();
         // Insertamos el árbol de problemas de la sesión en el vector de árboles de problemas del usuario.
-        currentCourse.problemTreeVector.push_back(problemTree);
+        currentCourse.problemTreeVector.push_back(sessionIter->second.get_problemTree());
 
+        //[NOTA] QUIZAS MEJOR HACER UNA FUNCION FETCH??
         currentCourse.numProblems += sessionIter->second.get_number_of_problems();
         ++currentCourse.sizeProblemTreeVector;
         ++courseSessionVectorBegin;
     }
+    currentCourse.fetch_solved_problems(allCourses);
     // Seguro que se ha inscrito.
     isInscribed = true;
+    if (currentCourse.notsolved_problems() == 0) isInscribed = false;
     return true; 
 }
 
@@ -132,6 +120,7 @@ bool Usuario::update_problem(const problemid& pid, const bool& isSolved)
     return isSolved;
 }
 
+//[FUNCION CRITICA PARA OPTIMIZAR]
 int Usuario::available_problems(vector<ProblemData>& problemVect) const
 {
     // Si no está inscrito a ningún curso, no es posible listar problemas a enviar (tenga o no).

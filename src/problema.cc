@@ -15,7 +15,7 @@ void Problema::update_attempts(const bool& isSolved)
     attempts.update_attempts(isSolved);
 }
 
-const double Problema::ratio() const
+double Problema::ratio() const
 {
     return (double)((double)(attempts.total + 1))/((double)(attempts.accepted + 1));
 }

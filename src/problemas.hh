@@ -2,7 +2,6 @@
  *  @brief Especificación de la clase 'Problemas'.
  */
 
-
 #ifndef PROBLEMAS_HH
 #define PROBLEMAS_HH
 

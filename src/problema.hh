@@ -45,7 +45,7 @@ public:
      * \post No se modifica ningun parámetro de la clase.
      * @return const double: 
      */
-    const double ratio() const;
+    double ratio() const;
 
     /** @brief Devuelve los intentos del problema.
      *  \post Se devuelve por referencia un objeto 'Attempts' constante.

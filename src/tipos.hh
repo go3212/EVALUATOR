@@ -46,12 +46,22 @@ typedef string command;
  */
 struct Attempts
 {
-    int accepted;
-    int total;
-    int rejected;
+    int total;      //!< Número total de envíos.
+    int accepted;   //!< Problemas aceptados (envios correctos)
+    int rejected;   //!< Problemas rechazados (envíos incorrectos).
 
+    /** @brief Constructor por defecto de la estructura que inicializa todas las variables a cero.
+     *  \pre true
+     *  \post Todas las variables son inicializadas a cero.
+     */
     Attempts();
 
+    /** @brief Actualiza los datos de todas las variables de la clase frente a un envío. (correcto o no).
+     *  @param isCorrect variable que indica si el envío es cierto o falso.
+     *  \pre true
+     *  \post Se actualizan las variables de la estructura de acuerdo con el formato establecido.
+     *  @return bool: true si el parámetro es cierto, false si el parámetro es falso.
+     */
     bool update_attempts (const bool& isCorrect);
 };
 
@@ -144,6 +154,36 @@ public:
     }
 };
 
+/** @struct UserCoursesData
+ *  @brief Almacena información genérica sobre todos los 'Curso' que ha cursado un 'Usuario'.
+ */
+struct UserCoursesData
+{
+    Attempts attempts;                       //!< Intentos totales a todos los problemas, resueltos o no.
+    vector<ProblemData> coursesVect;         //!< Vector que almacena todos los problemas resueltos por el usuario (de todos los cursos). Ordenado crecientemente por 'ProblemData::pid'
+    vector<problemid> attemptedProblemsVect; //!< [INCORRECTO] Conjunto de problemas no resueltos a los que se ha realizado al menos un envio. Ordenado crecientemento por 'problemid'.
+    int unique_attempts;                     //!< Problemas a los que se ha realizado al menos un envío (solucionados y no solucionados).
+    int sizeCoursesVect;                     //!< Tamaño del vector 'ProblemData::coursesVect', representa el número de problemas solucionados.
+    int sizeAttemptedProblemsVect;           //!< Tamaño del vector 'ProblemData::attemptedProblemsVect', representa el número de problemas no solucionados pero que se han intentado.
+
+    UserCoursesData();
+
+    // HACER UN REWORK COMPLETO A ESTA CLASE POR FAVOR
+    bool insert_attempted_problem(const ProblemData& problemData);
+
+    int insert_solved_problem (const ProblemData& problemData);
+
+    bool update_attempts (const ProblemData& problemData, const bool& isSolved);
+
+    int find (const problemid& pid);
+};
+
+/** @brief Función que actualiza
+ *
+ */
+bool update_tree_problem(const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree);
+
+
 /** @struct UserCourseData
  *  @brief Almacena información genérica sobre 'Curso' que cursa un 'Usuario'.
  */
@@ -151,7 +191,7 @@ struct UserCourseData
 {
     courseid identifier;                            //!< Identificador de curso ('courseid'). Representa el curso al que pertence la información.
     Attempts totalAttempts;                         //!< Intentos totales realizados al curso.
-    vector<ProblemData> solvedProblems;             //!< Registro de problemas solucionados del curso, desde que se inscribió el usuario. Con su respectiva información ('ProblemData'). 
+    // vector<ProblemData> solvedProblems;             //!< Registro de problemas solucionados del curso, desde que se inscribió el usuario. Con su respectiva información ('ProblemData'). Ordenado crecientemente.
     vector<BinTree<ProblemData>> problemTreeVector; //!< Árbol de problemas del curso, con su respectiva información. (Cada elemento del vector representa un árbol de problemas).
     int numProblems;                                //!< Número de problemas que tiene el curso. (Representa el tamaño máximo del vector 'solvedProblems')
     int solvedProblemsSize;                         //!< Número de problemas solucionados por el usuario. (Representa el tamaño del vector 'solvedProblems')
@@ -188,6 +228,14 @@ struct UserCourseData
      */
     bool update_tree_problem (const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree);
 
+    /** @brief Función que marca los problemas solucionados previamente (en otros cursos) en el curso actual.
+     *  @param userCoursesData objeto del tipo 'UserCoursesData' que contiene toda la información relevante de los cursos previos.
+     *  \pre true.
+     *  \post Se actualiza el vector de árboles binarios.
+     *  @return void.
+     */
+    void fetch_solved_problems (UserCoursesData& userCoursesData);
+
     /** @brief Función con el propósito de actualizar el estado de un problema del curso.
      *  @param pid problema a actualizar. Tipo 'problemid'.
      *  @param isSolved estado que tendrá el problema cuando se actualice. (true si el problema se soluciona y false si no se soluciona). Tipo 'bool'. 
@@ -197,35 +245,5 @@ struct UserCourseData
      */
     ProblemData update_data (const problemid& pid, const bool& isSolved);
 };
-
-/** @struct UserCoursesData
- *  @brief Almacena información genérica sobre todos los 'Curso' que ha cursado un 'Usuario'.
- */
-struct UserCoursesData
-{
-    Attempts attempts;
-    vector<ProblemData> coursesVect; /*Ordenado en orden creciente por identificador de problema*/
-    vector<problemid> attemptedProblemsVect; //<! Ordenado crecientemente.
-    int unique_attempts;
-    int sizeCoursesVect;
-    int sizeAttemptedProblemsVect;
-
-    UserCoursesData();
-
-    // HACER UN REWORK COMPLETO A ESTA CLASE POR FAVOR
-    bool insert_attempted_problem(const ProblemData& problemData);
-
-    int insert_solved_problem (const ProblemData& problemData);
-
-    bool update_attempts (const ProblemData& problemData, const bool& isSolved);
-
-    int find (const problemid& pid);
-};
-
-/**
- * @brief Función que actualiza
- *
- */
-bool update_tree_problem(const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree);
 
 #endif
