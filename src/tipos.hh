@@ -72,9 +72,13 @@ struct ProblemData
     bool solve(const bool& isSolved);
 };
 
-const int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, int vectSize);
+int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, int vectSize);
 
-const int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize);
+int binary_search_LH (const problemid& item, const vector<problemid>& myVect, int vectSize);
+
+int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize);
+
+int insertion_sort_LH (const problemid& problemData, vector<problemid>& myVect, int& vectSize);
 
 template <typename T> class sortedVector
 {
@@ -140,7 +144,6 @@ public:
     }
 };
 
-
 /** @struct UserCourseData
  *  @brief Almacena información genérica sobre 'Curso' que cursa un 'Usuario'.
  */
@@ -173,7 +176,7 @@ struct UserCoursesData
 {
     Attempts attempts;
     vector<ProblemData> coursesVect; /*Ordenado en orden creciente por identificador de problema*/
-    vector<ProblemData> attemptedProblemsVect; //<! Ordenado crecientemente.
+    vector<problemid> attemptedProblemsVect; //<! Ordenado crecientemente.
     int unique_attempts;
     int sizeCoursesVect;
     int sizeAttemptedProblemsVect;
@@ -187,7 +190,13 @@ struct UserCoursesData
 
     bool update_attempts (const ProblemData& problemData, const bool& isSolved);
 
-    const int find (const problemid& pid);
+    int find (const problemid& pid);
 };
+
+/**
+ * @brief Función que actualiza
+ *
+ */
+bool update_tree_problem(const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree);
 
 #endif

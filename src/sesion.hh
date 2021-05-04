@@ -16,7 +16,7 @@ using namespace std;
 /** @typedef ProblemTree
  *  @brief Tipo de variable que almacena problemas de sesiones en forma de árbol binario.
  */
-typedef BinTree<ProblemData> ProblemTree;
+typedef BinTree<problemid> ProblemTree;
 
 typedef sortedVector<problemid> ProblemVector;
 
@@ -48,7 +48,7 @@ public:
      */ 
     Sesion(const sessionid& sid);
 
-    ProblemTree get_problemTree() const;
+    BinTree<ProblemData> get_problemTree() const;
 
     /** @brief Devuelve si la sesion tiene identificador.
      *  \post Devuelve 'true' si la sesión tiene identificador y 'false' si no lo tiene.

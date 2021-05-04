@@ -15,7 +15,7 @@ int read_BinTree(ProblemTree& myTree)
         sum += read_BinTree(myTreeLeft);
         ProblemTree myTreeRight;
         sum += read_BinTree(myTreeRight);
-        myTree = ProblemTree(ProblemData(pid), myTreeLeft, myTreeRight);
+        myTree = ProblemTree(pid, myTreeLeft, myTreeRight);
         return 1 + sum;
     }
     return sum;
@@ -31,14 +31,14 @@ void print_BinTree(const ProblemTree& myTree)
         print_BinTree(myTreeLeft);
         ProblemTree myTreeRight = myTree.right();
         print_BinTree(myTreeRight);
-        cout << myTree.value().pid << ')';
+        cout << myTree.value() << ')';
     }
 }
 
 void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
 {   
     if (myTree.empty()) return void();
-    myVect.push_back(myTree.value().pid);
+    myVect.push_back(myTree.value());
     ProblemTree myTreeLeft = myTree.left();
     ProblemTree myTreeRight = myTree.right();
     if(!myTreeLeft.empty()) vectorize_BinTree (myVect, myTreeLeft);
@@ -47,15 +47,15 @@ void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
     return void();
 }
 
-void binTreeCopy(ProblemTree& copyBinTree, const ProblemTree& binTree)
+void userBinTreeTransform(BinTree<ProblemData>& copyBinTree, const ProblemTree& binTree)
 {
     if (binTree.empty()) return void();
-    ProblemTree copyBinTreeLeft, copyBinTreeRight;
+    BinTree<ProblemData> copyBinTreeLeft, copyBinTreeRight;
 
-    binTreeCopy(copyBinTreeLeft, binTree.left());
-    binTreeCopy(copyBinTreeRight, binTree.right());
+    userBinTreeTransform(copyBinTreeLeft, binTree.left());
+    userBinTreeTransform(copyBinTreeRight, binTree.right());
 
-    copyBinTree = ProblemTree(binTree.value_cpy(), copyBinTreeLeft, copyBinTreeRight);
+    copyBinTree = BinTree<ProblemData>(ProblemData(binTree.value_cpy()), copyBinTreeLeft, copyBinTreeRight);
 }
 
 //######################################//
@@ -76,10 +76,10 @@ int Sesion::get_number_of_problems() const
     return n_problems;
 }
 
-ProblemTree Sesion::get_problemTree() const
+BinTree<ProblemData> Sesion::get_problemTree() const
 {
-    ProblemTree copyBinTree;
-    binTreeCopy (copyBinTree, problemTree);
+    BinTree<ProblemData> copyBinTree;
+    userBinTreeTransform (copyBinTree, problemTree);
     return copyBinTree;
 }   
 

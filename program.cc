@@ -16,6 +16,6 @@ int main ()
     Usuarios users; users.read();
     
     Comandos commands(users, courses, problems, sessions);
-    commands.run_time_mode();
+    commands.run();
 
 }

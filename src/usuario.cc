@@ -106,7 +106,7 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
         // Seguro que la sesión a buscar existe.
         sessions.get_session(*courseSessionVectorBegin, sessionIter);
         // Para cada problema del árbol, tenemos que revisar si ha sido solucionado o no.
-        ProblemTree problemTree = sessionIter->second.get_problemTree();
+        BinTree<ProblemData> problemTree = sessionIter->second.get_problemTree();
         initialize_solved_problems(allCourses, problemTree);
         // Insertamos el árbol de problemas de la sesión en el vector de árboles de problemas del usuario.
         currentCourse.problemTreeVector.push_back(problemTree);

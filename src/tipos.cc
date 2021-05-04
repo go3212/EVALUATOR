@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, int vectSize)
+int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, int vectSize)
 {
     int left = 0, right = vectSize - 1, m;
     while (left <= right)
@@ -16,13 +16,42 @@ const int binary_search_LH (const problemid& item, const vector<ProblemData>& my
     return -1;
 }
 
-const int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize)
+int binary_search_LH (const problemid& item, const vector<problemid>& myVect, int vectSize)
+{
+    int left = 0, right = vectSize - 1, m;
+    while (left <= right)
+    {
+        m = (left+right)/2;
+        if (myVect[m] < item) left = m + 1;
+        else if (myVect[m] > item) right = m - 1;
+        else return m;
+    }
+    return -1;   
+}
+
+int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize)
 {
     myVect.push_back(problemData);
     ++vectSize;
     int i = vectSize - 1; 
     ProblemData temp;
     while(i > 0 && myVect[i - 1].pid > myVect[i].pid)
+    {
+        temp = myVect[i - 1];
+        myVect[i - 1] = myVect[i];
+        myVect[i] = temp;
+        --i;
+    }
+    return i;
+}
+
+int insertion_sort_LH (const problemid& problemData, vector<problemid>& myVect, int& vectSize)
+{
+    myVect.push_back(problemData);
+    ++vectSize;
+    int i = vectSize - 1; 
+    problemid temp;
+    while(i > 0 && myVect[i - 1]> myVect[i])
     {
         temp = myVect[i - 1];
         myVect[i - 1] = myVect[i];
@@ -138,7 +167,7 @@ ProblemData UserCourseData::update_data(const problemid& pid, const bool& isSolv
 //  UserCoursesData
 UserCoursesData::UserCoursesData()
 {
-    attemptedProblemsVect = vector<ProblemData>(0);
+    attemptedProblemsVect = vector<problemid>(0);
     coursesVect = vector<ProblemData>(0);
     sizeCoursesVect = 0;
     sizeAttemptedProblemsVect = 0;
@@ -149,7 +178,7 @@ bool UserCoursesData::insert_attempted_problem(const ProblemData& problemData)
 {
     int i = binary_search_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
     if (i != -1) return false;
-    insertion_sort_LH(problemData, attemptedProblemsVect, sizeAttemptedProblemsVect);
+    insertion_sort_LH(problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
     unique_attempts += 1;
     return true;
 }
@@ -178,16 +207,15 @@ bool UserCoursesData::update_attempts (const ProblemData& problemData, const boo
     // Si se ha solucionado, añadimos problemData al vector de problemas solucionados.
     if (isSolved) insert_solved_problem (problemData);
     // En cualquier caso, actualizamos 
-    if (i != -1) 
     if (i == -1)
     {
-        insertion_sort_LH (problemData, attemptedProblemsVect, sizeAttemptedProblemsVect);
+        insertion_sort_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
         unique_attempts += 1;
     }
     return isSolved;
 }
 
-const int UserCoursesData::find (const problemid& pid)
+int UserCoursesData::find (const problemid& pid)
 {
     int i = binary_search_LH (pid, coursesVect, sizeCoursesVect);
     if (i == -1) return -1;

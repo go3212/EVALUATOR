@@ -18,7 +18,7 @@ void Problemas::read()
     int n; cin >> n;
     total = n;
 
-    problemid pid; 
+    problemid pid;
     while (n != 0)
     {
         cin >> pid;
