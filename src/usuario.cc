@@ -39,6 +39,41 @@ void get_session_available_problems(const BinTree<ProblemData>& problemTree, int
     }
 }
 
+void write_data (const ProblemData& problemData)
+{
+                cout << problemData.pid;
+                cout << '(' << problemData.attempts.total << ')';
+                cout << endl;
+}
+
+void print_session_available_problems(const BinTree<ProblemData>& problemTree)
+{
+    // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
+    // considera que la raíz (la primera) siempre es solucionable.
+    
+    if (!problemTree.value().solved) // El único caso que puede entrar (o no) en este condicional es el primero.
+    {
+        write_data(problemTree.value());
+        return void(); // No hau que revisar más.
+    }
+    BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
+    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
+    if (!left.empty())
+    {   
+        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
+        if (left.value().solved) print_session_available_problems(left);
+        else write_data(left.value()); 
+    }
+    if (!right.empty())
+    {
+        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
+        if (right.value().solved) print_session_available_problems (right);
+        else write_data(right.value()); 
+    }
+}
+
 //######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
@@ -145,6 +180,22 @@ int Usuario::available_problems(vector<ProblemData>& problemVect) const
     sort(problemVect.begin(), problemVect.end(), sort_vect);
     // El tamaño del vector se devuelve para poder iterar sobre él.
     return size;
+}
+
+void Usuario::print_available_problems() const
+{
+    // Si no está inscrito a ningún curso, no es posible listar problemas a enviar (tenga o no).
+    if (!isInscribed) return void();
+
+    // Los problemas a enviar son aquellos que no han sido solucionados y que son precedidos por problemas solucionados
+    // Por defecto, el primer problema de una sesión se puede enviar. 
+    // Inv: cada iteración incrementa el tamaño de problemVect.
+    for (int i = 0; i < currentCourse.sizeProblemTreeVector; ++i)
+    {
+        // Se insertan detras de problemVect los problemas a solucionar del problemTreeVector[i].
+        print_session_available_problems(currentCourse.problemTreeVector[i]);
+    }
+    // El tamaño del vector se devuelve para poder iterar sobre él.
 }
 
 int Usuario::print_all_time_solved_problems() const

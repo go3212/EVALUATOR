@@ -123,6 +123,7 @@ void UserCourseData::fetch_solved_problems(UserCoursesData& userCoursesData)
         initialize_solved_problems(userCoursesData, solved, problemTreeVector[i]);
         solvedProblemsSize += solved;
     }
+    
 }
 
 ProblemData UserCourseData::update_data(const problemid& pid, const bool& isSolved)

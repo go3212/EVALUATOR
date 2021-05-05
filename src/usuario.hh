@@ -111,6 +111,8 @@ public:
      */
     void write() const;
 
+    void print_available_problems() const;
+
     //######################################//
     //      FUNCIONES NO IMPLEMENTADAS      //
     //######################################//
