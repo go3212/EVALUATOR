@@ -651,8 +651,14 @@ bool Comandos::run_time_mode()
                 cout << endl << endl << "TIMING STATS" << endl;
                 vector<double> average_timings(20, 0);
                 double average = 0;
-                for (int i = 0; i < 19; ++i) average_timings[i] = comm_ms[i]/comm_calls[i], average += average_timings[i];
+                double average_wo;
+                for (int i = 0; i < 11; ++i) average_timings[i] = comm_ms[i]/comm_calls[i], average += average_timings[i];
+                average_wo = average;
+                average_timings[11] = comm_ms[11]/comm_calls[11];
+                average += average_timings[11];
+                for (int i = 12; i < 19; ++i) average_timings[i] = comm_ms[i]/comm_calls[i], average += average_timings[i], average_wo += average_timings[i];
                 average /= 19;
+                average_wo /= 19;
                 cout << "====================================================" << endl;
                 cout << "#nuevo_problema" << " (" << average_timings[0] << ")" << endl;
                 cout << "#nueva_sesion" << " (" << average_timings[1] << ")" << endl;
@@ -675,6 +681,7 @@ bool Comandos::run_time_mode()
                 cout << "#escribir_usuario" << " (" << average_timings[18] << ")" << endl;
                 cout << "====================================================" << endl;
                 cout << "AVERAGE INST TIME: " << average << endl;
+                cout << "AVERAGE INST TIME w/o lp: " << average_wo << endl;
                 cout << "====================================================" << endl;
                 end = true;
                 break;
