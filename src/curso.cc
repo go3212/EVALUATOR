@@ -80,6 +80,11 @@ void Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, Co
     endIterator = sessionVector.end();
 }
 
+int Curso::get_number_of_sessions() const
+{
+    return total;
+}
+
 bool Curso::is_valid_course(const Sesiones& sessions) const
 {
     // Un curso es válido si sus sesiones no comparten problemas entre ellas, es decir,

@@ -93,6 +93,11 @@ public:
     int inscribed_users() const;
 
     /**
+     * @brief 
+     * 
+     */
+    int get_number_of_sessions() const;
+    /**
      * @brief Función que actualiza el estado de los problemas del curso resueltos por un usuario.
      * @param pid identificador de problema que ha resuelto el usuario. Tipo 'problemid'.
      * @param isInscribed si el usuario está inscrito o no en el curso.
