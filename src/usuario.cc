@@ -83,8 +83,8 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
     // Primero inicializamos los iteradores del vector de sesiones que pertenecen al curso.
     CourseSessionVector::const_iterator courseSessionVectorBegin, courseSessionVectorEnd;
     course.get_iterators(courseSessionVectorBegin, courseSessionVectorEnd);
-    int numCourses = course.get_number_of_sessions();
-    currentCourse.problemTreeVector = vector<BinTree<ProblemData>>(numCourses);
+    //int numCourses = course.get_number_of_sessions();
+    //currentCourse.problemTreeVector = vector<BinTree<ProblemData>>(numCourses);
     // Incializamos los iteradores de sesion previamente por eficiencia.
     SessionMap::const_iterator sessionIter;
 
@@ -96,7 +96,8 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
         // Para cada problema del árbol, tenemos que revisar si ha sido solucionado o no.
         // [BORRAR] BinTree<ProblemData> problemTree = sessionIter->second.get_problemTree();
         // Insertamos el árbol de problemas de la sesión en el vector de árboles de problemas del usuario.
-        currentCourse.problemTreeVector[currentCourse.sizeProblemTreeVector] = sessionIter->second.get_problemTree();
+        //currentCourse.problemTreeVector[currentCourse.sizeProblemTreeVector] = sessionIter->second.get_problemTree();
+        currentCourse.problemTreeVector.push_back(sessionIter->second.get_problemTree());
         //[NOTA] QUIZAS MEJOR HACER UNA FUNCION FETCH??
         currentCourse.numProblems += sessionIter->second.get_number_of_problems();
         ++currentCourse.sizeProblemTreeVector;
