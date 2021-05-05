@@ -359,11 +359,11 @@ void Comandos::listar_problemas()
 {
     ProblemMap::const_iterator beginIterator, endIterator;
     problems.get_iterators(beginIterator, endIterator);
-    vector<ProblemPair> problemVector;
+    vector<ProblemPair> problemVector(problems.get_number_of_problems());
     int size = 0;
     while (beginIterator != endIterator)
     {
-        problemVector.push_back((*beginIterator));
+        problemVector[size] = *beginIterator;
         ++size;
         ++beginIterator;
     }

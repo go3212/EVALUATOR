@@ -47,6 +47,7 @@ private:
 
     UserData userdata;                  //!< Objeto del tipo 'UserData'
 
+    map<string, string> problemas; 
 public:
 
     /** @brief Constructor por defecto de la clase.
