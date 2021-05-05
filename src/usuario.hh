@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "tipos.hh"
 #include "curso.hh"
+#include "sesiones.hh"
 #include "problema.hh"
 
 using namespace std;

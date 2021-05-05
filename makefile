@@ -12,4 +12,3 @@ program.exe: $(OBJECTS)
 
 bin/%.o: src/%.cc $(HEADERS)
 	$(CC) $< $(CC_OPTS) -c -o $@
-
