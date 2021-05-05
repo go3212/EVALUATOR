@@ -550,82 +550,100 @@ bool Comandos::run_time_mode()
         cout << '#' << com;
         int command_call = commandsMap[com];
         Timer* timer = new Timer();
-        switch (command_call)
+        switch (commandsMap[com])
         {
             case 1:
+                //cout << "#nuevo_problema" << endl;
                 cin >> pid; cout << ' ' << pid << endl;
                 nuevo_problema(pid);
                 break;
             case 2:
-
+                //cout << "#nueva_sesion" << endl;
                 cin >> sid; cout <<  ' ' << sid << endl;
                 nueva_sesion(sid);
                 break;
             case 3:
+                //cout << "#nuevo_curso" << endl;
                 cout << endl;
                 nuevo_curso();
                 break;
             case 4:
+                //cout << "#alta_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
                 alta_usuario(uid);
                 break;
             case 5:
+                //cout << "#baja_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
                 baja_usuario(uid);
                 break;
             case 6:
+                //cout << "#inscribir_curso" << endl;
                 cin >> uid >> cid; cout <<  ' ' << uid << ' ' << cid << endl;
                 inscribir_curso(uid, cid);
                 break;
             case 7:
+                //cout << "#curso_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
                 curso_usuario(uid);
                 break;
             case 8:
+                //cout << "#sesion_problema" << endl;
                 cin >> cid >> pid; cout <<  ' ' << cid << ' ' << pid << endl;
                 sesion_problema(cid, pid);
                 break;
             case 9:
+                //cout << "#problemas_resueltos" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
                 problemas_resueltos(uid);
                 break;
             case 10:
+                //cout << "#problemas_enviables" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
                 problemas_enviables(uid);
                 break;
             case 11:
-                cin >> uid >> pid >> r; cout <<  ' ' << uid << ' ' << pid << endl;
+                //cout << "#envio" << endl;
+                cin >> uid >> pid >> r; cout <<  ' ' << uid << ' ' << pid << ' ' << r << endl;
                 envio(uid, pid, r);
                 break;
             case 12:
+                //cout << "#listar_problemas" << endl;
                 cout << endl;
                 listar_problemas();
                 break;
             case 13:
+                //cout << "#escribir_problema" << endl;
                 cin >> pid; cout <<  ' ' << pid << endl;
                 escribir_problema(pid);
                 break;
             case 14:
+                //cout << "#listar_sesiones" << endl;
                 cout << endl;
                 listar_sesiones();
                 break;
             case 15:
+                //cout << "#escribir_sesion" << endl;
                 cin >> sid; cout <<  ' ' << sid << endl;
                 escribir_sesion(sid);
                 break;
             case 16:
+                //cout << "#listar_cursos" << endl;
                 cout << endl;
                 listar_cursos();
                 break;
             case 17:
+                //cout << "#escribir_curso" << endl;
                 cin >> cid; cout <<  ' ' << cid << endl;
                 escribir_curso(cid);
                 break;
             case 18:
+                //cout << "#listar_usuarios" << endl;
                 cout << endl;
                 listar_usuarios();
                 break;
             case 19:
+                //cout << "#escribir_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
                 escribir_usuario(uid);
                 break;
