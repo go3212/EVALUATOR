@@ -62,22 +62,18 @@ int Curso::inscribed_users() const
     return userdata.inscribed_users;
 }
 
-void Curso::update_problem (const problemid& pid, Problemas& problems, const bool& isSolved, const bool& isInscribed)
+void Curso::update_problem (const bool& isInscribed)
 {
     // Actualizamos el registro de usuarios (inscritos y los que han superado el curso)
     userdata.alltime_users += 1*(!isInscribed);
     userdata.inscribed_users -= 1*(!isInscribed);
-
-    // Buscamos el problema y actualizamos su información.
-    ProblemMap::iterator problemIter;
-    problems.get_problem(pid, problemIter);
-    problemIter->second.update_attempts(isSolved);
 }
 
-void Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const
+int Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const
 {
     beginIterator = sessionVector.begin();
     endIterator = sessionVector.end();
+    return total;
 }
 
 int Curso::get_number_of_sessions() const

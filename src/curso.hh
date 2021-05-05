@@ -47,7 +47,7 @@ private:
 
     UserData userdata;                  //!< Objeto del tipo 'UserData'
 
-    map<string, string> problemas; 
+    //map<string, string> problemas; 
 public:
 
     /** @brief Constructor por defecto de la clase.
@@ -104,16 +104,16 @@ public:
      * \pre El usuario estaba (o está) inscrito en el curso.
      * \post Se actualiza el registro de problemas del curso en función de si el usuario ha solucionado el problema o no.
      */
-    void update_problem (const problemid& pid, Problemas& problems, const bool& isSolved, const bool& isInscribed);
+    void update_problem (const bool& isInscribed);
 
     /** @brief Asigna los iteradores del vector 'sessionVector' a los parámetros.
      *  @param beginIterator iterador del inicio del vector 'sessionVector'. Tipo 'CourseSessionVector::const_iterator'.
      *  @param endIterator iterador del final del vector 'sessionVector'. Tipo 'CourseSessionVector::const_iterator'.
      *  \pre true.
      *  \post No se modifica ningún objeto de la clase.
-     *  @return void. 
+     *  @return int: número total de elementos 
      */
-    void get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
+    int get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
 
     /** @brief Verifica que el curso sea válido de acuerdo con el objeto 'Sesiones'.
      *  @param sessions objeto del tipo 'Sesiones' que se utilizará para verificar si el 'Curso' es válido.

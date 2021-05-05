@@ -2,7 +2,7 @@
 #include "comandos.hh"
 #include "timer.hh"
 
-#include<unistd.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -339,13 +339,15 @@ void Comandos::envio(const userid& uid, const problemid& pid, const bool& solved
     // Además, u cumple los prerrequisitos de pid.
     UserMap::iterator userIter;
     CourseVector::iterator courseIter;
-    if (users.get_user(uid, userIter))
-    {
-        courses.get_course ((*userIter).second.inscribed_course_id(), courseIter);
-        (*userIter).second.update_problem(pid, solved);
-        (*courseIter).update_problem (pid, problems, solved, (*userIter).second.is_inscribed());
+    ProblemMap::iterator problemIter;
+    
+    users.get_user(uid, userIter);
+    courses.get_course ((*userIter).second.inscribed_course_id(), courseIter);
+    problems.get_problem(pid, problemIter);
 
-    } else cout << "error: el usuario no existe" << endl;
+    (*userIter).second.update_problem(pid, solved);
+    (*courseIter).update_problem ((*userIter).second.is_inscribed());
+    (*problemIter).second.update_attempts(solved);
 }
 
 bool problemVectorSort(const ProblemPair& a, const ProblemPair& b)

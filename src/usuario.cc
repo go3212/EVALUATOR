@@ -82,12 +82,10 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
 
     // Primero inicializamos los iteradores del vector de sesiones que pertenecen al curso.
     CourseSessionVector::const_iterator courseSessionVectorBegin, courseSessionVectorEnd;
-    course.get_iterators(courseSessionVectorBegin, courseSessionVectorEnd);
-    int numCourses = course.get_number_of_sessions();
+    int numCourses = course.get_iterators(courseSessionVectorBegin, courseSessionVectorEnd);
     currentCourse.problemTreeVector = vector<BinTree<ProblemData>>(numCourses);
     // Incializamos los iteradores de sesion previamente por eficiencia.
     SessionMap::const_iterator sessionIter;
-
     // Inv: todos los *courseSessionVectorBegin pertenecen al conjunto de 'Sesiones'. courseSessionBegin++ tiende a courseSessionVectorEnd.
     while (courseSessionVectorBegin != courseSessionVectorEnd)
     {   
