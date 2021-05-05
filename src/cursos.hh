@@ -73,6 +73,8 @@ public:
      */
     void read();
 
+    void read(const Sesiones& sessions);
+
     //######################################//
     //      FUNCIONES NO IMPLEMENTADAS      //
     //######################################//

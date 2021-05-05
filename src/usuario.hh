@@ -10,9 +10,10 @@
 #include <string>
 #include <algorithm>
 #include "tipos.hh"
-#include "curso.hh"
+#include "cursos.hh"
 #include "sesiones.hh"
 #include "problema.hh"
+#include "userdata.hh"
 
 using namespace std;
 
@@ -75,7 +76,7 @@ public:
      *        en caso opuesto, no se modifica la inscripción y se devuelve ('false').
      *  @return bool: 'true' si se ha inscrito al usuario correctamente, 'false' si el usuario ya estaba inscrito en un curso.
      */
-    bool inscribe(const courseid& cid, const Curso& course, Sesiones& sessions);
+    bool inscribe(const courseid& cid, const CourseVector::iterator& courseIter, Sesiones& sessions);
 
     /**
      * @brief Función que actualiza el conjunto de problemas de acuerdo con las reglas establecidas previamente.
@@ -146,6 +147,6 @@ bool sort_vect(ProblemData& a, ProblemData& b);
  *  \post Devuelve los elementos no solucionados adyacenetes a nodos solucionados, los inserta en el parámetro 'problemVector'.
  *  @return void
  */
-void get_session_available_problems(const BinTree<ProblemData>& problemTree, vector<ProblemData>& problemVector);
+void get_session_available_problems(const BinTree<ProblemData>& problemTree, int& size, vector<ProblemData>& problemVector);
 
 #endif

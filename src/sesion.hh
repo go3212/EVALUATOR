@@ -62,6 +62,8 @@ public:
     int get_problems (ProblemVector& pidVector) const;
 
     sessionid session_id() const;
+    
+    int get_problems_iterator(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const;
 
     int get_number_of_problems() const;
 

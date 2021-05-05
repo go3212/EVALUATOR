@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <set>
+#include <map>
 #include "tipos.hh"
 #include "sesiones.hh"
 #include "problemas.hh"
@@ -29,6 +29,7 @@ private:
     int total;                          //!< Número de sesiones que tiene el curso.
     courseid cid;                       //!< Identificador del curso.
     CourseSessionVector sessionVector;  //!< Vector de sesiones del curso, contiene 'total' elementos.   
+    bool valid;
 
     /** @struct UserData
      *  @brief Estructura que almacena información general sobre los usuarios que se han inscrito al curso.
@@ -47,7 +48,8 @@ private:
 
     UserData userdata;                  //!< Objeto del tipo 'UserData'
 
-    //map<string, string> problemas; 
+    bool initializedHintMap;
+    map<problemid, int> hintMap; 
 public:
 
     /** @brief Constructor por defecto de la clase.
@@ -85,12 +87,16 @@ public:
      */    
     bool uninscribe_user(); // const userid& uid
 
+    bool initialized_hintMap() const;
+
     /** @brief Función que indica el número de usuarios inscritos en el curso.
      *  \pre true.
      *  \post No se modifica ningún objeto de la clase.
      *  @return int: número de usuarios inscritos en el curso. (int >= 0).
      */    
     int inscribed_users() const;
+
+    int vector_session_position_of_problem(const problemid& pid) const;
 
     /**
      * @brief 
@@ -122,7 +128,7 @@ public:
      *  \post No se modifica ningún objeto de la clase.
      *  @return bool: true si el 'Curso' es válido y false si no lo es.
      */
-    bool is_valid_course(const Sesiones& sessions) const;
+    bool is_valid_course(const Sesiones& sessions);
 
     /** @brief Imprime por pantalla información sobre el curso
      *  \pre true.
@@ -132,12 +138,16 @@ public:
      */
     void write() const;
 
+    bool read_and_check();
+
     /** @brief Almacena la infomración de un curso por el 'stdin'
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.
      *  \post Las sesiones estaran definidas en el vector. El único parametro que no se modifica es el 'courseid'.
      *  @return void.
      */
     void read();
+
+    void read(const Sesiones& sessions);
 };
 
 #endif

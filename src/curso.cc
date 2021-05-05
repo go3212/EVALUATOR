@@ -1,4 +1,5 @@
 #include "curso.hh"
+#include <map>
 
 using namespace std;
 
@@ -24,6 +25,8 @@ Curso::Curso()
     total = 0;
     sessionVector = CourseSessionVector();
     userdata = UserData();
+    initializedHintMap = false;
+    valid = false;
 }
 
 Curso::Curso(const courseid& cid)
@@ -32,6 +35,8 @@ Curso::Curso(const courseid& cid)
     sessionVector = CourseSessionVector();
     userdata = UserData();
     this->cid = cid;
+    initializedHintMap = false;
+    valid = false;
 }
 
 Curso::UserData::UserData()
@@ -81,7 +86,14 @@ int Curso::get_number_of_sessions() const
     return total;
 }
 
-bool Curso::is_valid_course(const Sesiones& sessions) const
+int Curso::vector_session_position_of_problem(const problemid& pid) const
+{
+    map<problemid, int>::const_iterator it = hintMap.find(pid);
+    if (it != hintMap.end()) return (*it).second;
+    return -1;
+}
+
+bool Curso::is_valid_course(const Sesiones& sessions)
 {
     // Un curso es válido si sus sesiones no comparten problemas entre ellas, es decir,
     // la interseccion de dos conjuntos de sesiones cualquiera es vacía. 
@@ -89,8 +101,7 @@ bool Curso::is_valid_course(const Sesiones& sessions) const
     
     // Por eficiencia, declaramos las variables del bucle fuera de el.
     SessionMap::const_iterator sessionMap;
-    set<problemid> problemSet;
-    pair<set<problemid>::iterator, bool> ret;
+    pair<map<problemid, int>::iterator, bool> ret;
     ProblemVector problemVector;
     // Inv: 0 <= i <= total.
     for (int i = 0; i < total; ++i)
@@ -98,21 +109,29 @@ bool Curso::is_valid_course(const Sesiones& sessions) const
         // Primero buscamos la sesión en el conjunto de sesiones.
         sessions.get_session(this->sessionVector[i], sessionMap);
         // Cargamos todos los problemas de la sesion en el vector 'problemVector'.
-        int n = (*sessionMap).second.get_problems (problemVector);
+        vector<problemid>::const_iterator beginIter, endIter;
+        (*sessionMap).second.get_problems_iterator(beginIter, endIter);
         // Inv; 0 <= i <= n.
-        for (int k = 0; k < n; ++k)
+        while(beginIter != endIter)
         {   
             // Insertamos los problemas de la sesión en el 'set', ret.second indica
             // si se ha insertado exitosamente ('true') o si ya existia y no se ha insertado
             // false.
-            ret = problemSet.insert(problemVector[k]);
+            ret = hintMap.insert(pair<problemid, int>((*beginIter), i));
             // Si no se ha podido insertar el problema, significa que al menos una sesión tiene el mismo
             // problema, entonces la interseccion de dos sesiones (no sabemos cuales, solo que existen) no es vacía,
             // por lo que el curso no es válido
             if (ret.second == false) return false;
+            ++beginIter;
         }
     }
+    initializedHintMap = true;
     return true;
+}
+
+bool Curso::initialized_hintMap() const
+{
+    return initializedHintMap;
 }
 
 void Curso::write() const
@@ -127,6 +146,41 @@ void Curso::write() const
     cout << sessionVector[total - 1];
     cout << ')';
 }   
+
+void Curso::read(const Sesiones& sessions)
+{
+    int n; cin >> n;
+    total = n;
+
+    sessionVector = CourseSessionVector(total);
+
+    sessionid sid;
+    while (n != 0)
+    {   
+        cin >> sid;
+        sessionVector[total - n] = sid;
+
+        // Cargamos el hintMap 
+        SessionMap::const_iterator sessionMap;
+        ProblemVector problemVector;
+
+        // Primero buscamos la sesión en el conjunto de sesiones.
+        sessions.get_session(sid, sessionMap);
+        // Cargamos todos los problemas de la sesion en el vector 'problemVector'.
+        vector<problemid>::const_iterator beginIter, endIter;
+        (*sessionMap).second.get_problems_iterator(beginIter, endIter);
+        while(beginIter != endIter)
+        {   
+            // Insertamos los problemas de la sesión en el 'set', ret.second indica
+            // si se ha insertado exitosamente ('true') o si ya existia y no se ha insertado
+            // false.
+            hintMap.insert(pair<problemid, int>((*beginIter), total - n));
+            ++beginIter;
+        }
+        --n;
+    }
+    valid = true;
+}
 
 void Curso::read()
 {

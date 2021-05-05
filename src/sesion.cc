@@ -96,6 +96,13 @@ bool Sesion::has_problem(const problemid& pid) const
     return ((problemVect.find(pid) != -1) ? true : false);
 }
 
+int Sesion::get_problems_iterator(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const
+{
+    problemVect.begin_iterator(beginIter);
+    problemVect.end_iterator(endIter);
+    return n_problems;
+}
+
 int Sesion::get_problems (ProblemVector& pidVector) const
 {
     pidVector = problemVect;

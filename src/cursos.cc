@@ -16,7 +16,7 @@ int Cursos::get_number_of_courses() const
 bool Cursos::add_course(Curso& course)
 {
     // Añadimos el curso al final del vector de cursos.
-    courseVector.push_back(course);
+    courseVector.insert(courseVector.end(), course);
     // Aumentamos el tamaño del vector de cursos y asignamos el identificador correspondiente al 
     // nuevo curso.
     total += 1;
@@ -36,6 +36,23 @@ bool Cursos::get_course(const courseid& cid, CourseVector::iterator& vectorIter)
 
     vectorIter = courseVector.begin() + cid - 1;
     return true;
+}
+
+void Cursos::read(const Sesiones& sessions)
+{
+    int n; cin >> n;
+    total = n;
+    
+    courseVector = CourseVector(total);
+
+    //courseid cid;
+    while (n != 0)
+    {
+        courseVector[total - n] = Curso(total - n + 1);
+        courseVector[total - n].read(sessions);
+        
+        --n;
+    }
 }
 
 void Cursos::read()

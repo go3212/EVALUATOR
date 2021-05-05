@@ -12,10 +12,10 @@ int main ()
 {
     Problemas problems; problems.read();
     Sesiones sessions; sessions.read();
-    Cursos courses; courses.read();
+    Cursos courses; courses.read(sessions);
     Usuarios users; users.read();
     
     Comandos commands(users, courses, problems, sessions);
-    commands.run();
+    commands.run_time_mode();
 
 }
