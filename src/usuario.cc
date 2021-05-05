@@ -97,7 +97,6 @@ bool Usuario::inscribe(const courseid& cid, const Curso& course, Sesiones& sessi
         // [BORRAR] BinTree<ProblemData> problemTree = sessionIter->second.get_problemTree();
         // Insertamos el árbol de problemas de la sesión en el vector de árboles de problemas del usuario.
         currentCourse.problemTreeVector[currentCourse.sizeProblemTreeVector] = sessionIter->second.get_problemTree();
-
         //[NOTA] QUIZAS MEJOR HACER UNA FUNCION FETCH??
         currentCourse.numProblems += sessionIter->second.get_number_of_problems();
         ++currentCourse.sizeProblemTreeVector;
