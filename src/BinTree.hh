@@ -75,7 +75,7 @@ public:
         return p->x;
     }
 
-    const T& value_cpy () const {
+    T value_cpy () const {
         assert(not empty());
         return p->x;
     }

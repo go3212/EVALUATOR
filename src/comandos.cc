@@ -312,7 +312,6 @@ void Comandos::envio(const userid& uid, const problemid& pid, const bool& solved
     // Se garantiza que uid está inscrito y el problema pid pertenece a el curso al que uid esta inscrito
     // Además, u cumple los prerrequisitos de pid.
     UserMap::iterator userIter;
-    CourseVector::iterator courseIter;
     ProblemMap::iterator problemIter;
     
     users.get_user(uid, userIter);

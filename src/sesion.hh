@@ -48,7 +48,7 @@ public:
      */ 
     Sesion(const sessionid& sid);
 
-    BinTree<ProblemData> get_problemTree() const;
+    void get_problemTree(BinTree<pair<problemid, bool>>& problemTree) const;
 
     /** @brief Devuelve si la sesion tiene identificador.
      *  \post Devuelve 'true' si la sesión tiene identificador y 'false' si no lo tiene.

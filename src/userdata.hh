@@ -14,7 +14,6 @@ struct UserCoursesData
     vector<ProblemData> coursesVect;         //!< Vector que almacena todos los problemas resueltos por el usuario (de todos los cursos). Ordenado crecientemente por 'ProblemData::pid'
     int unique_attempts;                     //!< Problemas a los que se ha realizado al menos un envío (solucionados y no solucionados).
     int sizeCoursesVect;                     //!< Tamaño del vector 'ProblemData::coursesVect', representa el número de problemas solucionados.
-    int sizeAttemptedProblemsVect;           //!< Tamaño del vector 'ProblemData::attemptedProblemsVect', representa el número de problemas no solucionados pero que se han intentado.
 
     UserCoursesData();
 
@@ -24,6 +23,9 @@ struct UserCoursesData
 
     int find (const problemid& pid);
 };
+
+void imm_insert_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector);
+void insert_available_problems (const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector);
 
 /** @brief Función que actualiza
  *
@@ -38,8 +40,8 @@ struct UserCourseData
 {
     courseid identifier;                            //!< Identificador de curso ('courseid'). Representa el curso al que pertence la información.
     vector<Curso>::iterator courseIter; 
-    vector<BinTree<ProblemData>> availableProblems;
-    vector<BinTree<ProblemData>> problemTreeVector; //!< Árbol de problemas del curso, con su respectiva información. (Cada elemento del vector representa un árbol de problemas).
+    vector<ProblemData> availableProblems;
+    vector<BinTree<pair<problemid, bool>>> problemTreeVector; //!< Árbol de problemas del curso, con su respectiva información. (Cada elemento del vector representa un árbol de problemas).
     int sizeAvailableProblems;
     int numProblems;                                //!< Número de problemas que tiene el curso. (Representa el tamaño máximo del vector 'solvedProblems')
     int solvedProblemsSize;                         //!< Número de problemas solucionados por el usuario. (Representa el tamaño del vector 'solvedProblems')
@@ -74,7 +76,7 @@ struct UserCourseData
      *  \post se actualiza el árbol binario 'problemTree' y se almacena el valor del problema encontrado en problemData (si se encuentra).
      *  @return bool: true si se ha encontrado el problema en en árbol (y se ha actualizado), false si no se ha encontrado el problema (y por ende, no se ha actualizado).
      */
-    bool update_tree_problem (const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<ProblemData>& problemTree);
+    bool update_tree_problem (const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<pair<problemid, bool>>& problemTree);
 
     /** @brief Función que marca los problemas solucionados previamente (en otros cursos) en el curso actual.
      *  @param userCoursesData objeto del tipo 'UserCoursesData' que contiene toda la información relevante de los cursos previos.

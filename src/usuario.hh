@@ -101,7 +101,7 @@ public:
      *  \post No se realizan modificaciones en ningún objeto.
      *  @return int: número de problemas resueltos.
      */
-    int print_all_time_solved_problems() const;
+    int print_all_time_solved_problems();
 
     /** @brief Imprime por pantalla información sobre el usuario
      *  \pre true.

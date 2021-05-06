@@ -44,17 +44,15 @@ int binary_search_LH (const problemid& item, const vector<BinTree<ProblemData>>&
 
 int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize)
 {
-    myVect.push_back(problemData);
+    myVect.insert(myVect.end(), problemData);
     ++vectSize;
     int i = vectSize - 1; 
-    ProblemData temp;
-    while(i > 0 && myVect[i - 1].pid > myVect[i].pid)
+    while(i > 0 && myVect[i - 1].pid > problemData.pid)
     {
-        temp = myVect[i - 1];
-        myVect[i - 1] = myVect[i];
-        myVect[i] = temp;
+        myVect[i] = myVect[i - 1];
         --i;
     }
+    myVect[i] = problemData;
     return i;
 }
 
@@ -63,30 +61,26 @@ int insertion_sort_LH (const BinTree<ProblemData>& problemData, vector<BinTree<P
     myVect.insert(myVect.end(), problemData);
     ++vectSize;
     int i = vectSize - 1; 
-    BinTree<ProblemData> temp;
-    while(i > 0 && myVect[i - 1].value().pid > myVect[i].value().pid)
+    while(i > 0 && myVect[i - 1].value().pid > problemData.value().pid)
     {
-        temp = myVect[i - 1];
-        myVect[i - 1] = myVect[i];
-        myVect[i] = temp;
+        myVect[i] = myVect[i - 1];
         --i;
     }
+    myVect[i] = problemData;
     return i;
 }
 
 int insertion_sort_LH (const problemid& problemData, vector<problemid>& myVect, int& vectSize)
 {
-    myVect.push_back(problemData);
+    myVect.insert(myVect.end(), problemData);
     ++vectSize;
     int i = vectSize - 1; 
-    problemid temp;
-    while(i > 0 && myVect[i - 1]> myVect[i])
+    while(i > 0 && myVect[i - 1]> problemData)
     {
-        temp = myVect[i - 1];
-        myVect[i - 1] = myVect[i];
-        myVect[i] = temp;
+        myVect[i] = myVect[i - 1];
         --i;
     }
+    myVect[i] = problemData;
     return i;
 }
 

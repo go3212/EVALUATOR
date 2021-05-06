@@ -10,34 +10,34 @@ bool sort_vect(ProblemData& a, ProblemData& b)
     return a.pid < b.pid;
 }
 
-void get_session_available_problems(const BinTree<ProblemData>& problemTree, int& size, vector<ProblemData>& problemVector)
-{
-    // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
-    // considera que la raíz (la primera) siempre es solucionable.
+// void get_session_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector)
+// {
+//     // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
+//     // considera que la raíz (la primera) siempre es solucionable.
     
-    if (!problemTree.value().solved) // El único caso que puede entrar (o no) en este condicional es el primero.
-    {
-        problemVector.insert(problemVector.end(), problemTree.value());
-        ++size; 
-        return void(); // No hau que revisar más.
-    }
-    BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
-    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
-    if (!left.empty())
-    {   
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (left.value().solved) get_session_available_problems(left, size, problemVector);
-        else problemVector.insert(problemVector.end(), left.value()), ++size; 
-    }
-    if (!right.empty())
-    {
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (right.value().solved) get_session_available_problems (right, size, problemVector);
-        else problemVector.insert(problemVector.end(), right.value()), ++size; 
-    }
-}
+//     if (!problemTree.value().second) // El único caso que puede entrar (o no) en este condicional es el primero.
+//     {
+//         problemVector.insert(problemVector.end(), ProblemData(problemTree.value().first));
+//         ++size; 
+//         return void(); // No hau que revisar más.
+//     }
+//     BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
+//     // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
+//     if (!left.empty())
+//     {   
+//         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+//         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
+//         if (left.value().second) get_session_available_problems(left, size, problemVector);
+//         else problemVector.insert(problemVector.end(), ProblemData(left.value()), ++size; 
+//     }
+//     if (!right.empty())
+//     {
+//         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+//         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
+//         if (right.value().second) get_session_available_problems (right, size, problemVector);
+//         else problemVector.insert(problemVector.end(), right.value()), ++size; 
+//     }
+// }
 
 void write_data (const ProblemData& problemData)
 {
@@ -120,7 +120,7 @@ bool Usuario::inscribe(const courseid& cid, const CourseVector::iterator& course
     // Primero inicializamos los iteradores del vector de sesiones que pertenecen al curso.
     CourseSessionVector::const_iterator courseSessionVectorBegin, courseSessionVectorEnd;
     int numCourses = courseIter->get_iterators(courseSessionVectorBegin, courseSessionVectorEnd);
-    currentCourse.problemTreeVector = vector<BinTree<ProblemData>>(numCourses);
+    currentCourse.problemTreeVector = vector<BinTree<pair<problemid, bool>>>(numCourses);
     // Incializamos los iteradores de sesion previamente por eficiencia.
     SessionMap::const_iterator sessionIter;
     // Inv: todos los *courseSessionVectorBegin pertenecen al conjunto de 'Sesiones'. courseSessionBegin++ tiende a courseSessionVectorEnd.
@@ -131,7 +131,7 @@ bool Usuario::inscribe(const courseid& cid, const CourseVector::iterator& course
         // Para cada problema del árbol, tenemos que revisar si ha sido solucionado o no.
         // [BORRAR] BinTree<ProblemData> problemTree = sessionIter->second.get_problemTree();
         // Insertamos el árbol de problemas de la sesión en el vector de árboles de problemas del usuario.
-        currentCourse.problemTreeVector[currentCourse.sizeProblemTreeVector] = sessionIter->second.get_problemTree();
+        sessionIter->second.get_problemTree(currentCourse.problemTreeVector[currentCourse.sizeProblemTreeVector]);
         //[NOTA] QUIZAS MEJOR HACER UNA FUNCION FETCH??
         currentCourse.numProblems += sessionIter->second.get_number_of_problems();
         ++currentCourse.sizeProblemTreeVector;
@@ -157,31 +157,30 @@ bool Usuario::update_problem(const problemid& pid, const bool& isSolved)
 
     // Si el usuario ha completado todos los problemas, se desinscribe del curso.
     if (currentCourse.notsolved_problems() == 0) isInscribed = false;
-
     currentCourse.courseIter->update_problem(isInscribed);
     return isSolved;
 }
 
-//[FUNCION CRITICA PARA OPTIMIZAR]
-int Usuario::available_problems(vector<ProblemData>& problemVect) const
-{
-    // Si no está inscrito a ningún curso, no es posible listar problemas a enviar (tenga o no).
-    if (!isInscribed) return -1;
+// //[FUNCION CRITICA PARA OPTIMIZAR]
+// int Usuario::available_problems(vector<ProblemData>& problemVect) const
+// {
+//     // Si no está inscrito a ningún curso, no es posible listar problemas a enviar (tenga o no).
+//     if (!isInscribed) return -1;
 
-    // Los problemas a enviar son aquellos que no han sido solucionados y que son precedidos por problemas solucionados
-    // Por defecto, el primer problema de una sesión se puede enviar. 
-    // Inv: cada iteración incrementa el tamaño de problemVect.
-    int size = 0;
-    for (int i = 0; i < currentCourse.sizeProblemTreeVector; ++i)
-    {
-        // Se insertan detras de problemVect los problemas a solucionar del problemTreeVector[i].
-        get_session_available_problems(currentCourse.problemTreeVector[i], size, problemVect);
-    }
-    // Ordenamos el vector de problemas crecientemente.
-    sort(problemVect.begin(), problemVect.end(), sort_vect);
-    // El tamaño del vector se devuelve para poder iterar sobre él.
-    return size;
-}
+//     // Los problemas a enviar son aquellos que no han sido solucionados y que son precedidos por problemas solucionados
+//     // Por defecto, el primer problema de una sesión se puede enviar. 
+//     // Inv: cada iteración incrementa el tamaño de problemVect.
+//     int size = 0;
+//     for (int i = 0; i < currentCourse.sizeProblemTreeVector; ++i)
+//     {
+//         // Se insertan detras de problemVect los problemas a solucionar del problemTreeVector[i].
+//         get_session_available_problems(currentCourse.problemTreeVector[i], size, problemVect);
+//     }
+//     // Ordenamos el vector de problemas crecientemente.
+//     sort(problemVect.begin(), problemVect.end(), sort_vect);
+//     // El tamaño del vector se devuelve para poder iterar sobre él.
+//     return size;
+// }
 
 void Usuario::print_available_problems() const
 {
@@ -194,14 +193,20 @@ void Usuario::print_available_problems() const
     int i;
     for (i = 0; i < currentCourse.sizeAvailableProblems; ++i)
     {
-        cout << currentCourse.availableProblems[i].value().pid << '(' << currentCourse.availableProblems[i].value().attempts.total << ')' << endl;
+        cout << currentCourse.availableProblems[i].pid << '(' << currentCourse.availableProblems[i].attempts.total << ')' << endl;
     }
     // El tamaño del vector se devuelve para poder iterar sobre él.
 }
 
-int Usuario::print_all_time_solved_problems() const
+bool sort_LH_2 (ProblemData& a, ProblemData& b)
+{
+    return a.pid < b.pid;
+}
+
+int Usuario::print_all_time_solved_problems()
 {
     int i = 0;
+    sort (allCourses.coursesVect.begin(), allCourses.coursesVect.end(), sort_LH_2);
     for (i = 0; i < allCourses.sizeCoursesVect - 1; ++i)
     {
         cout << allCourses.coursesVect[i].pid << "(" << allCourses.coursesVect[i].attempts.total << ")" << endl;

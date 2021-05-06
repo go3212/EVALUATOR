@@ -47,15 +47,15 @@ void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
     return void();
 }
 
-void userBinTreeTransform(BinTree<ProblemData>& copyBinTree, const ProblemTree& binTree)
+void userBinTreeTransform(BinTree<pair<problemid, bool>>& copyBinTree, const ProblemTree& binTree)
 {
     if (binTree.empty()) return void();
-    BinTree<ProblemData> copyBinTreeLeft, copyBinTreeRight;
+    BinTree<pair<problemid, bool>> copyBinTreeLeft, copyBinTreeRight;
 
     userBinTreeTransform(copyBinTreeLeft, binTree.left());
     userBinTreeTransform(copyBinTreeRight, binTree.right());
 
-    copyBinTree = BinTree<ProblemData>(ProblemData(binTree.value_cpy()), copyBinTreeLeft, copyBinTreeRight);
+    copyBinTree = BinTree<pair<problemid, bool>>(pair<problemid, bool>(binTree.value(), false), copyBinTreeLeft, copyBinTreeRight);
 }
 
 //######################################//
@@ -76,11 +76,9 @@ int Sesion::get_number_of_problems() const
     return n_problems;
 }
 
-BinTree<ProblemData> Sesion::get_problemTree() const
+void Sesion::get_problemTree(BinTree<pair<problemid, bool>>& problemTree) const
 {
-    BinTree<ProblemData> copyBinTree;
-    userBinTreeTransform (copyBinTree, problemTree);
-    return copyBinTree;
+    userBinTreeTransform (problemTree, this->problemTree);
 }   
 
 int Sesion::get_problems_as_vector(ProblemVector& pidVect) const
