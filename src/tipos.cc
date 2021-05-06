@@ -75,7 +75,7 @@ int insertion_sort_LH (const problemid& problemData, vector<problemid>& myVect, 
     myVect.insert(myVect.end(), problemData);
     ++vectSize;
     int i = vectSize - 1; 
-    while(i > 0 && myVect[i - 1]> problemData)
+    while(i > 0 && myVect[i - 1] > problemData)
     {
         myVect[i] = myVect[i - 1];
         --i;

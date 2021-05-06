@@ -22,6 +22,9 @@ struct UserCoursesData
     bool update_attempts (ProblemData& problemData, const bool& isSolved);
 
     int find (const problemid& pid);
+
+
+
 };
 
 void imm_insert_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector);
@@ -85,6 +88,8 @@ struct UserCourseData
      *  @return void.
      */
     void fetch_solved_problems (UserCoursesData& userCoursesData);
+
+    void update_tree_problem_v2 (bool& found, const problemid& pid, BinTree<pair<problemid, bool>>& problemTree);
 
     /** @brief Función con el propósito de actualizar el estado de un problema del curso.
      *  @param pid problema a actualizar. Tipo 'problemid'.

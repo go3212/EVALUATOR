@@ -5,19 +5,22 @@
 void imm_insert_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector)
 {
     BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
+    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
     if (!left.empty())
     {   
         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (left.value().second) insert_available_problems(left, size, problemVector);
-        else insertion_sort_LH(ProblemData(left.value().first), problemVector, size); 
+        if (left.value().second) imm_insert_available_problems(left, size, problemVector);
+        else problemVector.insert(problemVector.end(), ProblemData(left.value().first)), ++size;
+        //else insertion_sort_LH(ProblemData(left.value().first), problemVector, size); 
     }
     if (!right.empty())
     {
         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (right.value().second) insert_available_problems (right, size, problemVector);
-        else insertion_sort_LH(ProblemData(right.value().first), problemVector, size); 
+        if (right.value().second) imm_insert_available_problems (right, size, problemVector);
+        else problemVector.insert(problemVector.end(), ProblemData(right.value().first)), ++size;
+        // else insertion_sort_LH(ProblemData(right.value().first), problemVector, size); 
     }
 }
 
@@ -28,7 +31,7 @@ void insert_available_problems (const BinTree<pair<problemid, bool>>& problemTre
     
     if (!problemTree.value().second) // El único caso que puede entrar (o no) en este condicional es el primero.
     {
-        insertion_sort_LH(ProblemData(problemTree.value().first), problemVector, size); 
+        problemVector.insert(problemVector.end(), ProblemData(problemTree.value().first)), ++size;
         return void(); // No hau que revisar más.
     }
     BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
@@ -38,14 +41,16 @@ void insert_available_problems (const BinTree<pair<problemid, bool>>& problemTre
         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
         if (left.value().second) imm_insert_available_problems(left, size, problemVector);
-        else insertion_sort_LH(ProblemData(left.value().first), problemVector, size); 
+        else problemVector.insert(problemVector.end(), ProblemData(left.value().first)), ++size;
+        //else insertion_sort_LH(ProblemData(left.value().first), problemVector, size); 
     }
     if (!right.empty())
     {
         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
         if (right.value().second) imm_insert_available_problems (right, size, problemVector);
-        else insertion_sort_LH(ProblemData(right.value().first), problemVector, size); 
+        else problemVector.insert(problemVector.end(), ProblemData(right.value().first)), ++size;
+        // else insertion_sort_LH(ProblemData(right.value().first), problemVector, size); 
     }
 }
 
@@ -157,6 +162,21 @@ bool UserCourseData::update_tree_problem (const problemid& pid, ProblemData& pro
     return (update_tree_problem (pid, problemData, solved, left) or update_tree_problem (pid, problemData, solved, right));
 }
 
+void UserCourseData::update_tree_problem_v2 (bool& found, const problemid& pid, BinTree<pair<problemid, bool>>& problemTree)
+{
+    if (problemTree.empty()) return void();
+    if (problemTree.value().first == pid)
+    {
+        problemTree.value().second = true;
+        insert_available_problems(problemTree, sizeAvailableProblems, availableProblems);
+        found = true;
+        return void();
+    }
+    BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
+    update_tree_problem_v2 (found, pid, left);
+    update_tree_problem_v2 (found, pid, right);
+}
+
 void UserCourseData::fetch_solved_problems(UserCoursesData& userCoursesData)
 {
     int solved;
@@ -167,7 +187,7 @@ void UserCourseData::fetch_solved_problems(UserCoursesData& userCoursesData)
         insert_available_problems(problemTreeVector[i], sizeAvailableProblems, availableProblems);
         solvedProblemsSize += solved;
     }
-    
+    sort(availableProblems.begin(), availableProblems.end(), sort_LH);
 }
 
 void UserCourseData::update_data(const problemid& pid, ProblemData& problemData, const bool& isSolved)
@@ -177,12 +197,13 @@ void UserCourseData::update_data(const problemid& pid, ProblemData& problemData,
     int i = binary_search_LH(pid, availableProblems, sizeAvailableProblems);
     availableProblems[i].solve(isSolved);
     problemData = availableProblems[i];
-
     if (isSolved) 
     {
+        bool found = false;
         availableProblems.erase(availableProblems.begin() + i);
         --sizeAvailableProblems;    
-        update_tree_problem (pid, problemData, isSolved, problemTreeVector[courseIter->vector_session_position_of_problem(pid)]);
+        update_tree_problem_v2 (found, pid, problemTreeVector[courseIter->vector_session_position_of_problem(pid)]);
         ++solvedProblemsSize;
+        sort(availableProblems.begin(), availableProblems.end(), sort_LH);
     }
 }

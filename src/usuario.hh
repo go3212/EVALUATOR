@@ -94,7 +94,7 @@ public:
      *       el vector no se habrá modificado.
      * @return int: '-1' si el usuario no está inscrito en ningun curso. El tamaño del vector del parámetro tras la ejecución en cualquier otro caso.
      */
-    int available_problems(vector<ProblemData>& problemVect) const;
+    int available_problems() const;
 
     /** @brief Función que imprime por pantalla todos los cursos solucionados por un usuario.
      *  \pre El usuario debe tener identificador.
@@ -149,6 +149,6 @@ bool sort_vect(ProblemData& a, ProblemData& b);
  *  \post Devuelve los elementos no solucionados adyacenetes a nodos solucionados, los inserta en el parámetro 'problemVector'.
  *  @return void
  */
-void get_session_available_problems(const BinTree<ProblemData>& problemTree, int& size, vector<ProblemData>& problemVector);
+void get_session_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector);
 
 #endif
