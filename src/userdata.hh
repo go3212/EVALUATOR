@@ -38,11 +38,11 @@ struct UserCourseData
 {
     courseid identifier;                            //!< Identificador de curso ('courseid'). Representa el curso al que pertence la información.
     vector<Curso>::iterator courseIter; 
-    vector<ProblemData> availableProblems;
+    vector<BinTree<ProblemData>> availableProblems;
     vector<BinTree<ProblemData>> problemTreeVector; //!< Árbol de problemas del curso, con su respectiva información. (Cada elemento del vector representa un árbol de problemas).
     int sizeAvailableProblems;
     int numProblems;                                //!< Número de problemas que tiene el curso. (Representa el tamaño máximo del vector 'solvedProblems')
-    int solvedProblemsSize; s                        //!< Número de problemas solucionados por el usuario. (Representa el tamaño del vector 'solvedProblems')
+    int solvedProblemsSize;                         //!< Número de problemas solucionados por el usuario. (Representa el tamaño del vector 'solvedProblems')
     int sizeProblemTreeVector;                      //!< Número de sesiones que tiene el curso. (Repesenta el tamaño del vector 'problemTreeVector')
 
     /** @brief Constructor por defecto de la estructura.

@@ -194,7 +194,7 @@ void Usuario::print_available_problems() const
     int i;
     for (i = 0; i < currentCourse.sizeAvailableProblems; ++i)
     {
-        cout << currentCourse.availableProblems[i].pid << '(' << currentCourse.availableProblems[i].attempts.total << ')' << endl;
+        cout << currentCourse.availableProblems[i].value().pid << '(' << currentCourse.availableProblems[i].value().attempts.total << ')' << endl;
     }
     // El tamaño del vector se devuelve para poder iterar sobre él.
 }

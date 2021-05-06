@@ -15,14 +15,14 @@ void initialize_solved_problems (UserCoursesData& userCoursesData, int& unsolved
     return void();
 }
 
-void insert_available_problems (const BinTree<ProblemData>& problemTree, int& size, vector<ProblemData>& problemVector)
+void insert_available_problems (const BinTree<ProblemData>& problemTree, int& size, vector<BinTree<ProblemData>>& problemVector)
 {
     // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
     // considera que la raíz (la primera) siempre es solucionable.
     
     if (!problemTree.value().solved) // El único caso que puede entrar (o no) en este condicional es el primero.
     {
-        insertion_sort_LH(problemTree.value(), problemVector, size); 
+        insertion_sort_LH(problemTree, problemVector, size); 
         return void(); // No hau que revisar más.
     }
     BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
@@ -32,14 +32,14 @@ void insert_available_problems (const BinTree<ProblemData>& problemTree, int& si
         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
         if (left.value().solved) insert_available_problems(left, size, problemVector);
-        else insertion_sort_LH(left.value(), problemVector, size); 
+        else insertion_sort_LH(left, problemVector, size); 
     }
     if (!right.empty())
     {
         // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
         // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
         if (right.value().solved) insert_available_problems (right, size, problemVector);
-        else insertion_sort_LH(right.value(), problemVector, size); 
+        else insertion_sort_LH(right, problemVector, size); 
     }
 }
 
@@ -152,15 +152,16 @@ void UserCourseData::update_data(const problemid& pid, ProblemData& problemData,
     
     // if (isSolved) insertion_sort_LH (problemData, solvedProblems, solvedProblemsSize);
     int i = binary_search_LH(pid, availableProblems, sizeAvailableProblems);
-    availableProblems[i].solve(isSolved);
-    problemData = availableProblems[i];
+    availableProblems[i].value().solve(isSolved);
+    problemData = availableProblems[i].value();
 
     if (isSolved) 
     {
+        BinTree<ProblemData> temp = availableProblems[i];
         availableProblems.erase(availableProblems.begin() + i);
         --sizeAvailableProblems;    
-        int j = courseIter->vector_session_position_of_problem(pid);
-        update_tree_problem (pid, problemData, isSolved, problemTreeVector[j]);
+        // int j = courseIter->vector_session_position_of_problem(pid);
+        update_tree_problem (pid, problemData, isSolved, temp);
         ++solvedProblemsSize;
     };
 }

@@ -86,7 +86,11 @@ int binary_search_LH (const problemid& item, const vector<ProblemData>& myVect, 
 
 int binary_search_LH (const problemid& item, const vector<problemid>& myVect, int vectSize);
 
+int binary_search_LH (const problemid& item, const vector<BinTree<ProblemData>>& myVect, int vectSize);
+
 int insertion_sort_LH (const ProblemData& problemData, vector<ProblemData>& myVect, int& vectSize);
+
+int insertion_sort_LH (const BinTree<ProblemData>& problemData, vector<BinTree<ProblemData>>& myVect, int& vectSize);
 
 int insertion_sort_LH (const problemid& problemData, vector<problemid>& myVect, int& vectSize);
 
