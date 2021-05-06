@@ -12,19 +12,15 @@ struct UserCoursesData
 {
     Attempts attempts;                       //!< Intentos totales a todos los problemas, resueltos o no.
     vector<ProblemData> coursesVect;         //!< Vector que almacena todos los problemas resueltos por el usuario (de todos los cursos). Ordenado crecientemente por 'ProblemData::pid'
-    vector<problemid> attemptedProblemsVect; //!< [INCORRECTO] Conjunto de problemas no resueltos a los que se ha realizado al menos un envio. Ordenado crecientemento por 'problemid'.
     int unique_attempts;                     //!< Problemas a los que se ha realizado al menos un envío (solucionados y no solucionados).
     int sizeCoursesVect;                     //!< Tamaño del vector 'ProblemData::coursesVect', representa el número de problemas solucionados.
     int sizeAttemptedProblemsVect;           //!< Tamaño del vector 'ProblemData::attemptedProblemsVect', representa el número de problemas no solucionados pero que se han intentado.
 
     UserCoursesData();
 
-    // HACER UN REWORK COMPLETO A ESTA CLASE POR FAVOR
-    bool insert_attempted_problem(const ProblemData& problemData);
-
     int insert_solved_problem (const ProblemData& problemData);
 
-    bool update_attempts (const ProblemData& problemData, const bool& isSolved);
+    bool update_attempts (ProblemData& problemData, const bool& isSolved);
 
     int find (const problemid& pid);
 };
@@ -41,12 +37,12 @@ bool update_tree_problem(const problemid& pid, ProblemData& problemData, const b
 struct UserCourseData
 {
     courseid identifier;                            //!< Identificador de curso ('courseid'). Representa el curso al que pertence la información.
-    Attempts totalAttempts;                         //!< Intentos totales realizados al curso.
-    // vector<ProblemData> solvedProblems;             //!< Registro de problemas solucionados del curso, desde que se inscribió el usuario. Con su respectiva información ('ProblemData'). Ordenado crecientemente.
+    vector<Curso>::iterator courseIter; 
+    vector<ProblemData> availableProblems;
     vector<BinTree<ProblemData>> problemTreeVector; //!< Árbol de problemas del curso, con su respectiva información. (Cada elemento del vector representa un árbol de problemas).
-    vector<Curso>::iterator courseIter;
+    int sizeAvailableProblems;
     int numProblems;                                //!< Número de problemas que tiene el curso. (Representa el tamaño máximo del vector 'solvedProblems')
-    int solvedProblemsSize;                         //!< Número de problemas solucionados por el usuario. (Representa el tamaño del vector 'solvedProblems')
+    int solvedProblemsSize; s                        //!< Número de problemas solucionados por el usuario. (Representa el tamaño del vector 'solvedProblems')
     int sizeProblemTreeVector;                      //!< Número de sesiones que tiene el curso. (Repesenta el tamaño del vector 'problemTreeVector')
 
     /** @brief Constructor por defecto de la estructura.
@@ -95,7 +91,7 @@ struct UserCourseData
      *  \post Se actualizan todos los datos del problema a modificar.
      *  @return ProblemData: datos del problema despues de ser modificado.
      */
-    ProblemData update_data (const problemid& pid, const bool& isSolved);
+    void update_data (const problemid& pid, ProblemData& problemData, const bool& isSolved);
 };
 
 #endif

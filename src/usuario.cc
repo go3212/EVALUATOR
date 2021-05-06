@@ -151,7 +151,8 @@ bool Usuario::update_problem(const problemid& pid, const bool& isSolved)
 {
 
     // Asumimos que el problema siempre existe, actualizamos toda su información, la información del problema actual es problemData.
-    ProblemData problemData = currentCourse.update_data (pid, isSolved);
+    ProblemData problemData;
+    currentCourse.update_data (pid, problemData, isSolved);
     allCourses.update_attempts (problemData, isSolved);
 
     // Si el usuario ha completado todos los problemas, se desinscribe del curso.
@@ -190,10 +191,10 @@ void Usuario::print_available_problems() const
     // Los problemas a enviar son aquellos que no han sido solucionados y que son precedidos por problemas solucionados
     // Por defecto, el primer problema de una sesión se puede enviar. 
     // Inv: cada iteración incrementa el tamaño de problemVect.
-    for (int i = 0; i < currentCourse.sizeProblemTreeVector; ++i)
+    int i;
+    for (i = 0; i < currentCourse.sizeAvailableProblems; ++i)
     {
-        // Se insertan detras de problemVect los problemas a solucionar del problemTreeVector[i].
-        print_session_available_problems(currentCourse.problemTreeVector[i]);
+        cout << currentCourse.availableProblems[i].pid << '(' << currentCourse.availableProblems[i].attempts.total << ')' << endl;
     }
     // El tamaño del vector se devuelve para poder iterar sobre él.
 }

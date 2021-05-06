@@ -7,7 +7,7 @@ void initialize_solved_problems (UserCoursesData& userCoursesData, int& unsolved
     if (i != -1)
     {
         ++unsolved;
-        problemTree.value() = userCoursesData.coursesVect[i];
+        problemTree.value().solved = true;
     }
     BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
     initialize_solved_problems(userCoursesData, unsolved, left);
@@ -15,30 +15,50 @@ void initialize_solved_problems (UserCoursesData& userCoursesData, int& unsolved
     return void();
 }
 
+void insert_available_problems (const BinTree<ProblemData>& problemTree, int& size, vector<ProblemData>& problemVector)
+{
+    // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
+    // considera que la raíz (la primera) siempre es solucionable.
+    
+    if (!problemTree.value().solved) // El único caso que puede entrar (o no) en este condicional es el primero.
+    {
+        insertion_sort_LH(problemTree.value(), problemVector, size); 
+        return void(); // No hau que revisar más.
+    }
+    BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
+    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
+    if (!left.empty())
+    {   
+        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
+        if (left.value().solved) insert_available_problems(left, size, problemVector);
+        else insertion_sort_LH(left.value(), problemVector, size); 
+    }
+    if (!right.empty())
+    {
+        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
+        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
+        if (right.value().solved) insert_available_problems (right, size, problemVector);
+        else insertion_sort_LH(right.value(), problemVector, size); 
+    }
+}
+
 //##################//
 //  UserCoursesData
 UserCoursesData::UserCoursesData()
 {
-    attemptedProblemsVect = vector<problemid>(0);
+    // attemptedProblemsVect = vector<problemid>(0);
     coursesVect = vector<ProblemData>(0);
     sizeCoursesVect = 0;
     sizeAttemptedProblemsVect = 0;
     unique_attempts = 0;
 }
 
-bool UserCoursesData::insert_attempted_problem(const ProblemData& problemData)
-{
-    int i = binary_search_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
-    if (i != -1) return false;
-    insertion_sort_LH(problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
-    unique_attempts += 1;
-    return true;
-}
 
 int UserCoursesData::insert_solved_problem (const ProblemData& problemData)
 {
     // Se asume que el problema no existe en el vector.
-    coursesVect.push_back(problemData);
+    coursesVect.insert(coursesVect.end(), problemData);
     ++sizeCoursesVect;
     int i = sizeCoursesVect - 1; 
     ProblemData temp;
@@ -52,17 +72,15 @@ int UserCoursesData::insert_solved_problem (const ProblemData& problemData)
     return i;
 }
 
-bool UserCoursesData::update_attempts (const ProblemData& problemData, const bool& isSolved)
+bool UserCoursesData::update_attempts (ProblemData& problemData, const bool& isSolved)
 {
     attempts.update_attempts(isSolved);
-    int i = binary_search_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
+    //int i = binary_search_LH (pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
     // En cualquier caso, actualizamos 
-    if (i == -1)
+    if (problemData.attempts.total == 1)
     {
-        insertion_sort_LH (problemData.pid, attemptedProblemsVect, sizeAttemptedProblemsVect);
         unique_attempts += 1;
     }
-    
     // Si se ha solucionado, añadimos problemData al vector de problemas solucionados.
     if (isSolved) insert_solved_problem (problemData);
     return isSolved;
@@ -83,7 +101,7 @@ UserCourseData::UserCourseData()
     numProblems = 0;
     solvedProblemsSize = 0;
     problemTreeVector = vector<BinTree<ProblemData>>(sizeProblemTreeVector);
-    // solvedProblems = vector<ProblemData>(0); 
+    sizeAvailableProblems = 0;
 }
 
 UserCourseData::UserCourseData(const courseid& cid)
@@ -93,7 +111,7 @@ UserCourseData::UserCourseData(const courseid& cid)
     numProblems = 0;
     solvedProblemsSize = 0;
     problemTreeVector = vector<BinTree<ProblemData>>(sizeProblemTreeVector);
-    // solvedProblems = vector<ProblemData>(0);
+    sizeAvailableProblems = 0;
 }
 
 int UserCourseData::notsolved_problems() const
@@ -106,12 +124,12 @@ bool UserCourseData::update_tree_problem (const problemid& pid, ProblemData& pro
     if (problemTree.empty()) return false;
     if (problemTree.value().pid == pid)
     {
-        problemTree.value().solve(solved);
-        problemData = problemTree.value();
+        problemTree.value().solved = solved;
+        if (solved) insert_available_problems(problemTree, sizeAvailableProblems, availableProblems);
         return true;
     }
     BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
-    return (update_tree_problem (pid, problemData, solved, left) or update_tree_problem (pid, problemData, solved, right));
+    return (update_tree_problem (pid, problemData,solved, left) or update_tree_problem (pid, problemData, solved, right));
 }
 
 void UserCourseData::fetch_solved_problems(UserCoursesData& userCoursesData)
@@ -121,22 +139,28 @@ void UserCourseData::fetch_solved_problems(UserCoursesData& userCoursesData)
     {
         solved = 0;
         initialize_solved_problems(userCoursesData, solved, problemTreeVector[i]);
+        insert_available_problems(problemTreeVector[i], sizeAvailableProblems, availableProblems);
         solvedProblemsSize += solved;
     }
     
 }
 
-ProblemData UserCourseData::update_data(const problemid& pid, const bool& isSolved)
+void UserCourseData::update_data(const problemid& pid, ProblemData& problemData, const bool& isSolved)
 {
-    ProblemData problemData;
-    // Primero actualizamos el número total de intentos. 
-    totalAttempts.update_attempts(isSolved);
-    // Primero buscamos el problema en curso (árbol de problemas) y actualizamos su información.
-    int i = courseIter->vector_session_position_of_problem(pid);
-    // Básicamente, como la intersección de conjuntos de sesiones es el vacío, cada problema es único del curso.
-    update_tree_problem (pid, problemData, isSolved, problemTreeVector[i]);
-
+    //// Primero buscamos el problema en curso (árbol de problemas) y actualizamos su información.
+    //// Básicamente, como la intersección de conjuntos de sesiones es el vacío, cada problema es único del curso.
+    
     // if (isSolved) insertion_sort_LH (problemData, solvedProblems, solvedProblemsSize);
-    if (isSolved) ++solvedProblemsSize;
-    return problemData;
+    int i = binary_search_LH(pid, availableProblems, sizeAvailableProblems);
+    availableProblems[i].solve(isSolved);
+    problemData = availableProblems[i];
+
+    if (isSolved) 
+    {
+        availableProblems.erase(availableProblems.begin() + i);
+        --sizeAvailableProblems;    
+        int j = courseIter->vector_session_position_of_problem(pid);
+        update_tree_problem (pid, problemData, isSolved, problemTreeVector[j]);
+        ++solvedProblemsSize;
+    };
 }
