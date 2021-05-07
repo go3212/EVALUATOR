@@ -211,12 +211,6 @@ void Comandos::baja_usuario(const userid& uid)
 
     if (userIter != userIterEnd)
     {
-        if ((*userIter).second.is_inscribed())
-        {
-            CourseVector::iterator courseIter;
-            courses.get_course((*userIter).second.inscribed_course_id(), courseIter);
-            (*courseIter).uninscribe_user();
-        }
         users.delete_user(userIter);
         cout << users.get_number_of_users();
     }
@@ -289,8 +283,7 @@ void Comandos::problemas_resueltos(const userid& uid)
     UserMap::iterator userIter;
     if(users.get_user(uid, userIter))
     {
-        int n = (*userIter).second.print_all_time_solved_problems();
-        if (n != 0) cout << endl;
+        (*userIter).second.print_all_time_solved_problems();
     } else cout << "error: el usuario no existe" << endl;
 }
 

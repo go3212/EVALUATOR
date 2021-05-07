@@ -1,209 +1,147 @@
 #include "userdata.hh"
-#include <algorithm>
 
-
-void imm_insert_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector)
+CourseManager::CourseManager()
 {
-    BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
-    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
-    if (!left.empty())
-    {   
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (left.value().second) imm_insert_available_problems(left, size, problemVector);
-        else problemVector.insert(problemVector.end(), ProblemData(left.value().first)), ++size;
-        //else insertion_sort_LH(ProblemData(left.value().first), problemVector, size); 
-    }
-    if (!right.empty())
+    sizeSolvedProblems = 0;
+    uniqueAttempts = 0;
+    currentCourse = CurrentCourse();
+}
+
+CourseManager::~CourseManager()
+{
+    if (currentCourse.identifier != 0)
     {
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (right.value().second) imm_insert_available_problems (right, size, problemVector);
-        else problemVector.insert(problemVector.end(), ProblemData(right.value().first)), ++size;
-        // else insertion_sort_LH(ProblemData(right.value().first), problemVector, size); 
+        currentCourse.courseIter->force_uninscribe();
     }
 }
 
-void insert_available_problems (const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector)
+CourseManager::CurrentCourse::CurrentCourse()
 {
-    // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
-    // considera que la raíz  (la primera) siempre es solucionable.
-    
-    if (!problemTree.value().second) // El único caso que puede entrar (o no) en este condicional es el primero.
+    identifier = 0;
+}
+
+void CourseManager::insert_available_problems(const ProblemTree& problemTree)
+{
+    // Queremos ver si el problema se puede insertar o no, si no se puede, buscar todos los insertables.
+    // Primero miramos si la raíz ha sido "solucionada", si lo ha sido, insertamos el problema a la lista de disponibles.
+    if(problemTree.empty()) return void();
+    auto ret = problemDataMap.insert(make_pair(problemTree.value(), ProblemData(problemTree.value())));
+    if (ret.second) 
     {
-        problemVector.insert(problemVector.end(), ProblemData(problemTree.value().first)), ++size;
-        return void(); // No hau que revisar más.
-    }
-    BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
-    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
-    if (!left.empty())
-    {   
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (left.value().second) imm_insert_available_problems(left, size, problemVector);
-        else problemVector.insert(problemVector.end(), ProblemData(left.value().first)), ++size;
-        //else insertion_sort_LH(ProblemData(left.value().first), problemVector, size); 
-    }
-    if (!right.empty())
-    {
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (right.value().second) imm_insert_available_problems (right, size, problemVector);
-        else problemVector.insert(problemVector.end(), ProblemData(right.value().first)), ++size;
-        // else insertion_sort_LH(ProblemData(right.value().first), problemVector, size); 
-    }
-}
-
-void initialize_solved_problems (UserCoursesData& userCoursesData, int& unsolved, BinTree<pair<problemid, bool>>& problemTree)
-{
-    if (problemTree.empty()) return void();
-    int i = userCoursesData.find(problemTree.value().first);
-    if (i != -1)
-    {
-        ++unsolved;
-        problemTree.value().second = true;
-    }
-    BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
-    initialize_solved_problems(userCoursesData, unsolved, left);
-    initialize_solved_problems(userCoursesData, unsolved, right);
-    return void();
-}
-
-
-//##################//
-//  UserCoursesData
-UserCoursesData::UserCoursesData()
-{
-    coursesVect = vector<ProblemData>(0);
-    sizeCoursesVect = 0;
-    unique_attempts = 0;
-}
-
-
-int UserCoursesData::insert_solved_problem (const ProblemData& problemData)
-{
-    // Se asume que el problema no existe en el vector.
-    coursesVect.insert(coursesVect.end(), ProblemData());
-    ++sizeCoursesVect;
-    int i = sizeCoursesVect - 1; 
-    while(i > 0 && coursesVect[i - 1].pid > problemData.pid)
-    {
-        coursesVect[i] = coursesVect[i - 1];
-        --i;
-    }
-    coursesVect[i] = problemData;
-    return i;
-}
-
-bool UserCoursesData::update_attempts (ProblemData& problemData, const bool& isSolved)
-{
-    attempts.update_attempts(isSolved);
-    // En cualquier caso, actualizamos 
-    if (problemData.attempts.total == 1)
-    {
-        unique_attempts += 1;
-    }
-    // Si se ha solucionado, añadimos problemData al vector de problemas solucionados.
-    // if (isSolved) insert_solved_problem (problemData);
-    if (isSolved) coursesVect.insert(coursesVect.end(), problemData), ++sizeCoursesVect;
-    return isSolved;
-}
-
-bool sort_LH (const ProblemData& a, const ProblemData& b)
-{
-    return a.pid < b.pid;
-}
-
-int UserCoursesData::find (const problemid& pid)
-{
-    //if (sizeCoursesVect == 0) return -1;
-    sort (coursesVect.begin(), coursesVect.end(), sort_LH);
-    int i = binary_search_LH (pid, coursesVect, sizeCoursesVect);
-    if (i == -1) return -1;
-    return i;
-}
-
-//##################//
-//  UserCourseData
-UserCourseData::UserCourseData()
-{
-    sizeProblemTreeVector = 0;
-    numProblems = 0;
-    solvedProblemsSize = 0;
-    problemTreeVector = vector<BinTree<pair<problemid, bool>>>(sizeProblemTreeVector);
-    sizeAvailableProblems = 0;
-}
-
-UserCourseData::UserCourseData(const courseid& cid)
-{
-    identifier = cid;
-    sizeProblemTreeVector = 0;
-    numProblems = 0;
-    solvedProblemsSize = 0;
-    problemTreeVector = vector<BinTree<pair<problemid, bool>>>(sizeProblemTreeVector);
-    sizeAvailableProblems = 0;
-}
-
-int UserCourseData::notsolved_problems() const
-{
-    return numProblems - solvedProblemsSize;
-}
-
-bool UserCourseData::update_tree_problem (const problemid& pid, ProblemData& problemData, const bool& solved, BinTree<pair<problemid, bool>>& problemTree)
-{
-    if (problemTree.empty()) return false;
-    if (problemTree.value().first == pid)
-    {
-        problemTree.value().second = solved;
-        if (solved) insert_available_problems(problemTree, sizeAvailableProblems, availableProblems);
-        return true;
-    }
-    BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
-    return (update_tree_problem (pid, problemData, solved, left) or update_tree_problem (pid, problemData, solved, right));
-}
-
-void UserCourseData::update_tree_problem_v2 (bool& found, const problemid& pid, BinTree<pair<problemid, bool>>& problemTree)
-{
-    if (problemTree.empty()) return void();
-    if (problemTree.value().first == pid)
-    {
-        problemTree.value().second = true;
-        insert_available_problems(problemTree, sizeAvailableProblems, availableProblems);
-        found = true;
+        currentCourse.availableProblems.insert(make_pair(problemTree.value(), ret.first));
         return void();
     }
-    BinTree<pair<problemid, bool>> left = problemTree.left(), right = problemTree.right();
-    update_tree_problem_v2 (found, pid, left);
-    update_tree_problem_v2 (found, pid, right);
+
+    insert_available_problems(problemTree.left());
+    insert_available_problems(problemTree.right());
 }
 
-void UserCourseData::fetch_solved_problems(UserCoursesData& userCoursesData)
+CourseManager::CurrentCourse::CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions)
 {
-    int solved;
-    for (int i = 0; i < sizeProblemTreeVector; ++i)
+    identifier = courseIter->get_cid();
+    sessionProblemMapIter = vector<SessionMap::const_iterator>(courseIter->get_number_of_sessions());
+    CourseSessionVector::const_iterator beginIter, endIter;
+    courseIter->get_iterators(beginIter, endIter);
+    numSessions = 0; 
+    while (beginIter != endIter)
     {
-        solved = 0;
-        initialize_solved_problems(userCoursesData, solved, problemTreeVector[i]);
-        insert_available_problems(problemTreeVector[i], sizeAvailableProblems, availableProblems);
-        solvedProblemsSize += solved;
+        sessions.get_session(*beginIter, sessionProblemMapIter[numSessions]);
+        ++numSessions;
+        ++beginIter;
     }
-    sort(availableProblems.begin(), availableProblems.end(), sort_LH);
+    this->courseIter = courseIter;
 }
 
-void UserCourseData::update_data(const problemid& pid, ProblemData& problemData, const bool& isSolved)
+bool CourseManager::inscribe(const CourseVector::iterator& courseIter, const Sesiones& sessions)
 {
-    //// Primero buscamos el problema en curso (árbol de problemas) y actualizamos su información.
-    //// Básicamente, como la intersección de conjuntos de sesiones es el vacío, cada problema es único del curso.
-    int i = binary_search_LH(pid, availableProblems, sizeAvailableProblems);
-    availableProblems[i].solve(isSolved);
-    problemData = availableProblems[i];
-    if (isSolved) 
+    currentCourse = CurrentCourse(courseIter, sessions);
+    courseIter->inscribe_user();
+    ProblemTree temp; 
+    for (int i = 0; i < currentCourse.numSessions; ++i)
     {
-        bool found = false;
-        availableProblems.erase(availableProblems.begin() + i);
-        --sizeAvailableProblems;    
-        update_tree_problem_v2 (found, pid, problemTreeVector[courseIter->vector_session_position_of_problem(pid)]);
-        ++solvedProblemsSize;
-        sort(availableProblems.begin(), availableProblems.end(), sort_LH);
+        ProblemTree temp;   
+        currentCourse.sessionProblemMapIter[i]->second.get_problemTree(temp);
+        insert_available_problems(temp);
     }
+    return true;
+}
+
+bool CourseManager::uninscribe()
+{
+    currentCourse.courseIter->uninscribe_user();
+    currentCourse = CurrentCourse();
+    return true;
+}
+
+void CourseManager::fetch_available_problems(const problemid& pid)
+{
+    // Para buscar los problemas, tenemos que acceder primero al hintMap
+    // de la clase para saber en que sesion está, despues, simplemente capturamos
+    // el fragmento de bintree corresponiente.
+    int i = currentCourse.courseIter->vector_session_position_of_problem(pid);
+    TreeNode temp;
+    currentCourse.sessionProblemMapIter[i]->second.get_next_problem(pid, temp);
+    insert_available_problems(temp.root);
+}
+
+void CourseManager::send_attempt(const problemid& pid, const bool& status)
+{
+    // Siempre que hagamos un envio, actualizamos las stats del curso y los
+    // intentos totales
+    attempts.update_attempts(status);
+
+    // Ahora queda buscar el problema y modificar el estado de los problemas resueltos
+    // y disponibles
+    auto ret = currentCourse.availableProblems.find(pid);
+    // Nos garantizan que siempre el problema enviado está disponible.
+    (*ret).second->second.solve(status);
+    if ((*ret).second->second.attempts.total == 1) uniqueAttempts += 1;
+
+    // Si el problema está solucionado, tenemos que eliminarlo del mapa y hacer fetch
+    if (status)
+    {
+        solvedProblems.insert(make_pair(ret->first, ret->second));
+        currentCourse.availableProblems.erase(ret);
+        fetch_available_problems(pid);
+    }
+}
+
+void CourseManager::print_available_problems() const
+{
+    ProblemDataIteratorMap::const_iterator beginIter, endIter;
+    beginIter = currentCourse.availableProblems.begin();
+    endIter =  currentCourse.availableProblems.end();
+
+    while (endIter != beginIter)
+    {
+        cout << beginIter->first;
+        cout << '(' << beginIter->second->second.attempts.total << ')';
+        cout << endl;
+        ++beginIter;
+    }
+}
+
+void CourseManager::print_solved_problems() const
+{
+    ProblemDataIteratorMap::const_iterator beginIter, endIter;
+    beginIter = solvedProblems.begin();
+    endIter =  solvedProblems.end();
+
+    while (endIter != beginIter)
+    {
+        cout << beginIter->first;
+        cout << '(' << beginIter->second->second.attempts.total << ')';
+        cout << endl;
+        ++beginIter;
+    }
+}
+
+courseid CourseManager::current_course_id() const
+{
+    return currentCourse.identifier;
+}
+
+bool CourseManager::course_finished() const
+{
+    return currentCourse.availableProblems.empty();
 }

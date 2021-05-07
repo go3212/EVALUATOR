@@ -65,6 +65,10 @@ public:
      */ 
     Curso(const courseid& cid);
 
+    void force_uninscribe();
+
+    courseid get_cid() const;
+
     /** @brief Modifica o inicializa el cid.
      *  @param cid identificador de curso ('courseid').
      *  \pre true.

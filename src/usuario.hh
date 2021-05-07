@@ -26,8 +26,7 @@ private:
     userid uid;
     bool hasUserid;
     bool isInscribed;
-    UserCourseData currentCourse;
-    UserCoursesData allCourses;
+    CourseManager courseManager;
 
 public:
 
@@ -43,6 +42,8 @@ public:
      *  \post Todas las variables de la clase son inicializadas y el identificador de usuario es el parámetro.
      */ 
     Usuario(const userid& uid);
+
+    ~Usuario();
 
     /** @brief Función que indica si el usuario tiene identificador.
      *  \pre true.

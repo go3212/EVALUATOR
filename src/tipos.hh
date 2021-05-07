@@ -13,6 +13,7 @@
 
 using namespace std;
 
+
 /* TIPOS DE VARIABLES/OBJETOS */
 
 /** @typedef sessionid
@@ -166,6 +167,29 @@ public:
     {
         return classVectorSize;
     }
+};
+
+
+
+struct TreeNode
+{
+    BinTree<problemid> root;
+
+    TreeNode()
+    {
+        
+    }
+
+    TreeNode(BinTree<problemid>& problemTree)
+    {
+        root = problemTree; 
+    }
+
+
+    // TreeNode(const problemid left, const problemid& right)
+    // {
+        // BinTree
+    // }
 };
 
 #endif

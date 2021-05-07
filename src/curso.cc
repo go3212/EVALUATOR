@@ -39,10 +39,20 @@ Curso::Curso(const courseid& cid)
     valid = false;
 }
 
+void Curso::force_uninscribe()
+{
+    userdata.inscribed_users -= 1;
+}
+
 Curso::UserData::UserData()
 {
     inscribed_users = 0;
     alltime_users = 0;
+}
+
+courseid Curso::get_cid() const
+{
+    return cid;
 }
 
 bool Curso::set_cid(const courseid& cid)
@@ -60,13 +70,14 @@ bool Curso::inscribe_user() // const userid& uid
 bool Curso::uninscribe_user() // const userid& uid
 {
     userdata.inscribed_users -= 1;
+    userdata.alltime_users += 1;
     return true;
 }
 int Curso::inscribed_users() const
 {
     return userdata.inscribed_users;
 }
-
+//???
 void Curso::update_problem (const bool& isInscribed)
 {
     // Actualizamos el registro de usuarios (inscritos y los que han superado el curso)
