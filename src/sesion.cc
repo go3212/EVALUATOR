@@ -67,14 +67,14 @@ int Sesion::get_number_of_problems() const
     return n_problems;
 }
 
- void Sesion::get_next_problem(const problemid& pid, TreeNode& treeNode) const
- {
-    treeNode = problemMap.find(pid)->second;
- }
-
-void Sesion::get_problemTree(ProblemTree& problemTree) const
+const TreeNode& Sesion::get_next_problem(const problemid& pid) const
 {
-    problemTree = this->problemTree;
+   return problemMap.find(pid)->second;
+}
+
+const BinTree<problemid>& Sesion::get_problemTree() const
+{
+    return problemTree;
 }
 
 int Sesion::get_problems_as_vector(ProblemVector& pidVect) const

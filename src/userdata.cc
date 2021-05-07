@@ -1,18 +1,20 @@
 #include "userdata.hh"
+#include <algorithm>
 
 CourseManager::CourseManager()
 {
     sizeSolvedProblems = 0;
     uniqueAttempts = 0;
-    currentCourse = CurrentCourse();
 }
 
 CourseManager::~CourseManager()
 {
-    if (currentCourse.identifier != 0)
-    {
-        currentCourse.courseIter->force_uninscribe();
-    }
+
+}
+
+CourseManager::CurrentCourse::~CurrentCourse()
+{
+
 }
 
 CourseManager::CurrentCourse::CurrentCourse()
@@ -59,8 +61,7 @@ bool CourseManager::inscribe(const CourseVector::iterator& courseIter, const Ses
     ProblemTree temp; 
     for (int i = 0; i < currentCourse.numSessions; ++i)
     {
-        ProblemTree temp;   
-        currentCourse.sessionProblemMapIter[i]->second.get_problemTree(temp);
+        const ProblemTree& temp = currentCourse.sessionProblemMapIter[i]->second.get_problemTree();
         insert_available_problems(temp);
     }
     return true;
@@ -73,14 +74,22 @@ bool CourseManager::uninscribe()
     return true;
 }
 
+void CourseManager::force_uninscribe()
+{
+    if (currentCourse.identifier != 0)
+    {
+        currentCourse.courseIter->force_uninscribe();
+    }
+    currentCourse = CurrentCourse();
+}
+
 void CourseManager::fetch_available_problems(const problemid& pid)
 {
     // Para buscar los problemas, tenemos que acceder primero al hintMap
     // de la clase para saber en que sesion está, despues, simplemente capturamos
     // el fragmento de bintree corresponiente.
     int i = currentCourse.courseIter->vector_session_position_of_problem(pid);
-    TreeNode temp;
-    currentCourse.sessionProblemMapIter[i]->second.get_next_problem(pid, temp);
+    const TreeNode& temp = currentCourse.sessionProblemMapIter[i]->second.get_next_problem(pid);
     insert_available_problems(temp.root);
 }
 
@@ -94,13 +103,14 @@ void CourseManager::send_attempt(const problemid& pid, const bool& status)
     // y disponibles
     auto ret = currentCourse.availableProblems.find(pid);
     // Nos garantizan que siempre el problema enviado está disponible.
+    // if (ret == currentCourse.availableProblems.end()) return void();
     (*ret).second->second.solve(status);
     if ((*ret).second->second.attempts.total == 1) uniqueAttempts += 1;
 
     // Si el problema está solucionado, tenemos que eliminarlo del mapa y hacer fetch
     if (status)
     {
-        solvedProblems.insert(make_pair(ret->first, ret->second));
+        solvedProblems.push_back(pair<problemid, int>(pid, ret->second->second.attempts.total));
         currentCourse.availableProblems.erase(ret);
         fetch_available_problems(pid);
     }
@@ -121,16 +131,20 @@ void CourseManager::print_available_problems() const
     }
 }
 
-void CourseManager::print_solved_problems() const
+bool fast_comp(const pair<problemid, int>& a, const pair<problemid, int>& b)
 {
-    ProblemDataIteratorMap::const_iterator beginIter, endIter;
-    beginIter = solvedProblems.begin();
-    endIter =  solvedProblems.end();
+    return a.first < b.first;
+}
+
+void CourseManager::print_solved_problems() 
+{
+    sort (solvedProblems.begin(), solvedProblems.end(), fast_comp);
+    auto beginIter = solvedProblems.begin(), endIter = solvedProblems.end();
 
     while (endIter != beginIter)
     {
         cout << beginIter->first;
-        cout << '(' << beginIter->second->second.attempts.total << ')';
+        cout << '(' << beginIter->second << ')';
         cout << endl;
         ++beginIter;
     }

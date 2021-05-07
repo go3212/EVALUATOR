@@ -2,6 +2,7 @@
 #define USERDATA_HH
 
 #include <iostream>
+#include <algorithm>
 #include <map>
 #include <set>
 #include "tipos.hh"
@@ -11,6 +12,8 @@
 typedef map<problemid, ProblemData> ProblemDataMap;
 typedef map<problemid, ProblemDataMap::iterator> ProblemDataIteratorMap;
 
+
+
 /** @struct UserCoursesData
  *  @brief Almacena información genérica sobre todos los 'Curso' que ha cursado un 'Usuario'.
  */
@@ -19,7 +22,7 @@ class CourseManager
 private:
     Attempts attempts;
     ProblemDataMap problemDataMap;
-    ProblemDataIteratorMap solvedProblems;
+    vector<pair<problemid, int>> solvedProblems;
     int sizeSolvedProblems;
     int uniqueAttempts;
 
@@ -36,6 +39,7 @@ private:
 
         CurrentCourse();
         CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions);
+        ~CurrentCourse(); 
     };
 
     CurrentCourse currentCourse;
@@ -50,10 +54,11 @@ public:
     bool inscribe(const CourseVector::iterator& courseIter, const Sesiones& sessions);
     void fetch_available_problems(const problemid& pid);
     bool uninscribe();
+    void force_uninscribe();
     // void fetch_available_problems_rec(const problemid& pid);
     void send_attempt(const problemid& pid, const bool& status);
     void print_available_problems() const;
-    void print_solved_problems() const;
+    void print_solved_problems();
     bool course_finished() const;
 
     /** EXP */
@@ -65,6 +70,7 @@ public:
     }
 
 };
+
 
 
 #endif

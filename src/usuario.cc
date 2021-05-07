@@ -17,34 +17,6 @@ void write_data (const ProblemData& problemData)
     cout << endl;
 }
 
-void print_session_available_problems(const BinTree<ProblemData>& problemTree)
-{
-    // Un problema tiene posibilidad de envio si, y solo si, su anterior problema (en la rama) ha sido solucionado, se
-    // considera que la raíz (la primera) siempre es solucionable.
-    
-    if (!problemTree.value().solved) // El único caso que puede entrar (o no) en este condicional es el primero.
-    {
-        write_data(problemTree.value());
-        return void(); // No hau que revisar más.
-    }
-    BinTree<ProblemData> left = problemTree.left(), right = problemTree.right();
-    // Para cumplir la precondición, en la recursividad solo se pueden pasar árboles no vacíos.
-    if (!left.empty())
-    {   
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (left.value().solved) print_session_available_problems(left);
-        else write_data(left.value()); 
-    }
-    if (!right.empty())
-    {
-        // Si el problema de la izquierda está solucionado, hay que verificar recursivamente si sus hijos
-        // son problemas a solucionar o no. Si no está solucionado, sus hijos no son solucionables.
-        if (right.value().solved) print_session_available_problems (right);
-        else write_data(right.value()); 
-    }
-}
-
 //######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
@@ -66,7 +38,12 @@ Usuario::Usuario(const userid& uid)
 
 Usuario::~Usuario()
 {
+    
+}
 
+void Usuario::force_uninscribe()
+{
+    courseManager.force_uninscribe();
 }
 
 bool Usuario::has_userid() const
@@ -84,7 +61,7 @@ courseid Usuario::inscribed_course_id() const
     return courseManager.current_course_id();
 }
 
-bool Usuario::inscribe(const courseid& cid, const CourseVector::iterator& courseIter, Sesiones& sessions)
+bool Usuario::inscribe(const CourseVector::iterator& courseIter, Sesiones& sessions)
 {
     // Primero miramos si el usuario está inscrito en un curso:
     if (isInscribed) return false;
@@ -93,8 +70,8 @@ bool Usuario::inscribe(const courseid& cid, const CourseVector::iterator& course
     courseManager.inscribe(courseIter, sessions);
 
     // Si el usuario no tiene problemas a solucionar, ha acabado el curso.
-    if (courseManager.course_finished()) return false;
     isInscribed = true;
+    if (courseManager.course_finished()) isInscribed = false;
     return true; 
 }
 

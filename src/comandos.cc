@@ -211,6 +211,7 @@ void Comandos::baja_usuario(const userid& uid)
 
     if (userIter != userIterEnd)
     {
+        userIter->second.force_uninscribe();
         users.delete_user(userIter);
         cout << users.get_number_of_users();
     }
@@ -229,7 +230,7 @@ void Comandos::inscribir_curso(const userid& uid, const courseid& cid)
         CourseVector::iterator courseIter;
         if(courses.get_course(cid, courseIter))
         {
-            if ((*userIter).second.inscribe(cid, courseIter, sessions))
+            if ((*userIter).second.inscribe(courseIter, sessions))
             {
                 cout << (*courseIter).inscribed_users();
             } else cout << "error: usuario inscrito en otro curso";

@@ -72,6 +72,8 @@ public:
      */
     void get_iterators(SessionMap::const_iterator& beginIterator, SessionMap::const_iterator& endIterator) const;
 
+    bool get_session(const sessionid& sid, SessionMap::iterator& mapIter);
+
     /** @brief Lee un conjunto de sesiones por la entrada 'stdin' y los guarda.
      *  \pre Número de sesiones a leer en la entrada (S > 0), seguido de S sesiones.
      *  \post Se almacenan los datos.

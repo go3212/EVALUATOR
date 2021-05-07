@@ -77,13 +77,6 @@ int Curso::inscribed_users() const
 {
     return userdata.inscribed_users;
 }
-//???
-void Curso::update_problem (const bool& isInscribed)
-{
-    // Actualizamos el registro de usuarios (inscritos y los que han superado el curso)
-    userdata.alltime_users += 1*(!isInscribed);
-    userdata.inscribed_users -= 1*(!isInscribed);
-}
 
 int Curso::get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const
 {
@@ -114,13 +107,13 @@ bool Curso::is_valid_course(const Sesiones& sessions)
     SessionMap::const_iterator sessionMap;
     pair<map<problemid, int>::iterator, bool> ret;
     ProblemVector problemVector;
+    vector<problemid>::const_iterator beginIter, endIter;
     // Inv: 0 <= i <= total.
     for (int i = 0; i < total; ++i)
     {   
         // Primero buscamos la sesión en el conjunto de sesiones.
         sessions.get_session(this->sessionVector[i], sessionMap);
         // Cargamos todos los problemas de la sesion en el vector 'problemVector'.
-        vector<problemid>::const_iterator beginIter, endIter;
         (*sessionMap).second.get_problems_iterator(beginIter, endIter);
         // Inv; 0 <= i <= n.
         while(beginIter != endIter)

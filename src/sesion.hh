@@ -49,9 +49,9 @@ public:
      */ 
     Sesion(const sessionid& sid);
 
-    void get_problemTree(ProblemTree& problemTree) const;
+    const BinTree<problemid>& get_problemTree() const;
 
-    void get_next_problem(const problemid& pid, TreeNode& treeNode) const;
+    const TreeNode& get_next_problem(const problemid& pid) const;
 
     /** @brief Devuelve si la sesion tiene identificador.
      *  \post Devuelve 'true' si la sesión tiene identificador y 'false' si no lo tiene.

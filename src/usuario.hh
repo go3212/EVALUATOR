@@ -77,7 +77,9 @@ public:
      *        en caso opuesto, no se modifica la inscripción y se devuelve ('false').
      *  @return bool: 'true' si se ha inscrito al usuario correctamente, 'false' si el usuario ya estaba inscrito en un curso.
      */
-    bool inscribe(const courseid& cid, const CourseVector::iterator& courseIter, Sesiones& sessions);
+    bool inscribe(const CourseVector::iterator& courseIter, Sesiones& sessions);
+
+    void force_uninscribe();
 
     /**
      * @brief Función que actualiza el conjunto de problemas de acuerdo con las reglas establecidas previamente.
