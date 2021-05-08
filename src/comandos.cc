@@ -6,25 +6,11 @@
 
 using namespace std;
 
-Comandos::Comandos()
+Comandos::Comandos(Usuarios& users, Cursos& courses, Problemas& problems, Sesiones& sessions) : users(users), courses(courses), problems(problems), sessions(sessions)
 {
     set_default_commandsMap();
 }
 
-Comandos::Comandos(Usuarios& users, Cursos& courses, Problemas& problems, Sesiones& sessions)
-{
-    Usuarios* users_p = &(this->users);
-    Cursos* courses_p = &(this->courses);
-    Problemas* problems_p = &(this->problems);
-    Sesiones* sessions_p = &(this->sessions);
-
-    *users_p = users;
-    *courses_p = courses;
-    *problems_p = problems;
-    *sessions_p = sessions;
-
-    set_default_commandsMap();
-}
 
 bool Comandos::run()
 {

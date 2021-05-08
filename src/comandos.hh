@@ -29,13 +29,6 @@ private:
     void set_default_commandsMap();
     
 public:
-
-    /** @brief Constructor que incicializa los usuarios, cursos y problemas.
-     *  \pre En la entrada debe de estar toda la información a inicializar sobre los usuarios, cursos y problemas.
-     *  \post Se inicializan los usuarios, cursos y problemas.
-     */
-    Comandos();
-
     /** @brief Constructor que incicializa los usuarios, cursos y problemas.
      *  \pre En la entrada debe de estar toda la información a inicializar sobre los usuarios, cursos y problemas.
      *  \post Se inicializan los usuarios, cursos y problemas.

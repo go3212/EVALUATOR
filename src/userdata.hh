@@ -35,17 +35,20 @@ private:
         CourseVector::iterator courseIter;
         vector<SessionMap::const_iterator> sessionProblemMapIter;
         ProblemDataIteratorMap availableProblems;
+        vector<pair<problemid, ProblemDataMap::iterator>> availableProblemsVect;
         int numSessions;
         int numProblems;
 
         CurrentCourse();
         CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions);
+        void not_solved_problems(int& sum, const ProblemDataMap& problemDataMap, const ProblemTree& problemTree) const;
         ~CurrentCourse(); 
     };
 
     CurrentCourse currentCourse;
 
     void insert_available_problems(const ProblemTree& problemTree);
+    void insert_available_problems(int& sum, vector<pair<problemid, int>>& myVect, const ProblemTree& problemTree) const;
 public:
 
     CourseManager();
