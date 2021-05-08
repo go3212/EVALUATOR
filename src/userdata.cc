@@ -20,6 +20,7 @@ CourseManager::CurrentCourse::~CurrentCourse()
 CourseManager::CurrentCourse::CurrentCourse()
 {
     identifier = 0;
+    numProblems = 0;
 }
 
 void CourseManager::insert_available_problems(const ProblemTree& problemTree)
@@ -48,6 +49,7 @@ CourseManager::CurrentCourse::CurrentCourse(const CourseVector::iterator& course
     while (beginIter != endIter)
     {
         sessions.get_session(*beginIter, sessionProblemMapIter[numSessions]);
+        numProblems += sessionProblemMapIter[numSessions]->second.get_number_of_problems();
         ++numSessions;
         ++beginIter;
     }
@@ -58,12 +60,6 @@ bool CourseManager::inscribe(const CourseVector::iterator& courseIter, const Ses
 {
     currentCourse = CurrentCourse(courseIter, sessions);
     courseIter->inscribe_user();
-    ProblemTree temp; 
-    for (int i = 0; i < currentCourse.numSessions; ++i)
-    {
-        const ProblemTree& temp = currentCourse.sessionProblemMapIter[i]->second.get_problemTree();
-        insert_available_problems(temp);
-    }
     return true;
 }
 
@@ -99,21 +95,11 @@ void CourseManager::send_attempt(const problemid& pid, const bool& status)
     // intentos totales
     attempts.update_attempts(status);
 
-    // Ahora queda buscar el problema y modificar el estado de los problemas resueltos
-    // y disponibles
-    auto ret = currentCourse.availableProblems.find(pid);
+    // Insertamos el problema en el mapa.
+    auto ret = problemDataMap.insert(make_pair(pid, ProblemData()));
     // Nos garantizan que siempre el problema enviado está disponible.
-    // if (ret == currentCourse.availableProblems.end()) return void();
-    (*ret).second->second.solve(status);
-    if ((*ret).second->second.attempts.total == 1) uniqueAttempts += 1;
-
-    // Si el problema está solucionado, tenemos que eliminarlo del mapa y hacer fetch
-    if (status)
-    {
-        solvedProblems.push_back(pair<problemid, int>(pid, ret->second->second.attempts.total));
-        currentCourse.availableProblems.erase(ret);
-        fetch_available_problems(pid);
-    }
+    ret.first->second.solve(status);
+    if (ret.first->second.attempts.total == 1) uniqueAttempts += 1;
 }
 
 void CourseManager::print_available_problems() const

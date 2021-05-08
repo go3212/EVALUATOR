@@ -36,6 +36,7 @@ private:
         vector<SessionMap::const_iterator> sessionProblemMapIter;
         ProblemDataIteratorMap availableProblems;
         int numSessions;
+        int numProblems;
 
         CurrentCourse();
         CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions);
