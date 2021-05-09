@@ -1,21 +1,23 @@
 #include "sesion.hh"
 #include <algorithm>
+#include "tipos.hh"
 
 using namespace std;
 //######################################//
 //      FUNCIONES AJENAS A LA CLASE     //
 //######################################//
-int read_BinTree(ProblemTree& myTree)
+int read_BinTree(ProblemTree& myTree, ProblemMapNode& myMap)
 {
     int sum = 0;
     problemid pid; cin >> pid;
     if (pid[0] != '0')
     {
         ProblemTree myTreeLeft;
-        sum += read_BinTree(myTreeLeft);
+        sum += read_BinTree(myTreeLeft, myMap);
         ProblemTree myTreeRight;
-        sum += read_BinTree(myTreeRight);
+        sum += read_BinTree(myTreeRight, myMap);
         myTree = ProblemTree(pid, myTreeLeft, myTreeRight);
+        myMap.insert(make_pair(pid, TreeNode(myTree)));
         return 1 + sum;
     }
     return sum;
@@ -47,17 +49,6 @@ void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
     return void();
 }
 
-void userBinTreeTransform(BinTree<ProblemData>& copyBinTree, const ProblemTree& binTree)
-{
-    if (binTree.empty()) return void();
-    BinTree<ProblemData> copyBinTreeLeft, copyBinTreeRight;
-
-    userBinTreeTransform(copyBinTreeLeft, binTree.left());
-    userBinTreeTransform(copyBinTreeRight, binTree.right());
-
-    copyBinTree = BinTree<ProblemData>(ProblemData(binTree.value_cpy()), copyBinTreeLeft, copyBinTreeRight);
-}
-
 //######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
@@ -76,12 +67,15 @@ int Sesion::get_number_of_problems() const
     return n_problems;
 }
 
-BinTree<ProblemData> Sesion::get_problemTree() const
+const TreeNode& Sesion::get_next_problem(const problemid& pid) const
 {
-    BinTree<ProblemData> copyBinTree;
-    userBinTreeTransform (copyBinTree, problemTree);
-    return copyBinTree;
-}   
+   return problemMap.find(pid)->second;
+}
+
+const BinTree<problemid>& Sesion::get_problemTree() const
+{
+    return problemTree;
+}
 
 int Sesion::get_problems_as_vector(ProblemVector& pidVect) const
 {
@@ -96,6 +90,13 @@ bool Sesion::has_problem(const problemid& pid) const
     return ((problemVect.find(pid) != -1) ? true : false);
 }
 
+int Sesion::get_problems_iterator(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const
+{
+    problemVect.begin_iterator(beginIter);
+    problemVect.end_iterator(endIter);
+    return n_problems;
+}
+
 int Sesion::get_problems (ProblemVector& pidVector) const
 {
     pidVector = problemVect;
@@ -106,7 +107,7 @@ Sesion::Sesion(const sessionid& sid)
 {
     this->sid = sid;
     hasSessionid = true;
-    n_problems = read_BinTree(problemTree);
+    n_problems = read_BinTree(problemTree, problemMap);
     get_problems_as_vector(problemVect);
     
 }

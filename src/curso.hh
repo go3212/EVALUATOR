@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <set>
+#include <map>
 #include "tipos.hh"
 #include "sesiones.hh"
 #include "problemas.hh"
@@ -28,7 +28,7 @@ class Curso
 private:
     int total;                          //!< Número de sesiones que tiene el curso.
     courseid cid;                       //!< Identificador del curso.
-    CourseSessionVector sessionVector;  //!< Vector de sesiones del curso, contiene 'total' elementos.   
+    CourseSessionVector sessionVector;  //!< Vector de sesiones del curso, contiene 'total' elementos.
 
     /** @struct UserData
      *  @brief Estructura que almacena información general sobre los usuarios que se han inscrito al curso.
@@ -47,7 +47,8 @@ private:
 
     UserData userdata;                  //!< Objeto del tipo 'UserData'
 
-    map<string, string> problemas; 
+    map<problemid, sessionid> hintMap;
+    bool isHintMapInitialized;
 public:
 
     /** @brief Constructor por defecto de la clase.
@@ -62,6 +63,8 @@ public:
      *  \post Todas las variables de la clase son inicializadas y el identificador del curso es el parámetro.
      */ 
     Curso(const courseid& cid);
+
+    courseid get_cid() const;
 
     /** @brief Modifica o inicializa el cid.
      *  @param cid identificador de curso ('courseid').
@@ -85,12 +88,20 @@ public:
      */    
     bool uninscribe_user(); // const userid& uid
 
+    void force_uninscribe();
+
+    bool is_hintMap_initialized() const;
+
+    bool initialize_hintMap(const Sesiones& sessions);
+
     /** @brief Función que indica el número de usuarios inscritos en el curso.
      *  \pre true.
      *  \post No se modifica ningún objeto de la clase.
      *  @return int: número de usuarios inscritos en el curso. (int >= 0).
      */    
     int inscribed_users() const;
+
+    sessionid get_problem_session (const problemid& pid) const;
 
     /**
      * @brief 
@@ -104,25 +115,24 @@ public:
      * \pre El usuario estaba (o está) inscrito en el curso.
      * \post Se actualiza el registro de problemas del curso en función de si el usuario ha solucionado el problema o no.
      */
-    void update_problem (const problemid& pid, Problemas& problems, const bool& isSolved, const bool& isInscribed);
+    void update_problem (const bool& isInscribed);
 
     /** @brief Asigna los iteradores del vector 'sessionVector' a los parámetros.
      *  @param beginIterator iterador del inicio del vector 'sessionVector'. Tipo 'CourseSessionVector::const_iterator'.
      *  @param endIterator iterador del final del vector 'sessionVector'. Tipo 'CourseSessionVector::const_iterator'.
      *  \pre true.
      *  \post No se modifica ningún objeto de la clase.
-     *  @return void. 
+     *  @return int: número total de elementos 
      */
-    void get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
+    int get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
 
-    /** @brief Verifica que el curso sea válido de acuerdo con el objeto 'Sesiones'.
-     *  @param sessions objeto del tipo 'Sesiones' que se utilizará para verificar si el 'Curso' es válido.
-     *  \pre EL parámetro 'sessions' no está incializado, el curso contiene sesiones. 
-     *       Todas las sesiones del curso existen en el objeto 'Sesiones' (son válidas).
-     *  \post No se modifica ningún objeto de la clase.
-     *  @return bool: true si el 'Curso' es válido y false si no lo es.
-     */
-    bool is_valid_course(const Sesiones& sessions) const;
+    // /** @brief Verifica que el curso sea válido de acuerdo con el objeto 'Sesiones'.
+    //  *  @param sessions objeto del tipo 'Sesiones' que se utilizará para verificar si el 'Curso' es válido.
+    //  *  \pre EL parámetro 'sessions' no está incializado, el curso contiene sesiones. 
+    //  *       Todas las sesiones del curso existen en el objeto 'Sesiones' (son válidas).
+    //  *  \post No se modifica ningún objeto de la clase.
+    //  *  @return bool: true si el 'Curso' es válido y false si no lo es.
+    //  */
 
     /** @brief Imprime por pantalla información sobre el curso
      *  \pre true.
@@ -131,6 +141,8 @@ public:
      *  @return void.
      */
     void write() const;
+
+    bool read_and_check();
 
     /** @brief Almacena la infomración de un curso por el 'stdin'
      *  \pre El formato de entrada 'stdin' ha de ser correcto, primero el número total de sesiones (N>0) y después las N sesiones.

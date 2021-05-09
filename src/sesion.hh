@@ -13,13 +13,13 @@
 
 using namespace std;
 
+
 /** @typedef ProblemTree
  *  @brief Tipo de variable que almacena problemas de sesiones en forma de árbol binario.
  */
 typedef BinTree<problemid> ProblemTree;
-
 typedef sortedVector<problemid> ProblemVector;
-
+typedef map<problemid, TreeNode> ProblemMapNode;
 
 // N > 0, Sin repeticiones, 
 
@@ -35,6 +35,7 @@ private:
     int n_problems;                 //<! Número de problemas de la sesión.
     ProblemTree problemTree;        //<! Árbol binario de tipo 'ProblemTree' que almacena los problemas de la clase.
     ProblemVector problemVect;      //<! Vector ordenado crecientemente de tipo 'ProblemVector' que almacena los problemas de la clase.
+    ProblemMapNode problemMap;
 public:
 
     /** @brief Overloaded default class null constructor.
@@ -48,7 +49,9 @@ public:
      */ 
     Sesion(const sessionid& sid);
 
-    BinTree<ProblemData> get_problemTree() const;
+    const BinTree<problemid>& get_problemTree() const;
+
+    const TreeNode& get_next_problem(const problemid& pid) const;
 
     /** @brief Devuelve si la sesion tiene identificador.
      *  \post Devuelve 'true' si la sesión tiene identificador y 'false' si no lo tiene.
@@ -62,6 +65,8 @@ public:
     int get_problems (ProblemVector& pidVector) const;
 
     sessionid session_id() const;
+    
+    int get_problems_iterator(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const;
 
     int get_number_of_problems() const;
 
@@ -88,7 +93,7 @@ public:
  * \post Se modifica la variable 'myTree' asignandole el árbol leido.
  * @return int: número de elementos que tiene el árbol binario.
  */
-int read_BinTree(ProblemTree& myTree);
+int read_BinTree(ProblemTree& myTree, ProblemMapNode& myMap);
 
 /**
  * @brief Función que imprime un árbol binario de tipo PtoblemTree.

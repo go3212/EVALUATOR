@@ -16,7 +16,7 @@ int Cursos::get_number_of_courses() const
 bool Cursos::add_course(Curso& course)
 {
     // Añadimos el curso al final del vector de cursos.
-    courseVector.push_back(course);
+    courseVector.insert(courseVector.end(), course);
     // Aumentamos el tamaño del vector de cursos y asignamos el identificador correspondiente al 
     // nuevo curso.
     total += 1;

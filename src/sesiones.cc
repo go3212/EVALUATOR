@@ -35,6 +35,13 @@ bool Sesiones::get_session(const sessionid& sid, SessionMap::const_iterator& map
     return false;
 }
 
+bool Sesiones::get_session(const sessionid& sid, SessionMap::iterator& mapIter)
+{
+    mapIter = sessionMap.find(sid);
+    if(mapIter != sessionMap.end()) return true;
+    return false;
+}
+
 void Sesiones::read()
 {
     int n; cin >> n;

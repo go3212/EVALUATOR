@@ -10,8 +10,10 @@
 #include <string>
 #include <algorithm>
 #include "tipos.hh"
-#include "curso.hh"
+#include "cursos.hh"
+#include "sesiones.hh"
 #include "problema.hh"
+#include "userdata.hh"
 
 using namespace std;
 
@@ -24,8 +26,7 @@ private:
     userid uid;
     bool hasUserid;
     bool isInscribed;
-    UserCourseData currentCourse;
-    UserCoursesData allCourses;
+    CourseManager courseManager;
 
 public:
 
@@ -41,6 +42,8 @@ public:
      *  \post Todas las variables de la clase son inicializadas y el identificador de usuario es el parámetro.
      */ 
     Usuario(const userid& uid);
+
+    ~Usuario();
 
     /** @brief Función que indica si el usuario tiene identificador.
      *  \pre true.
@@ -74,7 +77,9 @@ public:
      *        en caso opuesto, no se modifica la inscripción y se devuelve ('false').
      *  @return bool: 'true' si se ha inscrito al usuario correctamente, 'false' si el usuario ya estaba inscrito en un curso.
      */
-    bool inscribe(const courseid& cid, const Curso& course, Sesiones& sessions);
+    bool inscribe(const CourseVector::iterator& courseIter, Sesiones& sessions);
+
+    void force_uninscribe();
 
     /**
      * @brief Función que actualiza el conjunto de problemas de acuerdo con las reglas establecidas previamente.
@@ -92,14 +97,14 @@ public:
      *       el vector no se habrá modificado.
      * @return int: '-1' si el usuario no está inscrito en ningun curso. El tamaño del vector del parámetro tras la ejecución en cualquier otro caso.
      */
-    int available_problems(vector<ProblemData>& problemVect) const;
+    int available_problems() const;
 
     /** @brief Función que imprime por pantalla todos los cursos solucionados por un usuario.
      *  \pre El usuario debe tener identificador.
      *  \post No se realizan modificaciones en ningún objeto.
      *  @return int: número de problemas resueltos.
      */
-    int print_all_time_solved_problems() const;
+    int print_all_time_solved_problems();
 
     /** @brief Imprime por pantalla información sobre el usuario
      *  \pre true.
@@ -108,6 +113,8 @@ public:
      *  @return void.
      */
     void write() const;
+
+    void print_available_problems() const;
 
     //######################################//
     //      FUNCIONES NO IMPLEMENTADAS      //
@@ -145,6 +152,6 @@ bool sort_vect(ProblemData& a, ProblemData& b);
  *  \post Devuelve los elementos no solucionados adyacenetes a nodos solucionados, los inserta en el parámetro 'problemVector'.
  *  @return void
  */
-void get_session_available_problems(const BinTree<ProblemData>& problemTree, vector<ProblemData>& problemVector);
+void get_session_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector);
 
 #endif
