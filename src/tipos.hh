@@ -169,8 +169,6 @@ public:
     }
 };
 
-
-
 struct TreeNode
 {
     BinTree<problemid> root;

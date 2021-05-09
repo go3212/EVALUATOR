@@ -5,7 +5,6 @@ using namespace std;
 Sesiones::Sesiones()
 {
     total = 0;
-    sessionMap = map<sessionid, Sesion>();
 }
 
 int Sesiones::get_number_of_sessions() const
@@ -51,7 +50,7 @@ void Sesiones::read()
     while (n != 0)
     {
         cin >> sid;
-        sessionMap[sid] = Sesion(sid);
+        sessionMap.insert(make_pair(sid, Sesion(sid)));
         --n;
     }
 }

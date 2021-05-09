@@ -104,7 +104,7 @@ bool Curso::initialize_hintMap(const Sesiones& sessions)
         // Primero buscamos la sesión en el conjunto de sesiones.
         sessions.get_session(this->sessionVector[i], sessionMap);
         // Cargamos todos los problemas de la sesion en el vector 'problemVector'.
-        (*sessionMap).second.get_problems_iterator(beginIter, endIter);
+        (*sessionMap).second.get_problem_vector_iterators(beginIter, endIter);
         // Inv; 0 <= i <= n.
         while(beginIter != endIter)
         {   

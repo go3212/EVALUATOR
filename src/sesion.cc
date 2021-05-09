@@ -1,88 +1,61 @@
 #include "sesion.hh"
-#include <algorithm>
-#include "tipos.hh"
 
 using namespace std;
+
 //######################################//
-//      FUNCIONES AJENAS A LA CLASE     //
+//     MÉTODOS PRIVADOS DE LA CLASE     //
 //######################################//
-int read_BinTree(ProblemTree& myTree, ProblemMapNode& myMap)
+int Sesion::read_problemTree(ProblemTree& problemTree)
 {
     int sum = 0;
     problemid pid; cin >> pid;
-    if (pid[0] != '0')
-    {
-        ProblemTree myTreeLeft;
-        sum += read_BinTree(myTreeLeft, myMap);
-        ProblemTree myTreeRight;
-        sum += read_BinTree(myTreeRight, myMap);
-        myTree = ProblemTree(pid, myTreeLeft, myTreeRight);
-        myMap.insert(make_pair(pid, TreeNode(myTree)));
-        return 1 + sum;
-    }
-    return sum;
-
+    if (pid[0] == '0') return sum;
+    ProblemTree myTreeLeft;
+    sum += read_problemTree(myTreeLeft);
+    ProblemTree myTreeRight;
+    sum += read_problemTree(myTreeRight);
+    problemTree = ProblemTree(pid, myTreeLeft, myTreeRight);
+    return 1 + sum;
 }
 
-void print_BinTree(const ProblemTree& myTree)
+void Sesion::print_problemTree(const ProblemTree& problemTree) const
 {
-    if (!myTree.empty())
-    {
-        cout << '(';
-        ProblemTree myTreeLeft = myTree.left();
-        print_BinTree(myTreeLeft);
-        ProblemTree myTreeRight = myTree.right();
-        print_BinTree(myTreeRight);
-        cout << myTree.value() << ')';
-    }
+    if (problemTree.empty()) return void();
+    cout << '(';
+    ProblemTree myTreeLeft = problemTree.left();
+    print_problemTree(myTreeLeft);
+    ProblemTree myTreeRight = problemTree.right();
+    print_problemTree(myTreeRight);
+    cout << problemTree.value() << ')';
+    return void();
 }
 
-void vectorize_BinTree(ProblemVector& myVect, const ProblemTree& myTree)
+void Sesion::vectorize_problemTree(ProblemVector& problemVect, const ProblemTree& problemTree) const
 {   
-    if (myTree.empty()) return void();
-    myVect.push_back(myTree.value());
-    ProblemTree myTreeLeft = myTree.left();
-    ProblemTree myTreeRight = myTree.right();
-    if(!myTreeLeft.empty()) vectorize_BinTree (myVect, myTreeLeft);
-    if(!myTreeRight.empty())  vectorize_BinTree(myVect, myTreeRight);
-
+    if (problemTree.empty()) return void();
+    problemVect.push_back(problemTree.value());
+    ProblemTree myTreeLeft = problemTree.left();
+    ProblemTree myTreeRight = problemTree.right();
+    if(!myTreeLeft.empty()) vectorize_problemTree (problemVect, myTreeLeft);
+    if(!myTreeRight.empty())  vectorize_problemTree(problemVect, myTreeRight);
     return void();
 }
 
 //######################################//
-//        FUNCIONES DE A LA CLASE       //
+//    MÉTODOS PÚBLICOS DE A LA CLASE    //
 //######################################//
-Sesion::Sesion()
+Sesion::Sesion() 
 {
-    
+    hasSessionid = false;
+    numProblems = 0;
 }
 
-sessionid Sesion::session_id() const
+Sesion::Sesion(const sessionid& sid)
 {
-    return sid;
-}
-
-int Sesion::get_number_of_problems() const
-{
-    return n_problems;
-}
-
-const TreeNode& Sesion::get_next_problem(const problemid& pid) const
-{
-   return problemMap.find(pid)->second;
-}
-
-const BinTree<problemid>& Sesion::get_problemTree() const
-{
-    return problemTree;
-}
-
-int Sesion::get_problems_as_vector(ProblemVector& pidVect) const
-{
-    // Hay que solucionar la asignacion de vectores.
-    // pidVect = ProblemVector(n_problems);
-    vectorize_BinTree(pidVect, problemTree);
-    return n_problems;
+    this->sid = sid;
+    hasSessionid = true;
+    numProblems = read_problemTree(problemTree);
+    get_problems_as_vector(problemVect);
 }
 
 bool Sesion::has_problem(const problemid& pid) const
@@ -90,30 +63,52 @@ bool Sesion::has_problem(const problemid& pid) const
     return ((problemVect.find(pid) != -1) ? true : false);
 }
 
-int Sesion::get_problems_iterator(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const
+sessionid Sesion::get_sessionid() const
 {
-    problemVect.begin_iterator(beginIter);
-    problemVect.end_iterator(endIter);
-    return n_problems;
+    return sid;
 }
 
 int Sesion::get_problems (ProblemVector& pidVector) const
 {
     pidVector = problemVect;
-    return n_problems;
+    return numProblems;
 }
 
-Sesion::Sesion(const sessionid& sid)
+int Sesion::get_number_of_problems() const
 {
-    this->sid = sid;
+    return numProblems;
+}
+
+int Sesion::get_problems_as_vector(ProblemVector& pidVect) const
+{
+    // Hay que solucionar la asignacion de vectores.
+    // pidVect = ProblemVector(numProblems);
+    vectorize_problemTree(pidVect, problemTree);
+    return numProblems;
+}
+
+const BinTree<problemid>& Sesion::get_problemTree() const
+{
+    return problemTree;
+}
+
+int Sesion::get_problem_vector_iterators(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const
+{
+    problemVect.begin_iterator(beginIter);
+    problemVect.end_iterator(endIter);
+    return numProblems;
+}
+
+void Sesion::read()
+{
+    cin >> sid;
     hasSessionid = true;
-    n_problems = read_BinTree(problemTree, problemMap);
+    numProblems = read_problemTree(problemTree);
     get_problems_as_vector(problemVect);
-    
 }
 
 void Sesion::write() const
 {
-    cout << sid << ' ' << n_problems << ' ';
-    print_BinTree(problemTree);
+    cout << sid << ' ' << numProblems << ' ';
+    print_problemTree(problemTree);
 }
