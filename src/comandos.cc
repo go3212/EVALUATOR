@@ -163,7 +163,8 @@ void Comandos::nueva_sesion(const sessionid& sid)
 void Comandos::nuevo_curso()
 {
     Curso course; course.read();
-    if(course.is_valid_course(sessions))
+    course.initialize_hintMap(sessions);
+    if(course.is_hintMap_initialized())
     {
         courses.add_course(course);
         cout << courses.get_number_of_courses();
@@ -252,16 +253,12 @@ void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
     }
 
     CourseSessionVector::const_iterator courseIterBegin, courseIterEnd;
-    int index = (*courseIter).vector_session_position_of_problem(pid);
+    if (!(*courseIter).is_hintMap_initialized()) courseIter->initialize_hintMap(sessions);
+    sessionid sid = (*courseIter).get_problem_session(pid);
 
-    if (index != -1) 
-    {
-        CourseSessionVector::const_iterator courseIterBegin, courseIterEnd;
-        (*courseIter).get_iterators(courseIterBegin, courseIterEnd);
-        cout << *(courseIterBegin + index);
-    }
+    if (sid == "0") cout << "error: el problema no pertenece al curso";
+    else cout << sid;
 
-    if (index == -1) cout << "error: el problema no pertenece al curso";
     cout << endl;
 }
 

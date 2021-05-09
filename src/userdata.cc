@@ -122,17 +122,6 @@ void CourseManager::force_uninscribe()
     currentCourse = CurrentCourse();
 }
 
-void CourseManager::fetch_available_problems(const problemid& pid)
-{
-    // Para buscar los problemas, tenemos que acceder primero al hintMap
-    // de la clase para saber en que sesion está, despues, simplemente capturamos
-    // el fragmento de bintree corresponiente.
-    int i = currentCourse.courseIter->vector_session_position_of_problem(pid);
-    const TreeNode& temp = currentCourse.sessionProblemMapIter[i]->second.get_next_problem(pid);
-    insert_available_problems(temp.root);
-}
-
-
 void CourseManager::send_attempt(const problemid& pid, const bool& status)
 {
     // Siempre que hagamos un envio, actualizamos las stats del curso y los
@@ -147,8 +136,6 @@ void CourseManager::send_attempt(const problemid& pid, const bool& status)
     if (ret.first->second.solved)
     {
         solvedProblems.insert(solvedProblems.end(), make_pair(pid, ret.first->second.attempts.total));
-        //currentCourse.availableProblemsVect.erase(pid);
-        //fetch_available_problems(pid);
         --currentCourse.numProblems;
     }
 }

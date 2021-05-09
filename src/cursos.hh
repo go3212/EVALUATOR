@@ -72,9 +72,6 @@ public:
      *  @return void.
      */
     void read();
-
-    void read(const Sesiones& sessions);
-
     //######################################//
     //      FUNCIONES NO IMPLEMENTADAS      //
     //######################################//

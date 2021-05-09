@@ -28,8 +28,7 @@ class Curso
 private:
     int total;                          //!< Número de sesiones que tiene el curso.
     courseid cid;                       //!< Identificador del curso.
-    CourseSessionVector sessionVector;  //!< Vector de sesiones del curso, contiene 'total' elementos.   
-    bool valid;
+    CourseSessionVector sessionVector;  //!< Vector de sesiones del curso, contiene 'total' elementos.
 
     /** @struct UserData
      *  @brief Estructura que almacena información general sobre los usuarios que se han inscrito al curso.
@@ -48,8 +47,8 @@ private:
 
     UserData userdata;                  //!< Objeto del tipo 'UserData'
 
-    bool initializedHintMap;
-    map<problemid, int> hintMap; 
+    map<problemid, sessionid> hintMap;
+    bool isHintMapInitialized;
 public:
 
     /** @brief Constructor por defecto de la clase.
@@ -64,8 +63,6 @@ public:
      *  \post Todas las variables de la clase son inicializadas y el identificador del curso es el parámetro.
      */ 
     Curso(const courseid& cid);
-
-    void force_uninscribe();
 
     courseid get_cid() const;
 
@@ -91,7 +88,11 @@ public:
      */    
     bool uninscribe_user(); // const userid& uid
 
-    bool initialized_hintMap() const;
+    void force_uninscribe();
+
+    bool is_hintMap_initialized() const;
+
+    bool initialize_hintMap(const Sesiones& sessions);
 
     /** @brief Función que indica el número de usuarios inscritos en el curso.
      *  \pre true.
@@ -100,7 +101,7 @@ public:
      */    
     int inscribed_users() const;
 
-    int vector_session_position_of_problem(const problemid& pid) const;
+    sessionid get_problem_session (const problemid& pid) const;
 
     /**
      * @brief 
@@ -125,14 +126,13 @@ public:
      */
     int get_iterators(CourseSessionVector::const_iterator& beginIterator, CourseSessionVector::const_iterator& endIterator) const;
 
-    /** @brief Verifica que el curso sea válido de acuerdo con el objeto 'Sesiones'.
-     *  @param sessions objeto del tipo 'Sesiones' que se utilizará para verificar si el 'Curso' es válido.
-     *  \pre EL parámetro 'sessions' no está incializado, el curso contiene sesiones. 
-     *       Todas las sesiones del curso existen en el objeto 'Sesiones' (son válidas).
-     *  \post No se modifica ningún objeto de la clase.
-     *  @return bool: true si el 'Curso' es válido y false si no lo es.
-     */
-    bool is_valid_course(const Sesiones& sessions);
+    // /** @brief Verifica que el curso sea válido de acuerdo con el objeto 'Sesiones'.
+    //  *  @param sessions objeto del tipo 'Sesiones' que se utilizará para verificar si el 'Curso' es válido.
+    //  *  \pre EL parámetro 'sessions' no está incializado, el curso contiene sesiones. 
+    //  *       Todas las sesiones del curso existen en el objeto 'Sesiones' (son válidas).
+    //  *  \post No se modifica ningún objeto de la clase.
+    //  *  @return bool: true si el 'Curso' es válido y false si no lo es.
+    //  */
 
     /** @brief Imprime por pantalla información sobre el curso
      *  \pre true.
@@ -150,8 +150,6 @@ public:
      *  @return void.
      */
     void read();
-
-    void read(const Sesiones& sessions);
 };
 
 #endif

@@ -38,23 +38,6 @@ bool Cursos::get_course(const courseid& cid, CourseVector::iterator& vectorIter)
     return true;
 }
 
-void Cursos::read(const Sesiones& sessions)
-{
-    int n; cin >> n;
-    total = n;
-    
-    courseVector = CourseVector(total);
-
-    //courseid cid;
-    while (n != 0)
-    {
-        courseVector[total - n] = Curso(total - n + 1);
-        courseVector[total - n].read(sessions);
-        
-        --n;
-    }
-}
-
 void Cursos::read()
 {
     int n; cin >> n;
