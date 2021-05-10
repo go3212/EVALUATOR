@@ -1,10 +1,4 @@
-#include <iostream>
-#include "src/tipos.hh"
-#include "src/problemas.hh"
-#include "src/usuarios.hh"
-#include "src/cursos.hh"
 #include "src/comandos.hh"
-#include "src/timer.hh"
 
 using namespace std;
 
@@ -16,6 +10,6 @@ int main ()
     Usuarios users; users.read();
     
     Comandos commands(users, courses, problems, sessions);
-    commands.run_time_mode();
+    commands.run();
 
 }

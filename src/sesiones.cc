@@ -2,6 +2,8 @@
 
 using namespace std;
 
+Sesion Sesiones::nullSession = Sesion();
+
 Sesiones::Sesiones()
 {
     total = 0;
@@ -27,19 +29,20 @@ void Sesiones::get_iterators(SessionMap::const_iterator& beginIterator, SessionM
     endIterator = sessionMap.end();
 }
 
-bool Sesiones::get_session(const sessionid& sid, SessionMap::const_iterator& mapIter) const
+const Sesion& Sesiones::get_session(const sessionid& sid) const
 {
-    mapIter = sessionMap.find(sid);
-    if(mapIter != sessionMap.end()) return true;
-    return false;
+    SessionMap::const_iterator sessionIter = sessionMap.find(sid);
+    if(sessionIter == sessionMap.end()) return nullSession;
+    return sessionIter->second;
 }
 
-bool Sesiones::get_session(const sessionid& sid, SessionMap::iterator& mapIter)
+const Sesion& Sesiones::get_session_with_iterator (const sessionid& sid, SessionMap::const_iterator& mapIter) const
 {
     mapIter = sessionMap.find(sid);
-    if(mapIter != sessionMap.end()) return true;
-    return false;
+    if(mapIter == sessionMap.end()) return nullSession;
+    return mapIter->second;
 }
+
 
 void Sesiones::read()
 {

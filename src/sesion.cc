@@ -46,21 +46,30 @@ void Sesion::vectorize_problemTree(ProblemVector& problemVect, const ProblemTree
 //######################################//
 Sesion::Sesion() 
 {
-    hasSessionid = false;
+    isNull = true;
     numProblems = 0;
 }
 
 Sesion::Sesion(const sessionid& sid)
 {
     this->sid = sid;
-    hasSessionid = true;
+    isNull = false;
     numProblems = read_problemTree(problemTree);
     get_problems_as_vector(problemVect);
+    sort (problemVect.begin(), problemVect.end());
 }
 
 bool Sesion::has_problem(const problemid& pid) const
 {
-    return ((problemVect.find(pid) != -1) ? true : false);
+    int left = 0, right = numProblems - 1, m;
+    while (left <= right)
+    {   
+        m = (left+right)/2;
+        if (problemVect[m] < pid) left = m + 1;
+        else if (problemVect[m] > pid) right = m - 1;
+        else break;
+    }
+    return ((left <= right) ? true : false);
 }
 
 sessionid Sesion::get_sessionid() const
@@ -72,6 +81,11 @@ int Sesion::get_problems (ProblemVector& pidVector) const
 {
     pidVector = problemVect;
     return numProblems;
+}
+
+bool Sesion::is_null() const
+{
+    return isNull;
 }
 
 int Sesion::get_number_of_problems() const
@@ -92,17 +106,15 @@ const BinTree<problemid>& Sesion::get_problemTree() const
     return problemTree;
 }
 
-int Sesion::get_problem_vector_iterators(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const
+const ProblemVector& Sesion::get_problem_vector() const
 {
-    problemVect.begin_iterator(beginIter);
-    problemVect.end_iterator(endIter);
-    return numProblems;
+    return problemVect;
 }
 
 void Sesion::read()
 {
     cin >> sid;
-    hasSessionid = true;
+    isNull = false;
     numProblems = read_problemTree(problemTree);
     get_problems_as_vector(problemVect);
 }

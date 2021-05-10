@@ -5,17 +5,14 @@
 #ifndef COURSE_HH
 #define COURSE_HH
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <map>
-#include "tipos.hh"
 #include "sesiones.hh"
-#include "problemas.hh"
 
 using namespace std;
 
-// N > 0, Sin repeticiones, 
+/** @typedef courseid 
+ *  @brief Identificador de 'Curso'.
+*/
+typedef int courseid;
 
 typedef vector<sessionid> CourseSessionVector; 
 
@@ -26,8 +23,9 @@ typedef vector<sessionid> CourseSessionVector;
 class Curso
 {
 private:
-    int total;                          //!< Número de sesiones que tiene el curso.
     courseid cid;                       //!< Identificador del curso.
+    int total;                          //!< Número de sesiones que tiene el curso.
+    bool isNull;
     CourseSessionVector sessionVector;  //!< Vector de sesiones del curso, contiene 'total' elementos.
 
     /** @struct UserData
@@ -91,6 +89,8 @@ public:
     void force_uninscribe();
 
     bool is_hintMap_initialized() const;
+
+    bool is_null () const;
 
     bool initialize_hintMap(const Sesiones& sessions);
 

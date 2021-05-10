@@ -5,14 +5,12 @@
 #ifndef PROBLEMAS_HH
 #define PROBLEMAS_HH
 
-#include <iostream>
 #include <vector>
-#include <string>
 #include <map>
-#include "tipos.hh"
 #include "problema.hh"
 
 using namespace std;
+
 
 typedef map<problemid, Problema> ProblemMap;
 typedef pair<problemid, Problema> ProblemPair;
@@ -25,6 +23,7 @@ class Problemas
 private:
     int total;
     ProblemMap problemMap;
+    static Problema nullProblem;
 
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
@@ -60,7 +59,7 @@ public:
      *  @param pid identificador de problema ('problemid').
      *  \post Devuelve un puntero al objeto 'Problema' buscado. Si no se ha encontrado, devuelve NULL. 
      */
-    bool get_problem(const problemid& pid, ProblemMap::iterator& mapIter);
+    Problema& get_problem(const problemid& pid);
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param myBeginIterator iterador de la posición inicial.

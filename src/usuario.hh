@@ -5,17 +5,14 @@
 #ifndef USER_HH
 #define USER_HH
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include "tipos.hh"
-#include "cursos.hh"
-#include "sesiones.hh"
-#include "problema.hh"
-#include "userdata.hh"
+#include "coursemanager.hh"
 
 using namespace std;
+
+/** @typedef userid 
+ *  @brief Idenfificador de 'Usuario'.
+*/
+typedef string userid;
 
 /** @class Usuario
  *  @brief Almacena la información de un usuario y facilita su gestión.
@@ -24,9 +21,9 @@ class Usuario
 {
 private:
     userid uid;
-    bool hasUserid;
     bool isInscribed;
     CourseManager courseManager;
+    bool isNull;
 
 public:
 
@@ -45,19 +42,14 @@ public:
 
     ~Usuario();
 
-    /** @brief Función que indica si el usuario tiene identificador.
-     *  \pre true.
-     *  \post El usuario mantiene el estado que tenia anteriormente.
-     *  @return bool: 'true' si el usuario tiene identificador y 'false' si no lo tiene.
-     */
-    bool has_userid() const;
-
     /** @brief Función que indica si el usuario está inscrito en un curso.
      *  \pre true.
      *  \post El usuario mantiene el estado que tenia anteriormente.
      *  @return bool: 'true' si el usuario está inscrito y 'false' si no lo está.
      */
     bool is_inscribed() const;
+
+    bool is_null() const;
 
     /**
      * @brief Función que indica el identificador del curso al que está inscrito el usuario.

@@ -5,8 +5,6 @@
 #ifndef CURSOS_HH
 #define CURSOS_HH
 
-#include <iostream>
-#include "tipos.hh"
 #include "curso.hh"
 
 using namespace std;
@@ -26,6 +24,7 @@ class Cursos
 private:
     int total;                      //!< Número de cursos del vector de cursos.
     CourseVector courseVector;      //!< Vector de cursos.
+    static Curso nullCourse;
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \pre true.
@@ -64,7 +63,9 @@ public:
      *  \post No se modifica ningún objeto de la clase..
      *  @return bool: true si se ha encontrado el curso y false si no se ha encontrado.
      */
-    bool get_course(const courseid& cid, CourseVector::iterator& vectorIter);
+    Curso& get_course(const courseid& cid);
+
+    Curso& get_course_with_iterator(const courseid& cid, CourseVector::iterator& courseIter);
 
     /** @brief Lee un conjunto de cursos por la entrada 'stdin' y los guarda.
      *  \pre Número de cursos a leer en la entrada (C > 0), seguido de C cursos.

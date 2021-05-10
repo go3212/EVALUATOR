@@ -1,6 +1,5 @@
 #include "curso.hh"
 
-
 using namespace std;
 
 //######################################//
@@ -24,6 +23,7 @@ Curso::Curso()
 {
     total = 0;
     isHintMapInitialized = false;
+    isNull = true;
 }
 
 Curso::Curso(const courseid& cid)
@@ -31,6 +31,7 @@ Curso::Curso(const courseid& cid)
     this->cid = cid;
     total = 0;
     isHintMapInitialized = false;
+    isNull = true;
 }
 
 void Curso::force_uninscribe()
@@ -94,29 +95,28 @@ sessionid Curso::get_problem_session (const problemid& pid) const
 bool Curso::initialize_hintMap(const Sesiones& sessions)
 {
     // Por eficiencia, declaramos las variables del bucle fuera de el.
-    SessionMap::const_iterator sessionMap;
     pair<map<problemid, sessionid>::iterator, bool> ret;
-    ProblemVector problemVector;
-    vector<problemid>::const_iterator beginIter, endIter;
     // Inv: 0 <= i <= total.
     for (int i = 0; i < total; ++i)
     {   
         // Primero buscamos la sesión en el conjunto de sesiones.
-        sessions.get_session(this->sessionVector[i], sessionMap);
+        const Sesion& session = sessions.get_session(this->sessionVector[i]);
         // Cargamos todos los problemas de la sesion en el vector 'problemVector'.
-        (*sessionMap).second.get_problem_vector_iterators(beginIter, endIter);
-        // Inv; 0 <= i <= n.
-        while(beginIter != endIter)
+        const ProblemVector& vector = session.get_problem_vector();
+        int size = session.get_number_of_problems();
+        // Inv; 0 <= j <= n.
+        int j = 0;
+        while(j < size)
         {   
             // Insertamos los problemas de la sesión en el 'set', ret.second indica
             // si se ha insertado exitosamente ('true') o si ya existia y no se ha insertado
             // false.
-            ret = hintMap.insert(make_pair(*beginIter, sessionVector[i]));
+            ret = hintMap.insert(make_pair(vector[j], sessionVector[i]));
             // Si no se ha podido insertar el problema, significa que al menos una sesión tiene el mismo
             // problema, entonces la interseccion de dos sesiones (no sabemos cuales, solo que existen) no es vacía,
             // por lo que el curso no es válido
             if (ret.second == false) return false;
-            ++beginIter;
+            ++j;
         }
     }
     isHintMapInitialized = true;
@@ -128,18 +128,10 @@ bool Curso::is_hintMap_initialized() const
     return isHintMapInitialized;
 }
 
-void Curso::write() const
+bool Curso::is_null () const
 {
-    cout << cid << ' ' << userdata.alltime_users << ' ';
-    cout << userdata.inscribed_users << ' ' << total << " (";
-    for (int i = 0; i < total - 1; ++i)
-    {
-        cout << sessionVector[i];
-        cout << ' ';
-    }
-    cout << sessionVector[total - 1];
-    cout << ')';
-}   
+    return isNull;
+}
 
 void Curso::read()
 {
@@ -155,4 +147,18 @@ void Curso::read()
         sessionVector[total - n] = sid;
         --n;
     }
+    isNull = false;
+}
+
+void Curso::write() const
+{
+    cout << cid << ' ' << userdata.alltime_users << ' ';
+    cout << userdata.inscribed_users << ' ' << total << " (";
+    for (int i = 0; i < total - 1; ++i)
+    {
+        cout << sessionVector[i];
+        cout << ' ';
+    }
+    cout << sessionVector[total - 1];
+    cout << ')';
 }

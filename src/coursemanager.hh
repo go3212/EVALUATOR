@@ -1,16 +1,10 @@
-#ifndef USERDATA_HH
-#define USERDATA_HH
+#ifndef COURSEMANAGER_HH
+#define COURSEMANAGER_HH
 
-#include <iostream>
-#include <algorithm>
-#include <map>
-#include <set>
-#include "tipos.hh"
 #include "cursos.hh"
-#include "sesiones.hh"
 
 typedef map<problemid, ProblemData> ProblemDataMap;
-typedef map<problemid, ProblemDataMap::iterator> ProblemDataIteratorMap;
+typedef map<problemid, ProblemDataMap::const_iterator> ProblemDataIteratorMap;
 
 
 
@@ -42,28 +36,25 @@ private:
         CurrentCourse();
         CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions);
         void not_solved_problems(int& sum, const ProblemDataMap& problemDataMap, const ProblemTree& problemTree) const;
-        ~CurrentCourse(); 
     };
 
     CurrentCourse currentCourse;
 
-    void insert_available_problems(const ProblemTree& problemTree);
     void insert_available_problems(int& sum, vector<pair<problemid, int>>& myVect, const ProblemTree& problemTree) const;
 public:
 
     CourseManager();
-    ~CourseManager();
 
     courseid current_course_id() const;
     bool inscribe(const CourseVector::iterator& courseIter, const Sesiones& sessions);
     void fetch_available_problems(const problemid& pid);
+    bool course_finished() const;
     bool uninscribe();
     void force_uninscribe();
     // void fetch_available_problems_rec(const problemid& pid);
     void send_attempt(const problemid& pid, const bool& status);
     void print_available_problems() const;
     void print_solved_problems();
-    bool course_finished() const;
 
     /** EXP */
     void write() const

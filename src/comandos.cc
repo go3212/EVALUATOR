@@ -1,301 +1,264 @@
-#include <algorithm>
 #include "comandos.hh"
-#include "timer.hh"
-
-#include <unistd.h>
 
 using namespace std;
 
-Comandos::Comandos(Usuarios& users, Cursos& courses, Problemas& problems, Sesiones& sessions) : users(users), courses(courses), problems(problems), sessions(sessions)
+Comandos::Comandos(Usuarios& users, Cursos& courses, Problemas& problems, Sesiones& sessions) : users(users), courses(courses), problems(problems), sessions(sessions) {};
+
+const vector<string> Comandos::errors = 
 {
-    set_default_commandsMap();
-}
+    "el problema ya existe",               //1
+    "el problema no existe",               //2
+    "el problema no pertenece al curso",   //3
+    "la sesion ya existe",                 //4
+    "la sesion no existe",                 //5
+    "el curso no existe",                  //6
+    "curso mal formado",                   //7
+    "el usuario ya existe",                //8
+    "el usuario no existe",                //9
+    "usuario inscrito en otro curso",      //10
+    "usuario no inscrito en ningun curso"  //11
+};
 
-
-bool Comandos::run()
+const map<command, int> Comandos::commandsMap = 
 {
-    problemid pid; sessionid sid; courseid cid; 
-    userid uid;
-    bool r;
-    bool end = false;
+    {"nuevo_problema", 1},
+    {"np", 1},
+    {"nueva_sesion", 2},
+    {"ns", 2},
+    {"nuevo_curso", 3},
+    {"nc", 3},
+    {"alta_usuario", 4},
+    {"a", 4},
+    {"baja_usuario", 5},
+    {"b", 5},
+    {"inscribir_curso", 6},
+    {"i", 6},
+    {"curso_usuario", 7},
+    {"cu", 7},
+    {"sesion_problema", 8},
+    {"sp", 8},
+    {"problemas_resueltos", 9},
+    {"pr", 9},
+    {"problemas_enviables", 10},
+    {"pe", 10},
+    {"envio", 11},
+    {"e", 11},
+    {"listar_problemas", 12},
+    {"lp", 12},
+    {"escribir_problema", 13},
+    {"ep", 13},
+    {"listar_sesiones", 14},
+    {"ls", 14},
+    {"escribir_sesion", 15},
+    {"es", 15},
+    {"listar_cursos", 16},
+    {"lc", 16},
+    {"escribir_curso", 17},
+    {"ec", 17},
+    {"listar_usuarios", 18},
+    {"lu", 18},
+    {"escribir_usuario", 19},
+    {"eu", 19},
+    {"fin", 20}
+};
 
+void Comandos::run()
+{
+    problemid pid; sessionid sid; courseid cid; userid uid; bool r;
     command com;
+    int error = 0;
+    
+    bool end = false;
     while (!end)
     {
         cin >> com;
-        if (com == "fin") { break; }
+        if (com == "fin") break;
         cout << '#' << com;
-        //cout << "command: " << com << "  int: " << commandsMap[com] << endl;
-        switch (commandsMap[com])
+        
+        switch (commandsMap.find(com)->second)
         {
             case 1:
-                //cout << "#nuevo_problema" << endl;
                 cin >> pid; cout << ' ' << pid << endl;
-                nuevo_problema(pid);
+                error = nuevo_problema(pid);
                 break;
             case 2:
-                //cout << "#nueva_sesion" << endl;
                 cin >> sid; cout <<  ' ' << sid << endl;
-                nueva_sesion(sid);
+                error = nueva_sesion(sid);
                 break;
             case 3:
-                //cout << "#nuevo_curso" << endl;
                 cout << endl;
-                nuevo_curso();
+                error = nuevo_curso();
                 break;
             case 4:
-                //cout << "#alta_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
-                alta_usuario(uid);
+                error = alta_usuario(uid);
                 break;
             case 5:
-                //cout << "#baja_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
-                baja_usuario(uid);
+                error = baja_usuario(uid);
                 break;
             case 6:
-                //cout << "#inscribir_curso" << endl;
                 cin >> uid >> cid; cout <<  ' ' << uid << ' ' << cid << endl;
-                inscribir_curso(uid, cid);
+                error = inscribir_curso(uid, cid);
                 break;
             case 7:
-                //cout << "#curso_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
-                curso_usuario(uid);
+                error = curso_usuario(uid);
                 break;
             case 8:
-                //cout << "#sesion_problema" << endl;
                 cin >> cid >> pid; cout <<  ' ' << cid << ' ' << pid << endl;
-                sesion_problema(cid, pid);
+                error = sesion_problema(cid, pid);
                 break;
             case 9:
-                //cout << "#problemas_resueltos" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
-                problemas_resueltos(uid);
+                error = problemas_resueltos(uid);
                 break;
             case 10:
-                //cout << "#problemas_enviables" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
-                problemas_enviables(uid);
+                error = problemas_enviables(uid);
                 break;
             case 11:
-                //cout << "#envio" << endl;
                 cin >> uid >> pid >> r; cout <<  ' ' << uid << ' ' << pid << ' ' << r << endl;
-                envio(uid, pid, r);
+                error = envio(uid, pid, r);
                 break;
             case 12:
-                //cout << "#listar_problemas" << endl;
                 cout << endl;
-                listar_problemas();
+                error = listar_problemas();
                 break;
             case 13:
-                //cout << "#escribir_problema" << endl;
                 cin >> pid; cout <<  ' ' << pid << endl;
-                escribir_problema(pid);
+                error = escribir_problema(pid);
                 break;
             case 14:
-                //cout << "#listar_sesiones" << endl;
                 cout << endl;
-                listar_sesiones();
+                error = listar_sesiones();
                 break;
             case 15:
-                //cout << "#escribir_sesion" << endl;
                 cin >> sid; cout <<  ' ' << sid << endl;
-                escribir_sesion(sid);
+                error = escribir_sesion(sid);
                 break;
             case 16:
-                //cout << "#listar_cursos" << endl;
                 cout << endl;
-                listar_cursos();
+                error = listar_cursos();
                 break;
             case 17:
-                //cout << "#escribir_curso" << endl;
                 cin >> cid; cout <<  ' ' << cid << endl;
-                escribir_curso(cid);
+                error = escribir_curso(cid);
                 break;
             case 18:
-                //cout << "#listar_usuarios" << endl;
                 cout << endl;
-                listar_usuarios();
+                error = listar_usuarios();
                 break;
             case 19:
-                //cout << "#escribir_usuario" << endl;
                 cin >> uid; cout <<  ' ' << uid << endl;
-                escribir_usuario(uid);
+                error = escribir_usuario(uid);
                 break;
-            case 20:
-                end = true;
-                break;
-            // default:
-            //     cout << "NOT REGISTERED /MAYBE -------- ";
-            //     break;
         }
+        if (error != 0) cout << "error: " << errors[error-1] << endl; 
     }
-    return end;
 }
 
-void Comandos::nuevo_problema(const problemid& pid)
+int Comandos::nuevo_problema(const problemid& pid)
 {
-    if(problems.add_problem(pid))
-    {
-        cout << problems.get_number_of_problems();
-    }
-    else
-    {
-        cout << "error: el problema ya existe";
-    }
-    cout << endl;
+    if(!problems.add_problem(pid)) return 1;
+    cout << problems.get_number_of_problems() << endl;
+    return 0;
 }
 
-void Comandos::nueva_sesion(const sessionid& sid)
+int Comandos::nueva_sesion(const sessionid& sid)
 {
-    if(sessions.add_session(sid))
-    {
-        cout << sessions.get_number_of_sessions();
-    }
-    else
-    {
-        cout << "error: la sesion ya existe";
-    }
-    cout << endl;
+    if(!sessions.add_session(sid)) return 4;
+    cout << sessions.get_number_of_sessions() << endl;
+    return 0;
 }
 
-void Comandos::nuevo_curso()
+int Comandos::nuevo_curso()
 {
     Curso course; course.read();
     course.initialize_hintMap(sessions);
-    if(course.is_hintMap_initialized())
-    {
-        courses.add_course(course);
-        cout << courses.get_number_of_courses();
-    }
-    else
-    {
-        cout << "error: curso mal formado";
-    }
-    cout << endl;
+    if(!course.is_hintMap_initialized()) return 7;
+    courses.add_course(course);
+    cout << courses.get_number_of_courses() << endl;
+    return 0;
 }
 
-void Comandos::alta_usuario(const userid& uid)
+int Comandos::alta_usuario(const userid& uid)
 {
-    if (users.add_user(uid))
-    {
-        cout << users.get_number_of_users();
-    }
-    else
-    {
-        cout << "error: el usuario ya existe";
-    }
-    cout << endl;
+    if (!users.add_user(uid)) return 8;
+    cout << users.get_number_of_users() << endl;
+    return 0;
 }
 
-void Comandos::baja_usuario(const userid& uid)
+int Comandos::baja_usuario(const userid& uid)
 {
-    UserMap::iterator userIter;
-    UserMap::const_iterator userIterBegin, userIterEnd;
-    users.get_iterators(userIterBegin, userIterEnd);
-    users.get_user(uid, userIter);
-
-    if (userIter != userIterEnd)
-    {
-        userIter->second.force_uninscribe();
-        users.delete_user(userIter);
-        cout << users.get_number_of_users();
-    }
-    else
-    {
-        cout << "error: el usuario no existe";
-    }
-    cout << endl;
+    if (!users.delete_user(uid)) return 9;
+    cout << users.get_number_of_users() << endl;
+    return 0;
 }
 
-void Comandos::inscribir_curso(const userid& uid, const courseid& cid)
+int Comandos::inscribir_curso(const userid& uid, const courseid& cid)
 {
-    UserMap::iterator userIter;
-    if(users.get_user(uid, userIter))
-    {
-        CourseVector::iterator courseIter;
-        if(courses.get_course(cid, courseIter))
-        {
-            if ((*userIter).second.inscribe(courseIter, sessions))
-            {
-                cout << (*courseIter).inscribed_users();
-            } else cout << "error: usuario inscrito en otro curso";
-        }  else cout << "error: el curso no existe"; 
-    } else cout << "error: el usuario no existe";
-    cout << endl;
-
-}
-
-void Comandos::curso_usuario(const userid& uid)
-{
-    UserMap::iterator userIter;
-    if (users.get_user(uid, userIter))
-    {
-        cout << (((*userIter).second.is_inscribed()) ? (*userIter).second.inscribed_course_id() : 0);
-    } else cout << "error: el usuario no existe";
-    cout << endl;
-}
-
-void Comandos::sesion_problema(const courseid& cid, const problemid& pid)
-{
+    Usuario& user = users.get_user(uid);
+    if(user.is_null()) return 9;
     CourseVector::iterator courseIter;
-    ProblemMap::iterator problemIter;
-    if (!courses.get_course(cid, courseIter)) 
-    {
-        cout << "error: el curso no existe" << endl;
-        return void();
-    }
-    if(!problems.get_problem(pid, problemIter)) 
-    {
-        cout << "error: el problema no existe" << endl;
-        return void();
-    }
-
-    CourseSessionVector::const_iterator courseIterBegin, courseIterEnd;
-    if (!(*courseIter).is_hintMap_initialized()) courseIter->initialize_hintMap(sessions);
-    sessionid sid = (*courseIter).get_problem_session(pid);
-
-    if (sid == "0") cout << "error: el problema no pertenece al curso";
-    else cout << sid;
-
-    cout << endl;
+    Curso& course = courses.get_course_with_iterator(cid , courseIter);
+    if (course.is_null()) return 6;
+    if (!user.inscribe(courseIter, sessions)) return 10;
+    cout << (*courseIter).inscribed_users() << endl;
+    return 0;
 }
 
-void Comandos::problemas_resueltos(const userid& uid)
+int Comandos::curso_usuario(const userid& uid)
 {
-    UserMap::iterator userIter;
-    if(users.get_user(uid, userIter))
-    {
-        (*userIter).second.print_all_time_solved_problems();
-    } else cout << "error: el usuario no existe" << endl;
+    Usuario& user = users.get_user(uid);
+    if (user.is_null()) return 9;
+    cout << ((user.is_inscribed()) ? user.inscribed_course_id() : 0) << endl;
+    return 0;
 }
 
-void Comandos::problemas_enviables(const userid& uid)
+int Comandos::sesion_problema(const courseid& cid, const problemid& pid)
 {
-    UserMap::iterator userIter;
-    if (users.get_user(uid, userIter))
-    {
-        if (userIter->second.is_inscribed())
-        {
-            userIter->second.print_available_problems();
-        } else cout << "error: usuario no inscrito en ningun curso" << endl;
-    } else cout << "error: el usuario no existe" << endl;;
-    
+    Curso& course = courses.get_course(cid);
+    if(course.is_null()) return 6;
+    Problema& problem = problems.get_problem(pid);
+    if(problem.is_null()) return 2;
+    if(!course.is_hintMap_initialized()) course.initialize_hintMap(sessions);
+    sessionid sid = course.get_problem_session(pid);
+    if(sid == "0") return 3;
+    cout << sid << endl;
+    return 0;
 }
 
-void Comandos::envio(const userid& uid, const problemid& pid, const bool& solved)
+int Comandos::problemas_resueltos(const userid& uid)
+{
+    Usuario& user = users.get_user(uid);
+    if(user.is_null()) return 9;
+    user.print_all_time_solved_problems();
+    return 0;
+}
+
+int Comandos::problemas_enviables(const userid& uid)
+{
+    Usuario& user = users.get_user(uid);
+    if(user.is_null()) return 9;
+    if(!user.is_inscribed()) return 11;
+    user.print_available_problems();
+    return 0;    
+}
+
+int Comandos::envio(const userid& uid, const problemid& pid, const bool& solved)
 {
     // Se garantiza que uid está inscrito y el problema pid pertenece a el curso al que uid esta inscrito
     // Además, u cumple los prerrequisitos de pid.
     UserMap::iterator userIter;
     ProblemMap::iterator problemIter;
     
-    users.get_user(uid, userIter);
-    problems.get_problem(pid, problemIter);
+    Usuario& user = users.get_user(uid);
+    Problema& problem = problems.get_problem(pid);
 
-    (*userIter).second.update_problem(pid, solved);
-    (*problemIter).second.update_attempts(solved);
+    user.update_problem(pid, solved);
+    problem.update_attempts(solved);
+    return 0;
 }
 
 bool problemVectorSort(const ProblemMap::const_iterator& a, const ProblemMap::const_iterator& b)
@@ -305,7 +268,7 @@ bool problemVectorSort(const ProblemMap::const_iterator& a, const ProblemMap::co
     return false;
 }
 
-void Comandos::listar_problemas()
+int Comandos::listar_problemas()
 {
     ProblemMap::const_iterator beginIterator, endIterator;
     problems.get_iterators(beginIterator, endIterator);
@@ -321,24 +284,18 @@ void Comandos::listar_problemas()
     sort(problemVector.begin(), problemVector.end(), problemVectorSort);
 
     for (int i = 0; i < size; ++i) problemVector[i]->second.write(), cout << endl;
-
+    return 0;
 }
 
-void Comandos::escribir_problema(const problemid& pid)
+int Comandos::escribir_problema(const problemid& pid)
 {
-    ProblemMap::iterator mapIter;
-    if(problems.get_problem(pid, mapIter))
-    {
-        (*mapIter).second.write();
-    }
-    else
-    {
-        cout << "error: el problema no existe";
-    }
-    cout << endl;
+    Problema& problem = problems.get_problem(pid);
+    if(problem.is_null()) return 2;
+    problem.write(); cout << endl;
+    return 0;
 }
 
-void Comandos::listar_sesiones()
+int Comandos::listar_sesiones()
 {
     SessionMap::const_iterator beginIterator, endIterator;
     sessions.get_iterators(beginIterator, endIterator);
@@ -349,298 +306,55 @@ void Comandos::listar_sesiones()
         cout << endl;
         ++beginIterator;
     }
+    return 0;
 }
 
-void Comandos::escribir_sesion(const sessionid& sid)
+int Comandos::escribir_sesion(const sessionid& sid)
 {
-    SessionMap::const_iterator mapIter;
-    if (sessions.get_session(sid, mapIter))
-    {
-        (*mapIter).second.write();
-    }
-    else
-    {
-        cout << "error: la sesion no existe";
-    }
-    cout << endl;
+    const Sesion& session = sessions.get_session(sid);
+    if (session.is_null()) return 5;
+    session.write(); cout << endl;
+    return 0;
 }
 
-void Comandos::listar_cursos()
+int Comandos::listar_cursos()
 {
    CourseVector::const_iterator beginIterator, endIterator;
    courses.get_iterators(beginIterator, endIterator);
-
    while (beginIterator != endIterator)
    {
        (*beginIterator).write();
        cout << endl;
        ++beginIterator;
    }
+   return 0;
 }
 
-void Comandos::escribir_curso(const courseid& cid)
+int Comandos::escribir_curso(const courseid& cid)
 {
-    CourseVector::iterator vectIter;
-    if(courses.get_course(cid, vectIter))
-    {
-        (*vectIter).write();
-    }
-    else
-    {
-        cout << "error: el curso no existe";
-    }
-    cout << endl;
+    Curso& course = courses.get_course(cid);
+    if(course.is_null()) return 6;
+    course.write(); cout << endl;
+    return 0;
 }
 
-void Comandos::listar_usuarios()
+int Comandos::listar_usuarios()
 {
     UserMap::const_iterator beginIterator, endIterator;
     users.get_iterators(beginIterator, endIterator);
-
     while (beginIterator != endIterator)
     {
         (beginIterator->second).write();
         cout << endl; 
         ++beginIterator;
     }
+    return 0;
 }
 
-void Comandos::escribir_usuario(const userid& uid)
+int Comandos::escribir_usuario(const userid& uid)
 {
-    UserMap::iterator mapIter;
-    if(users.get_user(uid, mapIter))
-    {
-        (*mapIter).second.write();
-    }
-    else
-    {
-        cout << "error: el usuario no existe";
-    }
-    cout << endl;
-}
-
-void Comandos::set_default_commandsMap()
-{
-
-    commandsMap["nuevo_problema"] = 1;
-    commandsMap["np"] = 1;
-
-    commandsMap["nueva_sesion"] = 2;
-    commandsMap["ns"] = 2;
-    
-    commandsMap["nuevo_curso"] = 3;
-    commandsMap["nc"] = 3;
-
-    commandsMap["alta_usuario"] = 4;
-    commandsMap["a"] = 4;
-
-    commandsMap["baja_usuario"] = 5;
-    commandsMap["b"] = 5;
-    
-    commandsMap["inscribir_curso"] = 6;
-    commandsMap["i"] = 6;
-
-    commandsMap["curso_usuario"] = 7;
-    commandsMap["cu"] = 7;
-
-    commandsMap["sesion_problema"] = 8;
-    commandsMap["sp"] = 8;
-
-    commandsMap["problemas_resueltos"] = 9;
-    commandsMap["pr"] = 9;
-
-    commandsMap["problemas_enviables"] = 10;
-    commandsMap["pe"] = 10;
-
-    commandsMap["envio"] = 11;
-    commandsMap["e"] = 11;
-
-    commandsMap["listar_problemas"] = 12;
-    commandsMap["lp"] = 12;
-
-    commandsMap["escribir_problema"] = 13;
-    commandsMap["ep"] = 13;
-
-    commandsMap["listar_sesiones"] = 14;
-    commandsMap["ls"] = 14;
-
-    commandsMap["escribir_sesion"] = 15;
-    commandsMap["es"] = 15;
-
-    commandsMap["listar_cursos"] = 16;
-    commandsMap["lc"] = 16;
-
-    commandsMap["escribir_curso"] = 17;
-    commandsMap["ec"] = 17;
-
-    commandsMap["listar_usuarios"] = 18;
-    commandsMap["lu"] = 18;
-
-    commandsMap["escribir_usuario"] = 19;
-    commandsMap["eu"] = 19;
-
-    commandsMap["fin"] = 20;
-    //commandsMap[""] = 20;
-}
-
-bool Comandos::run_time_mode()
-{
-    problemid pid; sessionid sid; courseid cid; 
-    userid uid;
-    bool r;
-    bool end = false;
-
-    vector<double> comm_ms(20, 0);
-    vector<int> comm_calls(20, 0);
-
-    command com;
-    while (!end)
-    {
-        cin >> com;
-        cout << '#' << com;
-        int command_call = commandsMap[com];
-        Timer* timer = new Timer();
-        switch (commandsMap[com])
-        {
-            case 1:
-                //cout << "#nuevo_problema" << endl;
-                cin >> pid; cout << ' ' << pid << endl;
-                nuevo_problema(pid);
-                break;
-            case 2:
-                //cout << "#nueva_sesion" << endl;
-                cin >> sid; cout <<  ' ' << sid << endl;
-                nueva_sesion(sid);
-                break;
-            case 3:
-                //cout << "#nuevo_curso" << endl;
-                cout << endl;
-                nuevo_curso();
-                break;
-            case 4:
-                //cout << "#alta_usuario" << endl;
-                cin >> uid; cout <<  ' ' << uid << endl;
-                alta_usuario(uid);
-                break;
-            case 5:
-                //cout << "#baja_usuario" << endl;
-                cin >> uid; cout <<  ' ' << uid << endl;
-                baja_usuario(uid);
-                break;
-            case 6:
-                //cout << "#inscribir_curso" << endl;
-                cin >> uid >> cid; cout <<  ' ' << uid << ' ' << cid << endl;
-                inscribir_curso(uid, cid);
-                break;
-            case 7:
-                //cout << "#curso_usuario" << endl;
-                cin >> uid; cout <<  ' ' << uid << endl;
-                curso_usuario(uid);
-                break;
-            case 8:
-                //cout << "#sesion_problema" << endl;
-                cin >> cid >> pid; cout <<  ' ' << cid << ' ' << pid << endl;
-                sesion_problema(cid, pid);
-                break;
-            case 9:
-                //cout << "#problemas_resueltos" << endl;
-                cin >> uid; cout <<  ' ' << uid << endl;
-                problemas_resueltos(uid);
-                break;
-            case 10:
-                //cout << "#problemas_enviables" << endl;
-                cin >> uid; cout <<  ' ' << uid << endl;
-                problemas_enviables(uid);
-                break;
-            case 11:
-                //cout << "#envio" << endl;
-                cin >> uid >> pid >> r; cout <<  ' ' << uid << ' ' << pid << ' ' << r << endl;
-                envio(uid, pid, r);
-                break;
-            case 12:
-                //cout << "#listar_problemas" << endl;
-                cout << endl;
-                listar_problemas();
-                break;
-            case 13:
-                //cout << "#escribir_problema" << endl;
-                cin >> pid; cout <<  ' ' << pid << endl;
-                escribir_problema(pid);
-                break;
-            case 14:
-                //cout << "#listar_sesiones" << endl;
-                cout << endl;
-                listar_sesiones();
-                break;
-            case 15:
-                //cout << "#escribir_sesion" << endl;
-                cin >> sid; cout <<  ' ' << sid << endl;
-                escribir_sesion(sid);
-                break;
-            case 16:
-                //cout << "#listar_cursos" << endl;
-                cout << endl;
-                listar_cursos();
-                break;
-            case 17:
-                //cout << "#escribir_curso" << endl;
-                cin >> cid; cout <<  ' ' << cid << endl;
-                escribir_curso(cid);
-                break;
-            case 18:
-                //cout << "#listar_usuarios" << endl;
-                cout << endl;
-                listar_usuarios();
-                break;
-            case 19:
-                //cout << "#escribir_usuario" << endl;
-                cin >> uid; cout <<  ' ' << uid << endl;
-                escribir_usuario(uid);
-                break;
-            case 20:
-                cout << endl << endl << "TIMING STATS" << endl;
-                vector<double> average_timings(20, 0);
-                double average = 0;
-                double average_wo;
-                for (int i = 0; i < 11; ++i) average_timings[i] = comm_ms[i]/comm_calls[i], average += average_timings[i];
-                average_wo = average;
-                average_timings[11] = comm_ms[11]/comm_calls[11];
-                average += average_timings[11];
-                for (int i = 12; i < 19; ++i) average_timings[i] = comm_ms[i]/comm_calls[i], average += average_timings[i], average_wo += average_timings[i];
-                average /= 19;
-                average_wo /= 19;
-                cout << "====================================================" << endl;
-                cout << "#nuevo_problema" << " (" << average_timings[0] << ")" << endl;
-                cout << "#nueva_sesion" << " (" << average_timings[1] << ")" << endl;
-                cout << "#nuevo_curso" << " (" << average_timings[2] << ")" << endl;
-                cout << "#alta_usuario" << " (" << average_timings[3] << ")" << endl;
-                cout << "#baja_usuario" << " (" << average_timings[4] << ")" << endl;
-                cout << "#inscribir_curso" << " (" << average_timings[5] << ")" << endl;
-                cout << "#curso_usuario" << " (" << average_timings[6] << ")" << endl;
-                cout << "#sesion_problema" << " (" << average_timings[7] << ")" << endl;
-                cout << "#problemas_resueltos" << " (" << average_timings[8] << ")" << endl;
-                cout << "#problemas_enviables" << " (" << average_timings[9] << ")" << endl;
-                cout << "#envio" << " (" << average_timings[10 ] << ")" << endl;
-                cout << "#listar_problemas" << " (" << average_timings[11] << ")" << endl;
-                cout << "#escribir_problema" << " (" << average_timings[12] << ")" << endl;
-                cout << "#listar_sesiones" << " (" << average_timings[13] << ")" << endl;
-                cout << "#escribir_sesion" << " (" << average_timings[14] << ")" << endl;
-                cout << "#listar_cursos" << " (" << average_timings[15] << ")" << endl;
-                cout << "#escribir_curso" << " (" << average_timings[16] << ")" << endl;
-                cout << "#listar_usuarios" << " (" << average_timings[17] << ")" << endl;
-                cout << "#escribir_usuario" << " (" << average_timings[18] << ")" << endl;
-                cout << "====================================================" << endl;
-                cout << "AVERAGE INST TIME: " << average << endl;
-                cout << "AVERAGE INST TIME w/o lp: " << average_wo << endl;
-                cout << "====================================================" << endl;
-                end = true;
-                break;
-        }
-        //usleep(1000000);
-        //cout << timer->get_elapsed_time();
-        comm_ms[command_call - 1] += timer->get_elapsed_time();
-        comm_calls[command_call - 1] += 1;
-        delete timer;
-    }
-    return end;
+    Usuario& user = users.get_user(uid);
+    if(user.is_null()) return 9;
+    user.write();  cout << endl;
+    return 0;
 }

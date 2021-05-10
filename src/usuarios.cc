@@ -1,7 +1,8 @@
 #include "usuarios.hh"
-#include "usuario.hh"
 
 using namespace std;
+
+Usuario Usuarios::nullUser = Usuario();
 
 Usuarios::Usuarios()
 {
@@ -26,6 +27,7 @@ bool Usuarios::delete_user(const userid& uid)
     UserMap::iterator userIter = userMap.find(uid);
     if (userIter == userMap.end()) return false;
     // A partir de aquí, seguro que el usuario está registrado.
+    userIter->second.force_uninscribe();
     userMap.erase(userIter);
     total -= 1;
     return true;
@@ -53,13 +55,13 @@ void Usuarios::get_iterators(UserMap::const_iterator& beginIterator, UserMap::co
     endIterator = userMap.end();
 }
 
-bool Usuarios::get_user(const userid& uid, UserMap::iterator& mapIter)
+Usuario& Usuarios::get_user(const userid& uid)
 {
     // Buscamos el iterador en el mapa.
-    mapIter = userMap.find(uid);
+    UserMap::iterator userMapIter = userMap.find(uid);
     // Si no existe el usuario en el mapa, devolvemos false.
-    if (mapIter == userMap.end()) return false;
-    return true;
+    if (userMapIter == userMap.end()) return nullUser;
+    return (userMapIter->second);
 }
 
 void Usuarios::read()

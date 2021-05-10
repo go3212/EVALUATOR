@@ -2,6 +2,8 @@
 
 using namespace std;
 
+Curso Cursos::nullCourse = Curso();
+
 Cursos::Cursos()
 {
     total = 0;
@@ -30,13 +32,19 @@ void Cursos::get_iterators(CourseVector::const_iterator& beginIterator, CourseVe
     endIterator = courseVector.end();
 }
 
-bool Cursos::get_course(const courseid& cid, CourseVector::iterator& vectorIter)
+Curso& Cursos::get_course(const courseid& cid)
 {
-    if (cid <= 0 or cid > total) return false;
-
-    vectorIter = courseVector.begin() + cid - 1;
-    return true;
+    if (cid <= 0 or cid > total) return nullCourse;
+    return *(courseVector.begin() + cid - 1);
 }
+
+Curso& Cursos::get_course_with_iterator(const courseid& cid, CourseVector::iterator& courseIter)
+{
+    if (cid <= 0 or cid > total) return nullCourse;
+    courseIter = (courseVector.begin() + cid - 1);
+    return *courseIter;
+}
+
 
 void Cursos::read()
 {

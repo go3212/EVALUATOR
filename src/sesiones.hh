@@ -5,9 +5,7 @@
 #ifndef SESIONES_HH
 #define SESIONES_HH
 
-#include <iostream>
 #include <map>
-#include "tipos.hh"
 #include "sesion.hh"
 
 /** @typedef SesionMap
@@ -32,6 +30,7 @@ class Sesiones
 private:
     int total;                  //<! Número de sesiones en el 'sessionMap'.
     SessionMap sessionMap;      //<! Mapa de sesiones. Tipo 'SessionMap'.
+    static Sesion nullSession;
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \pre true.
@@ -61,7 +60,8 @@ public:
      *  \post No se modifica ningún objeto de la clase.
      *  @return true si se encuentra la sesión o false si no se encuentra.
      */
-    bool get_session(const sessionid& sid, SessionMap::const_iterator& mapIter) const;
+    const Sesion& get_session(const sessionid& sid) const;
+    const Sesion& get_session_with_iterator (const sessionid& sid, SessionMap::const_iterator& mapIter) const;
 
     /** @brief Devuelve los iteradores del mapa de sesiones 
      *  @param beginIterator iterador de la posición inicial.
@@ -72,24 +72,12 @@ public:
      */
     void get_iterators(SessionMap::const_iterator& beginIterator, SessionMap::const_iterator& endIterator) const;
 
-    bool get_session(const sessionid& sid, SessionMap::iterator& mapIter);
-
     /** @brief Lee un conjunto de sesiones por la entrada 'stdin' y los guarda.
      *  \pre Número de sesiones a leer en la entrada (S > 0), seguido de S sesiones.
      *  \post Se almacenan los datos.
      *  @return void.
      */
     void read();
-
-    //######################################//
-    //      FUNCIONES NO IMPLEMENTADAS      //
-    //######################################//
-    // /** @brief Constructor de clase sobrecargado, añade una sesión al instanciar la clase.
-    //  *  @param id identificador de la sesión.
-    //  *  @param problem objeto del tipo 'Sesion'.
-    //  *  \post Se añade una sesión y se incializa el conjunto de sesiones.
-    //  */ 
-    // Sesiones(const string& id, const Sesion& session);
 };
 
 #endif

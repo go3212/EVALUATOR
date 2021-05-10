@@ -17,23 +17,28 @@ void write_data (const ProblemData& problemData)
     cout << endl;
 }
 
+
+bool sort_LH_2 (ProblemData& a, ProblemData& b)
+{
+    return a.pid < b.pid;
+}
+
+
 //######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
 
 Usuario::Usuario()
 {
-    hasUserid = false;
     isInscribed = false;
-    courseManager = CourseManager();
+    isNull = true;
 }
 
 Usuario::Usuario(const userid& uid)
 {
     this->uid = uid;
-    hasUserid = true;
     isInscribed = false;
-    courseManager = CourseManager();
+    isNull = false;
 }
 
 Usuario::~Usuario()
@@ -41,14 +46,14 @@ Usuario::~Usuario()
     
 }
 
+bool Usuario::is_null() const
+{
+    return isNull;
+}
+
 void Usuario::force_uninscribe()
 {
     courseManager.force_uninscribe();
-}
-
-bool Usuario::has_userid() const
-{
-    return hasUserid;
 }
 
 bool Usuario::is_inscribed() const
@@ -85,11 +90,6 @@ bool Usuario::update_problem(const problemid& pid, const bool& isSolved)
 void Usuario::print_available_problems() const
 {
     courseManager.print_available_problems();
-}
-
-bool sort_LH_2 (ProblemData& a, ProblemData& b)
-{
-    return a.pid < b.pid;
 }
 
 int Usuario::print_all_time_solved_problems()

@@ -2,6 +2,8 @@
 
 using namespace std;
 
+Problema Problemas::nullProblem = Problema();
+
 Problemas::Problemas()
 {
     total = 0;
@@ -40,11 +42,11 @@ void Problemas::write()
 
 }
 
-bool Problemas::get_problem(const problemid& pid, ProblemMap::iterator& mapIter)
+Problema& Problemas::get_problem(const problemid& pid)
 {
-    mapIter = problemMap.find(pid);
-    if (mapIter != problemMap.end()) return true;
-    return false;
+    ProblemMap::iterator problemIter = problemMap.find(pid);
+    if (problemIter == problemMap.end()) return nullProblem;
+    return problemIter->second;
 }
 
 void Problemas::get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& endIterator)

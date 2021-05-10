@@ -5,14 +5,7 @@
 #ifndef USUARIOS_HH
 #define USUARIOS_HH
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <map>
-#include "tipos.hh"
 #include "usuario.hh"
-#include "curso.hh"
-#include "cursos.hh"
 
 using namespace std;
 
@@ -29,6 +22,7 @@ class Usuarios
 private:
     int total;
     UserMap userMap;
+    static Usuario nullUser;
 
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
@@ -67,7 +61,7 @@ public:
      *  \post No se modifica ningún objeto de la clase.
      *  @return devuelve true si se ha asignado correctamente el usuario, en cualquier otro caso, false.
      */
-    bool get_user(const userid& uid, UserMap::iterator& mapIter);
+    Usuario& get_user(const userid& uid);
 
     /** @brief Devuelve los iteradores del mapa de problemas 
      *  @param beginIterator iterador de la posición inicial.

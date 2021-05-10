@@ -5,18 +5,24 @@
 #ifndef SESION_HH
 #define SESION_HH
 
-#include <iostream>
+#include <vector>
 #include <algorithm>
-#include "tipos.hh"
+#include "BinTree.hh"
+#include "problema.hh"
 
 using namespace std;
 
+
+/** @typedef sessionid
+ *  @brief Idenfificador de 'Sesión'.
+ */
+typedef string sessionid;
 
 /** @typedef ProblemTree
  *  @brief Tipo de variable que almacena problemas de sesiones en forma de árbol binario.
  */
 typedef BinTree<problemid> ProblemTree;
-typedef sortedVector<problemid> ProblemVector;
+typedef vector<problemid> ProblemVector;
 
 // N > 0, Sin repeticiones, 
 
@@ -28,10 +34,11 @@ class Sesion
 {
 private:
     sessionid sid;                  //<! Identificador de sesión.
-    bool hasSessionid;              //<! Variable 'bool' que indica si la sesión tiene identificador o no.
-    int numProblems;                 //<! Número de problemas de la sesión.
+    bool isNull;                    //<! Variable 'bool' que indica si la sesión tiene identificador o no.
+    int numProblems;                //<! Número de problemas de la sesión.
     ProblemTree problemTree;        //<! Árbol binario de tipo 'ProblemTree' que almacena los problemas de la clase.
     ProblemVector problemVect;      //<! Vector ordenado crecientemente de tipo 'ProblemVector' que almacena los problemas de la clase.
+    
 
     /**
      * @brief Función que lee de la entrada un árbol binario de identificadores de problema en preorden.
@@ -73,6 +80,8 @@ public:
 
     sessionid get_sessionid() const;
 
+    bool is_null() const;
+
     // [REVISAR (1)]
     int get_problems (ProblemVector& pidVector) const;
 
@@ -83,7 +92,7 @@ public:
 
     const BinTree<problemid>& get_problemTree() const;
     
-    int get_problem_vector_iterators(vector<problemid>::const_iterator& beginIter, vector<problemid>::const_iterator& endIter) const;
+    const ProblemVector& get_problem_vector() const;
 
     /** @brief Almacena la infomración de una sesión por el 'stdin'
      *  \pre La información a leer debe estar en un orden correcto.
@@ -97,5 +106,7 @@ public:
      */
     void write() const;
 };
+
+
 
 #endif
