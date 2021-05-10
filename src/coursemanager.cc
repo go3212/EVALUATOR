@@ -117,7 +117,7 @@ void CourseManager::send_attempt(const problemid& pid, const bool& status)
     // Insertamos el problema en el mapa.
     auto ret = problemDataMap.insert(make_pair(pid, ProblemData()));
     // Nos garantizan que siempre el problema enviado está disponible.
-    ret.first->second.solve(status);
+    ret.first->second.make_attempt(status);
     if (ret.first->second.attempts.total == 1) uniqueAttempts += 1;
     if (ret.first->second.solved)
     {
