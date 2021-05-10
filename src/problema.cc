@@ -29,7 +29,7 @@ Problema::Problema(const problemid& pid)
     isNull = false;
 }
 
-void Problema::update_attempts(const bool& isSolved)
+void Problema::update_problem(const bool& isSolved)
 {
     attempts.update_attempts(isSolved);
 }

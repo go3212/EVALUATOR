@@ -6,8 +6,6 @@
 typedef map<problemid, ProblemData> ProblemDataMap;
 typedef map<problemid, ProblemDataMap::const_iterator> ProblemDataIteratorMap;
 
-
-
 /** @struct UserCoursesData
  *  @brief Almacena información genérica sobre todos los 'Curso' que ha cursado un 'Usuario'.
  */

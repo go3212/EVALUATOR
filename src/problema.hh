@@ -81,7 +81,7 @@ public:
      *  @param solved valor que indica si el problema ha sido solucionado correctamente o no ('bool').
      *  \post Se incrementa el número de intentos totales en uno. En función de si se ha solucionado correctamente se increamentan los intentos correctos o los incorrectos.
      */
-    void update_attempts(const bool& isSolved);
+    void update_problem(const bool& isSolved);
 
     bool is_null() const;
     

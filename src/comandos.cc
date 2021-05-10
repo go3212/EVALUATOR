@@ -255,9 +255,9 @@ int Comandos::envio(const userid& uid, const problemid& pid, const bool& solved)
     
     Usuario& user = users.get_user(uid);
     Problema& problem = problems.get_problem(pid);
-
+    
     user.update_problem(pid, solved);
-    problem.update_attempts(solved);
+    problem.update_problem(solved);
     return 0;
 }
 

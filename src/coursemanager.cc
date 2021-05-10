@@ -57,7 +57,6 @@ bool CourseManager::inscribe(const CourseVector::iterator& courseIter, const Ses
     return true;
 }
 
-
 void CourseManager::insert_available_problems(int& sum, vector<pair<problemid, int>>& myVect, const ProblemTree& problemTree) const
 {
     // Queremos ver si el problema se puede insertar o no, si no se puede, buscar todos los insertables.
@@ -92,10 +91,6 @@ void CourseManager::CurrentCourse::not_solved_problems(int& sum, const ProblemDa
     not_solved_problems(sum, problemDataMap, problemTree.right());
     return void();
 }
-
-
-
-
 
 bool CourseManager::uninscribe()
 {
