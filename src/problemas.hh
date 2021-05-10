@@ -11,9 +11,10 @@
 
 using namespace std;
 
-
+/** @typedef ProblemMap 
+ *  @brief Representa un mapa de problemas, donde la 'key' es el nombre del problema ('problemid') y el value es el objeto de tipo 'Problema'.
+ */
 typedef map<problemid, Problema> ProblemMap;
-typedef pair<problemid, Problema> ProblemPair;
 
 /** @class Problemas
  *  @brief Facilita la gestión de un conjunto de problemas (obj. 'Problema').
@@ -21,69 +22,63 @@ typedef pair<problemid, Problema> ProblemPair;
 class Problemas
 {
 private:
-    int total;
-    ProblemMap problemMap;
-    static Problema nullProblem;
+    int total;                      //!< Número total de problemas.
+    ProblemMap problemMap;          //!< Mapa de problemas.
+    static Problema nullProblem;    //!< Mapa 'no definido': este mapa se utiliza en algunos métodos para indicar que no se ha encontrado el mapa buscado.  
 
 public:
-    /** @brief Constructor por defecto de clase sobrecargado.
+    /** @brief Constructor por defecto de clase.
+     *  \pre true.
      *  \post Número total de problemas es cero. Conjunto de problemas ('problemMap') no definido.
      */ 
     Problemas();
 
-    /** @brief Constructor de clase sobrecargado, añade un problema al instanciar la clase.
-     *  @param pid identificador del problema ('problemid').
-     *  \post Se añade un problema y se incializa el conjunto de problemas.
-     */ 
-    Problemas(const problemid& pid);
-
-    /** @brief Devuelve el número total de problemas.
-     * 
+    /** @brief Consultor del número total de problemas.
+     *  \pre true.
+     *  \post true.
+     *  @return 'int': número total de problemas.
      */
     int get_number_of_problems() const;
 
-    /** @brief Añade un nuevo problema a la lista de problemas.
+    /** @brief Añade un nuevo problema al conjunto de problemas.
      *  @param pid identificador del problema ('problemid').
-     *  @param problem objeto de tipo 'Problema'.
-     *  \post añade un problema al objeto 'Problemas' si no existia previamente. Devuelve si el problema se ha añadido ('true') o si ya existia ('false').
+     *  \pre Identificador de problema válido.
+     *  \post El tamaño del conjunto de problemas es incrementado en uno, si no exisita un problema con el mismo identificador.
+     *  @return 'bool': 'true' si se ha añadido correctamente el problema y 'falso' en caso opuesto.
      */
     bool add_problem(const problemid& pid);
 
-    /** @brief Busca un problema en el conjunto de problemas.
+    /** @brief Función que adquiere el problema solicidado.
      *  @param pid identificador de problema ('problemid').
-     *  \post devuelve el objeto 'Problema' por referencia si se ha encontrado, en caso opuesto, devuelve NULL.
-     */
-    Problema& search_problem(const problemid& pid);
-
-    /** @brief Función que busca problemas y devuelve un puntero.
-     *  @param pid identificador de problema ('problemid').
-     *  \post Devuelve un puntero al objeto 'Problema' buscado. Si no se ha encontrado, devuelve NULL. 
+     *  \pre Identificador de problema válido.
+     *  \post true.
+     *  @return 'Problema&': referencia al 'Problema' con identificador 'pid'.
      */
     Problema& get_problem(const problemid& pid);
 
-    /** @brief Devuelve los iteradores del mapa de problemas 
+    /** @brief Función que aquiere los iteradores del mapa de problemas.
      *  @param myBeginIterator iterador de la posición inicial.
      *  @param myEndIterator iterador de la posición final.
-     *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
+     *  \pre true.
+     *  \post true.
+     *  @return 'void'
      */
-    void get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& rndIterator);
+    void get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& endIterator) const;
 
-    /** @brief Función que actualiza el número de intentos a un problema.
+    /** @brief Realiza un intento al problema de la lista.
      *  @param pid identificador de problema ('problemid').
-     *  \post Devuelve 'true' si el problema a actualizar se ha encontrado y 'false' si no se ha encontrado.
+     *  \pre true.
+     *  \post true.
+     *  @return 'bool': 'true' si el problema es válido y 'false' si no lo es.
      */
-    bool updateProblemAttempt(const problemid& pid);
+    bool make_an_attempt(const problemid& pid, const bool& success);            //[NO DEFINIDA!!!!]
 
     /** @brief Lee un conjunto de problemas por la entrada 'stdin' y los guarda.
      *  \pre Número de problemas a leer en la entrada (P > 0), seguido de P problemas.
      *  \post Se almacenan los datos.
+     *  @return 'void'
      */
     void read();
-
-    /** @brief Escribe por pantalla todos los problemas del conjunto de problemas
-     *  \post Se imprime por 'stdout' los problemas, de manera ordenada ascendentemente.
-     */
-    void write();
 };
 
 #endif
