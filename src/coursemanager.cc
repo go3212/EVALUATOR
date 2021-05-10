@@ -51,7 +51,7 @@ bool CourseManager::inscribe(const CourseVector::iterator& courseIter, const Ses
     int numProblemsAvailable = 0;
     for (int i = 0; i < currentCourse.numSessions; ++i)
     {
-        currentCourse.not_solved_problems(numProblemsAvailable, problemDataMap, currentCourse.sessionProblemMapIter[i]->second.get_problemTree());
+        currentCourse.not_solved_problems(numProblemsAvailable, problemDataMap, currentCourse.sessionProblemMapIter[i]->second.get_problemTree()); //[CAMBIAR A VECTOR]
     }
     currentCourse.numProblems = numProblemsAvailable;
     return true;
@@ -134,7 +134,7 @@ void CourseManager::print_available_problems() const
     int n = 0;
     for (int i = 0; i < currentCourse.numSessions; ++i)
     {
-        insert_available_problems(n, availableProblems, currentCourse.sessionProblemMapIter[i]->second.get_problemTree());
+        insert_available_problems(n, availableProblems, currentCourse.sessionProblemMapIter[i]->second.get_problemTree());  // [CAMBIAR A VECTOR]
     }
     sort (availableProblems.begin(), availableProblems.end(), fast_comp);
 

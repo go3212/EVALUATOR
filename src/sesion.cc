@@ -30,14 +30,14 @@ void Sesion::print_problemTree(const ProblemTree& problemTree) const
     return void();
 }
 
-void Sesion::vectorize_problemTree(ProblemVector& problemVect, const ProblemTree& problemTree) const
+void Sesion::vectorize_problemTree(ProblemVector& problemVect, const ProblemTree& problemTree, int& index) const
 {   
     if (problemTree.empty()) return void();
-    problemVect.push_back(problemTree.value());
+    problemVect[index] = problemTree.value();
     ProblemTree myTreeLeft = problemTree.left();
     ProblemTree myTreeRight = problemTree.right();
-    if(!myTreeLeft.empty()) vectorize_problemTree (problemVect, myTreeLeft);
-    if(!myTreeRight.empty())  vectorize_problemTree(problemVect, myTreeRight);
+    if(!myTreeLeft.empty()) vectorize_problemTree (problemVect, myTreeLeft, ++index);
+    if(!myTreeRight.empty()) vectorize_problemTree(problemVect, myTreeRight, ++index);
     return void();
 }
 
@@ -95,9 +95,9 @@ int Sesion::get_number_of_problems() const
 
 int Sesion::get_problems_as_vector(ProblemVector& pidVect) const
 {
-    // Hay que solucionar la asignacion de vectores.
-    // pidVect = ProblemVector(numProblems);
-    vectorize_problemTree(pidVect, problemTree);
+    int index = 0;
+    pidVect = ProblemVector(numProblems);
+    vectorize_problemTree(pidVect, problemTree, index);
     return numProblems;
 }
 
@@ -117,6 +117,7 @@ void Sesion::read()
     isNull = false;
     numProblems = read_problemTree(problemTree);
     get_problems_as_vector(problemVect);
+    sort (problemVect.begin(), problemVect.end());
 }
 
 void Sesion::write() const

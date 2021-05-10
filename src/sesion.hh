@@ -22,9 +22,11 @@ typedef string sessionid;
  *  @brief Tipo de variable que almacena problemas de sesiones en forma de árbol binario.
  */
 typedef BinTree<problemid> ProblemTree;
-typedef vector<problemid> ProblemVector;
 
-// N > 0, Sin repeticiones, 
+/** @typedef ProblemVector
+ *  @brief Tipo de variable que almacena problemas de sesiones en forma de vector de 'problemid'.
+ */
+typedef vector<problemid> ProblemVector;
 
 /** @class Sesion
  *  @brief Almacena la información de una sesión y facilita su gestión.
@@ -39,74 +41,111 @@ private:
     ProblemTree problemTree;        //<! Árbol binario de tipo 'ProblemTree' que almacena los problemas de la clase.
     ProblemVector problemVect;      //<! Vector ordenado crecientemente de tipo 'ProblemVector' que almacena los problemas de la clase.
     
-
-    /**
-     * @brief Función que lee de la entrada un árbol binario de identificadores de problema en preorden.
-     * @param myTree variable de tipo ProblemTree en la que se almacenará la raíz del árbol.
-     * \pre En la entrada 'stdin' debe estar un conjunto de 'problemid que representan los nodos del árbol binario.
-     *      Se lee en preorden y se considera el '0' como "nodo vacío", es decir, es el marcador de la lectura en preorden.
-     * \post Se modifica la variable 'myTree' asignandole el árbol leido.
-     * @return int: número de elementos que tiene el árbol binario.
+    /** @brief Función que lee de la entrada un árbol binario de identificadores de problema en preorden.
+     *  @param myTree variable de tipo ProblemTree en la que se almacenará la raíz del árbol.
+     *  \pre En la entrada 'stdin' debe estar un conjunto de 'problemid que representan los nodos del árbol binario.
+     *       Se lee en preorden y se considera el '0' como "nodo vacío", es decir, es el marcador de la lectura en preorden.
+     *  \post Se modifica la variable 'myTree' asignandole el árbol leido.
+     *  @return 'int': número de elementos que tiene el árbol binario.
      */
     int read_problemTree(ProblemTree& problemTree);
 
-    /**
-     * @brief Función que imprime un árbol binario de tipo PtoblemTree.
-     * @param myTree variable de tipo 'ProblemTree'.
-     * \pre El parámetro de entrada debe ser un árbol valido.
-     * \post No se modifica ninguna variable.
-     * @return void.
+    /** @brief Función que imprime un árbol binario de tipo PtoblemTree.
+     *  @param problemTree variable de tipo 'ProblemTree'.
+     *  \pre El parámetro de entrada debe ser un árbol valido.
+     *  \post true.
+     *  @return 'void'.
      */
     void print_problemTree(const ProblemTree& problemTree) const;
 
-    /**
-     * @brief Función que inserta los elementos de un árbol binario en un vector ordenado crecientemente.
-     * @param myVect vector de tipo 'ProblemVector' al que se le insertaran los nodos del árbol.
-     * @param myTree árbol binario de tipo 'ProblemTree'.
-     * @return void.
+    /** @brief Función que inserta los elementos de un árbol binario en un vector.
+     *  @param problemVect vector de tipo 'ProblemVector' al que se le insertaran los nodos del árbol.
+     *  @param problemTree árbol binario de tipo 'ProblemTree'.
+     *  \pre true.
+     *  \post Se almacenan en el parámetro 'problemVect' todos los problemas del árbol.
+     *  @return 'void'.
      */
-    void vectorize_problemTree(ProblemVector& problemVect, const ProblemTree& problemTree) const;
+    void vectorize_problemTree(ProblemVector& problemVect, const ProblemTree& problemTree, int& index) const;
 
+    /** @brief Función que inserta los problemas de la sesión en un vector.
+     *  @param pidVector vector de tipo 'ProblemVector' al que se le insertaran los nodos del árbol.
+     *  \pre true.
+     *  \post Se alamacenan en el parámetro 'problemVect' todos los problemas del árbol.
+     *  @return 'int': número de problemas de la sesión.
+     */
+    int get_problems_as_vector (ProblemVector& pidVector) const;
 public:
+    /** @brief Constructor por defecto de la clase.
+     *  \pre true.
+     *  \post La sesion es NULA.
+     */ 
     Sesion();
 
-    /** @brief Overloaded class constructor.
+    /** @brief Constructor sobrecargado de la clase.
      *  \pre La entrada tiene que tener la lista de problemas en preorden (árbol binario).
-     *  \post Sets the session id ('this->sid') to the constructor parameter ('sid'). All other private <em>int</em> variables are set to zero.
+     *  \post Todas las variables son inicializadas correctamente y el objeto no es NULO.
      */ 
     Sesion(const sessionid& sid);
 
+    /** @brief Consultor de pertenencia de un problema a la sesión.
+     *  @param pid identificador de problema ('problemid'). 
+     *  \pre true.
+     *  \post true.
+     *  @return 'bool': 'true' si el problema pertenece a la sesión y 'false' si no pertenece a la sesión.
+     */
     bool has_problem(const problemid& pid) const;
 
+    /** @brief Adquiere el identificador de la sesión.
+     *  \pre La sesión no es nula.
+     *  \post true.
+     *  @return 'sessionid': identificador de la sesión.
+     */
     sessionid get_sessionid() const;
 
+    /** @brief Consultor del estado de la sesión.
+     *  \pre true.
+     *  \post true.
+     *  @return 'bool': 'true' si la sesión es nula, 'false' si no lo es.
+     */
     bool is_null() const;
 
-    // [REVISAR (1)]
+    /** @brief Inserta los problemas de la sesión en un vector. 
+     *  @param pidVector vector al que se le insertaran las sesiones.
+     *  \pre true.
+     *  \post true.
+     *  @return int: número de problemas de la sesión.
+     */
     int get_problems (ProblemVector& pidVector) const;
 
+    /** @brief Consultor del número de problemas de la sesión.
+     *  \pre true.
+     *  \post true. 
+     *  @return int: número de problemas de la sesión.
+     */
     int get_number_of_problems() const;
-    
-    // [REVISAR (1)]
-    int get_problems_as_vector (ProblemVector& pidVector) const;
 
-    const BinTree<problemid>& get_problemTree() const;
-    
+    /** @brief Adquiere el vector de problemas de la clase.
+     *  \pre true.
+     *  \post true.
+     *  @return 'const ProblemVector&': referencia al vector de la clase. 
+     */
     const ProblemVector& get_problem_vector() const;
+    
+    const BinTree<problemid>& get_problemTree() const;    // ELIMINAR???
 
     /** @brief Almacena la infomración de una sesión por el 'stdin'
      *  \pre La información a leer debe estar en un orden correcto.
      *  \post Se almacena el conjunto de problemas y se inicializa el id.
+     *  @return 'void'.
      */
     void read();
 
     /** @brief Escribe la información de una sesión en el 'stdout'.
      *  \pre La sesión debe tener identificador y conjunto de problemas.
      *  \post Se escribe el número de problemas, asi como sus identificadores.
+     *  @return 'void'.
      */
     void write() const;
 };
-
-
 
 #endif
