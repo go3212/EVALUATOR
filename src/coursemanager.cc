@@ -19,19 +19,21 @@ CourseManager::CurrentCourse::CurrentCourse()
 
 CourseManager::CurrentCourse::CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions)
 {
+    // Cuando se inscribe al usuario en un curso, utilizamos el propio constructor de la clase para hacerlo.
     identifier = courseIter->get_cid();
-    sessionProblemMapIter = vector<SessionMap::const_iterator>(courseIter->get_number_of_sessions());
-    CourseSessionVector::const_iterator beginIter, endIter;
+    sessionProblemMapIter = vector<SessionMap::const_iterator>(courseIter->get_number_of_sessions()); // Definimos el tamaño del vector de sesiones.
+    CourseSessionVector::const_iterator beginIter, endIter;                                            
     courseIter->get_iterators(beginIter, endIter);
     numSessions = 0; 
     numProblems = 0;
+    // En el bucle, tomaremos las sesiones del curso e insertaremos los iteradores en un vector externo para tener acceso rápido a su información.
     while (beginIter != endIter)
     {
         sessions.get_session_with_iterator(*beginIter, sessionProblemMapIter[numSessions]);
         ++numSessions;
         ++beginIter;
     }
-    this->courseIter = courseIter;
+    this->courseIter = courseIter;  // Guardamos el iterador para recurrir a él cuando necesitemos actualizar la información del curso.
 }
 
 courseid CourseManager::current_course_id() const
@@ -67,7 +69,8 @@ void CourseManager::CurrentCourse::insert_available_problems(const ProblemDataMa
         myVect.insert(myVect.end(), make_pair(problemTree.value(), 0));
         sum += 1;
         return void();
-    } else if (!ret->second.solved)
+    }
+    if (!ret->second.solved)
     {
         myVect.insert(myVect.end(), make_pair(problemTree.value(), ret->second.attempts.total));
         sum += 1;
