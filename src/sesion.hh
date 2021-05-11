@@ -89,7 +89,7 @@ public:
 
     /** @brief Consultor de pertenencia de un problema a la sesión.
      *  @param pid identificador de problema ('problemid'). 
-     *  \pre true.
+     *  \pre El parámetro implicito debe estar ordenando crecientemente.
      *  \post true.
      *  @return 'bool': 'true' si el problema pertenece a la sesión y 'false' si no pertenece a la sesión.
      */

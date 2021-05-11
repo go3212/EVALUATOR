@@ -52,23 +52,26 @@ Sesion::Sesion()
 
 Sesion::Sesion(const sessionid& sid)
 {
-    this->sid = sid;
     isNull = false;
     numProblems = read_problemTree(problemTree);
+
+    this->sid = sid;
     get_problems_as_vector(problemVect);
     sort (problemVect.begin(), problemVect.end());
 }
 
 bool Sesion::has_problem(const problemid& pid) const
 {
+    // Nos garantizan que el vector está ordenado, realizamos busqueda binaria.
     int left = 0, right = numProblems - 1, m;
     while (left <= right)
     {   
         m = (left+right)/2;
         if (problemVect[m] < pid) left = m + 1;
         else if (problemVect[m] > pid) right = m - 1;
-        else break;
+        else break;  // Si lo entontramos, salimos del bucle.
     }
+    // Si salimos prematuramente del bucle -> left <= right, si no salimos -> left > right. 
     return ((left <= right) ? true : false);
 }
 

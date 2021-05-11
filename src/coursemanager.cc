@@ -44,7 +44,7 @@ bool CourseManager::course_finished() const
     return currentCourse.numProblems == 0;
 }
 
-bool CourseManager::inscribe(const CourseVector::iterator& courseIter, const Sesiones& sessions)
+void CourseManager::inscribe(const CourseVector::iterator& courseIter, const Sesiones& sessions)
 {
     currentCourse = CurrentCourse(courseIter, sessions);
     courseIter->inscribe_user();
@@ -54,10 +54,9 @@ bool CourseManager::inscribe(const CourseVector::iterator& courseIter, const Ses
         currentCourse.not_solved_problems(numProblemsAvailable, problemDataMap, currentCourse.sessionProblemMapIter[i]->second.get_problemTree()); //[CAMBIAR A VECTOR]
     }
     currentCourse.numProblems = numProblemsAvailable;
-    return true;
 }
 
-void CourseManager::insert_available_problems(int& sum, vector<pair<problemid, int>>& myVect, const ProblemTree& problemTree) const
+void CourseManager::CurrentCourse::insert_available_problems(const ProblemDataMap& problemDataMap, int& sum, vector<pair<problemid, int>>& myVect, const ProblemTree& problemTree) const
 {
     // Queremos ver si el problema se puede insertar o no, si no se puede, buscar todos los insertables.
     // Primero miramos si la raíz ha sido "solucionada", si lo ha sido, insertamos el problema a la lista de disponibles.
@@ -75,8 +74,8 @@ void CourseManager::insert_available_problems(int& sum, vector<pair<problemid, i
         return void();
     }
     
-    insert_available_problems(sum, myVect, problemTree.left());
-    insert_available_problems(sum, myVect, problemTree.right());
+    insert_available_problems(problemDataMap, sum, myVect, problemTree.left());
+    insert_available_problems(problemDataMap, sum, myVect, problemTree.right());
     return void();
 }
 
@@ -94,6 +93,7 @@ void CourseManager::CurrentCourse::not_solved_problems(int& sum, const ProblemDa
 
 bool CourseManager::uninscribe()
 {
+    if (currentCourse.identifier == 0) return false;
     currentCourse.courseIter->uninscribe_user();
     currentCourse = CurrentCourse();
     return true;
@@ -134,7 +134,7 @@ void CourseManager::print_available_problems() const
     int n = 0;
     for (int i = 0; i < currentCourse.numSessions; ++i)
     {
-        insert_available_problems(n, availableProblems, currentCourse.sessionProblemMapIter[i]->second.get_problemTree());  // [CAMBIAR A VECTOR]
+        currentCourse.insert_available_problems(problemDataMap, n, availableProblems, currentCourse.sessionProblemMapIter[i]->second.get_problemTree());  // [CAMBIAR A VECTOR]
     }
     sort (availableProblems.begin(), availableProblems.end(), fast_comp);
 

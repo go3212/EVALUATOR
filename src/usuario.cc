@@ -101,5 +101,5 @@ int Usuario::print_all_time_solved_problems()
 void Usuario::write() const
 {
     cout << uid;
-    courseManager.write();
+    courseManager.print_course_info();
 }
