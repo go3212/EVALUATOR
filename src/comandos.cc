@@ -191,7 +191,7 @@ int Comandos::alta_usuario(const userid& uid)
 
 int Comandos::baja_usuario(const userid& uid)
 {
-    if (!users.delete_user(uid)) return 9;
+    if (!users.delete_user(uid, courses)) return 9;
     cout << users.get_number_of_users() << endl;
     return 0;
 }
@@ -203,7 +203,7 @@ int Comandos::inscribir_curso(const userid& uid, const courseid& cid)
     CourseVector::iterator courseIter;
     Curso& course = courses.get_course_with_iterator(cid , courseIter);
     if (course.is_null()) return 6;
-    if (!user.inscribe(courseIter, sessions)) return 10;
+    if (!user.inscribe(courses.get_course(cid), sessions)) return 10;
     cout << (*courseIter).inscribed_users() << endl;
     return 0;
 }
@@ -256,7 +256,7 @@ int Comandos::envio(const userid& uid, const problemid& pid, const bool& solved)
     Usuario& user = users.get_user(uid);
     Problema& problem = problems.get_problem(pid);
     
-    user.update_problem(pid, solved);
+    user.update_problem(pid, solved, courses);
     problem.update_problem(solved);
     return 0;
 }

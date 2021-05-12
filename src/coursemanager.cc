@@ -17,13 +17,13 @@ CourseManager::CurrentCourse::CurrentCourse()
     numProblems = 0;
 }
 
-CourseManager::CurrentCourse::CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions)
+CourseManager::CurrentCourse::CurrentCourse(const Curso& course, const Sesiones& sessions)
 {
     // Cuando se inscribe al usuario en un curso, utilizamos el propio constructor de la clase para hacerlo.
-    identifier = courseIter->get_cid();
-    sessionProblemMapIter = vector<SessionMap::const_iterator>(courseIter->get_number_of_sessions()); // Definimos el tamaño del vector de sesiones.
+    identifier = course.get_cid();
+    sessionProblemMapIter = vector<SessionMap::const_iterator>(course.get_number_of_sessions()); // Definimos el tamaño del vector de sesiones.
     CourseSessionVector::const_iterator beginIter, endIter;                                            
-    courseIter->get_iterators(beginIter, endIter);
+    course.get_iterators(beginIter, endIter);
     numSessions = 0; 
     numProblems = 0;
     // En el bucle, tomaremos las sesiones del curso e insertaremos los iteradores en un vector externo para tener acceso rápido a su información.
@@ -33,7 +33,6 @@ CourseManager::CurrentCourse::CurrentCourse(const CourseVector::iterator& course
         ++numSessions;
         ++beginIter;
     }
-    this->courseIter = courseIter;  // Guardamos el iterador para recurrir a él cuando necesitemos actualizar la información del curso.
 }
 
 courseid CourseManager::current_course_id() const
@@ -46,10 +45,10 @@ bool CourseManager::course_finished() const
     return currentCourse.numProblems == 0;
 }
 
-void CourseManager::inscribe(const CourseVector::iterator& courseIter, const Sesiones& sessions)
+void CourseManager::inscribe(Curso& course, const Sesiones& sessions)
 {
-    currentCourse = CurrentCourse(courseIter, sessions);
-    courseIter->inscribe_user();
+    currentCourse = CurrentCourse(course, sessions);
+    course.inscribe_user();
     int numProblemsAvailable = 0;
     for (int i = 0; i < currentCourse.numSessions; ++i)
     {
@@ -94,19 +93,19 @@ void CourseManager::CurrentCourse::not_solved_problems(int& sum, const ProblemDa
     return void();
 }
 
-bool CourseManager::uninscribe()
+bool CourseManager::uninscribe(Cursos& courses)
 {
     if (currentCourse.identifier == 0) return false;
-    currentCourse.courseIter->uninscribe_user();
+    courses.get_course(currentCourse.identifier).uninscribe_user();
     currentCourse = CurrentCourse();
     return true;
 }
 
-void CourseManager::force_uninscribe()
+void CourseManager::force_uninscribe(Cursos& courses)
 {
     if (currentCourse.identifier != 0)
     {
-        currentCourse.courseIter->force_uninscribe();
+        courses.get_course(currentCourse.identifier).force_uninscribe();
     }
     currentCourse = CurrentCourse();
 }

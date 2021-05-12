@@ -21,13 +21,13 @@ bool Usuarios::add_user (const userid& uid)
     return true;
 }
 
-bool Usuarios::delete_user(const userid& uid)
+bool Usuarios::delete_user(const userid& uid, Cursos& courses)
 {
     // Miramos si el usuario existe, si no existe, no eliminamos nada.
     UserMap::iterator userIter = userMap.find(uid);
     if (userIter == userMap.end()) return false;
     // A partir de aquí, seguro que el usuario está registrado.
-    userIter->second.force_uninscribe();
+    userIter->second.force_uninscribe(courses);
     userMap.erase(userIter);
     total -= 1;
     return true;

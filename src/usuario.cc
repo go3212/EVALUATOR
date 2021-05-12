@@ -51,9 +51,9 @@ bool Usuario::is_null() const
     return isNull;
 }
 
-void Usuario::force_uninscribe()
+void Usuario::force_uninscribe(Cursos& courses)
 {
-    courseManager.force_uninscribe();
+    courseManager.force_uninscribe(courses);
 }
 
 bool Usuario::is_inscribed() const
@@ -66,13 +66,13 @@ courseid Usuario::inscribed_course_id() const
     return courseManager.current_course_id();
 }
 
-bool Usuario::inscribe(const CourseVector::iterator& courseIter, Sesiones& sessions)
+bool Usuario::inscribe(Curso& course, Sesiones& sessions)
 {
     // Primero miramos si el usuario está inscrito en un curso:
     if (isInscribed) return false;
 
     // Ahora, seguro que el usuario se puede inscribir. 
-    courseManager.inscribe(courseIter, sessions);
+    courseManager.inscribe(course, sessions);
 
     // Si el usuario no tiene problemas a solucionar, ha acabado el curso.
     isInscribed = true;
@@ -80,10 +80,10 @@ bool Usuario::inscribe(const CourseVector::iterator& courseIter, Sesiones& sessi
     return true; 
 }
 
-bool Usuario::update_problem(const problemid& pid, const bool& isSolved)
+bool Usuario::update_problem(const problemid& pid, const bool& isSolved, Cursos& courses)
 {
     courseManager.send_attempt(pid, isSolved);
-    if (courseManager.course_finished()) courseManager.uninscribe(), isInscribed = false;
+    if (courseManager.course_finished()) courseManager.uninscribe(courses), isInscribed = false;
     return true;
 }
 

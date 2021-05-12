@@ -45,7 +45,7 @@ public:
      *  \post Elimina un usuario del conjunto de usuarios ('userMap') si existe el usuario.  
      *  @return bool: true si se ha eliminado correctamente el usuario o false ha habido un problema al eliminar/no existe.
      */
-    bool delete_user(const userid& uid);
+    bool delete_user(const userid& uid, Cursos& courses);
 
     /** @brief Da de baja a un usuario del conjunto de usuarios.
      *  @param userIter objeto de tipo 'UserMap::iterator'.

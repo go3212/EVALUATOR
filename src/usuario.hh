@@ -69,9 +69,9 @@ public:
      *        en caso opuesto, no se modifica la inscripción y se devuelve ('false').
      *  @return bool: 'true' si se ha inscrito al usuario correctamente, 'false' si el usuario ya estaba inscrito en un curso.
      */
-    bool inscribe(const CourseVector::iterator& courseIter, Sesiones& sessions);
+    bool inscribe(Curso& course, Sesiones& sessions);
 
-    void force_uninscribe();
+    void force_uninscribe(Cursos& courses);
 
     /**
      * @brief Función que actualiza el conjunto de problemas de acuerdo con las reglas establecidas previamente.
@@ -79,7 +79,7 @@ public:
      * \post Se actualiza la estructura 'currentCourse' y la estructura 'allCourses'. Se actualiza el estado del curso en el que está inscrito el usuario
      * @return bool: 'true' si el curso se ha completado, 'false' si no ha sido completado.
      */
-    bool update_problem(const problemid& pid, const bool& isSolved);
+    bool update_problem(const problemid& pid, const bool& isSolved, Cursos& courses);
 
     /**
      * @brief Función que sirve para "visualizar" los problemas que tiene el usuario disponibles a solucionar.

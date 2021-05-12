@@ -24,7 +24,6 @@ private:
     struct CurrentCourse
     {
         courseid identifier;                                      //!< Identificador del curso inscrito, 0 si no está inscrito.
-        CourseVector::iterator courseIter;                        //!< Iterador del curso inscrito.
         vector<SessionMap::const_iterator> sessionProblemMapIter; //!< Vector de iteradores de las sesiones del curso al que está inscrito.
         int numSessions;                                          //!< Número de sesiones del curso al que está inscrito.                    
         int numProblems;                                          //!< Número de problemas del curso al que está inscrito.
@@ -41,7 +40,7 @@ private:
          *  @param courseIter iterador al curso en el que se ha inscrito el usuario. 
          *  @param sessions conjunto total de sesiones.
          */
-        CurrentCourse(const CourseVector::iterator& courseIter, const Sesiones& sessions);
+        CurrentCourse(const Curso& course, const Sesiones& sessions);
         
         /** @brief Consultor del número de problemas no solucionados de una sesión.
          *  \pre Parámetro sum inicializado.
@@ -89,7 +88,7 @@ public:
      *  @param sessions conjunto de sesiones general.
      *  @return 'void'.
      */
-    void inscribe(const CourseVector::iterator& courseIter, const Sesiones& sessions);
+    void inscribe(Curso& course, const Sesiones& sessions);
 
     /** @brief Consultor de si se ha terminado el curso o no.
      *  \pre true.
@@ -107,7 +106,7 @@ public:
      *  actualiza el número de usuarios que han cursado el curso correctamente y la segunda no. Ambas actualizan
      *  el número de usuarios del curso.
      */
-    bool uninscribe();
+    bool uninscribe(Cursos& courses);
 
     /** @brief Desinscribe al usuario del curso.
      *  \pre true.
@@ -118,7 +117,7 @@ public:
      *  actualiza el número de usuarios que han cursado el curso correctamente y la segunda no. Ambas actualizan
      *  el número de usuarios del curso.
      */
-    void force_uninscribe();
+    void force_uninscribe(Cursos& courses);
 
     /** @brief Realiza un envio a un problema del curso que cursa el usuario.
      *  \pre El usuario está inscrito en un curso.
