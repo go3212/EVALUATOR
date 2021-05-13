@@ -98,8 +98,9 @@ public:
     bool course_finished() const;
 
     /** @brief Desinscribe al usuario del curso.
-     *  \pre El usuario debe haber acabado el curso.
+     *  \pre El usuario debe haber acabado el curso y el conjunto de cursos debe contener el curso al que esta inscrito el usuario (si está inscrito).
      *  \post Se desincribe al usuario del curso.
+     *  @param courses conjunto de cursos.
      *  @return 'bool': true si se ha desinscrito correctamente, false en caso contrario.
      * 
      *  La función no debe confundirse con force_uninscribe(). La diferencia entre estas dos es que la primera
@@ -109,8 +110,9 @@ public:
     bool uninscribe(Cursos& courses);
 
     /** @brief Desinscribe al usuario del curso.
-     *  \pre true.
+     *  \pre El conjunto de cursos debe contener el curso al que esta inscrito el usuario (si está inscrito).
      *  \post El usuario no estará inscrito en ningún curso.
+     *  @param courses conjunto de cursos.
      *  @return 'void'.
      * 
      *  La función no debe confundirse con force_uninscribe(). La diferencia entre estas dos es que la primera

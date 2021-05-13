@@ -19,54 +19,39 @@ using namespace std;
 //######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
-Curso::Curso()
-{
-    total = 0;
-    isHintMapInitialized = false;
-    isNull = true;
-}
+Curso::Curso() : cid(0), total(0), isNull(true), isHintMapInitialized(false) {}
 
-Curso::Curso(const courseid& cid)
-{
-    this->cid = cid;
-    total = 0;
-    isHintMapInitialized = false;
-    isNull = true;
-}
+Curso::Curso(const courseid& cid) : cid(cid), total(0), isNull(true), isHintMapInitialized(false) {}
 
 void Curso::force_uninscribe()
 {
     userdata.inscribed_users -= 1;
 }
 
-Curso::UserData::UserData()
-{
-    inscribed_users = 0;
-    alltime_users = 0;
-}
+Curso::UserData::UserData() : inscribed_users(0), alltime_users(0) {}
 
 courseid Curso::get_cid() const
 {
     return cid;
 }
 
-bool Curso::set_cid(const courseid& cid)
+void Curso::set_cid(const courseid& cid)
 {
     this->cid = cid;
-    return true;
+    return void();
 }
 
-bool Curso::inscribe_user() // const userid& uid
+void Curso::inscribe_user() // const userid& uid
 {
     userdata.inscribed_users += 1;
-    return true;
+    return void();
 }
 
-bool Curso::uninscribe_user() // const userid& uid
+void Curso::uninscribe_user() // const userid& uid
 {
     userdata.inscribed_users -= 1;
     userdata.alltime_users += 1;
-    return true;
+    return void();
 }
 int Curso::inscribed_users() const
 {
