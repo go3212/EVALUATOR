@@ -5,11 +5,6 @@ using namespace std;
 //######################################//
 //      FUNCIONES AJENAS A LA CLASE     //
 //######################################//
-bool sort_vect(ProblemData& a, ProblemData& b)
-{
-    return a.pid < b.pid;
-}
-
 void write_data (const ProblemData& problemData)
 {
     cout << problemData.pid;
@@ -28,23 +23,9 @@ bool sort_LH_2 (ProblemData& a, ProblemData& b)
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
 
-Usuario::Usuario()
-{
-    isInscribed = false;
-    isNull = true;
-}
+Usuario::Usuario() : uid(), isNull(true), isInscribed(false) {}
 
-Usuario::Usuario(const userid& uid)
-{
-    this->uid = uid;
-    isInscribed = false;
-    isNull = false;
-}
-
-Usuario::~Usuario()
-{
-    
-}
+Usuario::Usuario(const userid& uid) : uid(uid), isNull(false), isInscribed(false) {}
 
 bool Usuario::is_null() const
 {

@@ -20,10 +20,10 @@ typedef string userid;
 class Usuario
 {
 private:
-    userid uid;
-    bool isInscribed;
-    CourseManager courseManager;
-    bool isNull;
+    userid uid;                     //!< Identificador del usuario.
+    bool isNull;                    //!< Determina si el usuario está "determinado", es decir, sus elementos estan todos inicializados.
+    bool isInscribed;               //!< Determina si el usuario está inscrito en un 'Curso'.
+    CourseManager courseManager;    //!< Objeto que gestiona toda la información de los 'Cursos' del usuario.
 
 public:
 
@@ -40,27 +40,28 @@ public:
      */ 
     Usuario(const userid& uid);
 
-    ~Usuario();
-
     /** @brief Función que indica si el usuario está inscrito en un curso.
      *  \pre true.
      *  \post El usuario mantiene el estado que tenia anteriormente.
-     *  @return bool: 'true' si el usuario está inscrito y 'false' si no lo está.
+     *  @return 'bool': 'true' si el usuario está inscrito y 'false' si no lo está.
      */
     bool is_inscribed() const;
 
+    /** @brief Consultor del estado del usuario.
+     *  \pre 'true'.
+     *  \post 'true'.
+     *  @return 'bool':
+     */
     bool is_null() const;
 
-    /**
-     * @brief Función que indica el identificador del curso al que está inscrito el usuario.
-     * \pre El usuario debe estar inscrito en un curso.
-     * \post El usuario mantiene el estado que tenia anteriormente.
-     * @return courseid: devuelve el identificador del curso al que está inscrito el usuario.
+    /** @brief Función que indica el identificador del curso al que está inscrito el usuario.
+     *  \pre El usuario debe estar inscrito en un curso.
+     *  \post El usuario mantiene el estado que tenia anteriormente.
+     *  @return 'courseid': devuelve el identificador del curso al que está inscrito el usuario.
      */
     courseid inscribed_course_id() const;
 
     /** @brief Inscribe al usuario en un curso.
-     *  @param cid identificador del curso ('courseid').
      *  @param course objeto de tipo 'Curso'.
      *  @param sessions objeto del tipo 'Sesiones'.
      *  \pre El usuario debe tener identificador. El curso al que se quiere inscribir debe existir en el objeto 'Curso' y todas sus sesiones 
@@ -71,23 +72,27 @@ public:
      */
     bool inscribe(Curso& course, Sesiones& sessions);
 
+    /** @brief 
+     *  @param courses 
+     *  \pre true.
+     *  \post El usuario deja de estar inscrito en el 'Curso'.
+     *  @return 'void'.
+     */
     void force_uninscribe(Cursos& courses);
 
-    /**
-     * @brief Función que actualiza el conjunto de problemas de acuerdo con las reglas establecidas previamente.
-     * \pre El usuario está inscrito y el problema a solucionar no ha sido solucionado previamente y existe en el curso.
-     * \post Se actualiza la estructura 'currentCourse' y la estructura 'allCourses'. Se actualiza el estado del curso en el que está inscrito el usuario
-     * @return bool: 'true' si el curso se ha completado, 'false' si no ha sido completado.
+    /** @brief Función que actualiza el conjunto de problemas de acuerdo con las reglas establecidas previamente.
+     *  \pre El usuario está inscrito y el problema a solucionar no ha sido solucionado previamente y existe en el curso.
+     *  \post Se actualiza la estructura 'currentCourse' y la estructura 'allCourses'. Se actualiza el estado del curso en el que está inscrito el usuario
+     *  @return bool: 'true' si el curso se ha completado, 'false' si no ha sido completado.
      */
     bool update_problem(const problemid& pid, const bool& isSolved, Cursos& courses);
 
-    /**
-     * @brief Función que sirve para "visualizar" los problemas que tiene el usuario disponibles a solucionar.
-     * @param problemVect objeto que contendrá todos los problemas disponibles (que cumple todos los requisitos) a solucionar por el usuario. 
-     * \pre true.
-     * \post El vector tiene tamaño superior o igual al inicial. Si el return es diferente de -1, el vector estará ordenado crecientemente, si el return es -1,
-     *       el vector no se habrá modificado.
-     * @return int: '-1' si el usuario no está inscrito en ningun curso. El tamaño del vector del parámetro tras la ejecución en cualquier otro caso.
+    /** @brief Función que sirve para "visualizar" los problemas que tiene el usuario disponibles a solucionar.
+     *  @param problemVect objeto que contendrá todos los problemas disponibles (que cumple todos los requisitos) a solucionar por el usuario. 
+     *  \pre true.
+     *  \post El vector tiene tamaño superior o igual al inicial. Si el return es diferente de -1, el vector estará ordenado crecientemente, si el return es -1,
+     *        el vector no se habrá modificado.
+     *  @return int: '-1' si el usuario no está inscrito en ningun curso. El tamaño del vector del parámetro tras la ejecución en cualquier otro caso.
      */
     int available_problems() const;
 
@@ -106,44 +111,9 @@ public:
      */
     void write() const;
 
+    /** @brief Imprime por pantalla los problemas disponibles del usuario.
+     *  @return 'void'.
+     */
     void print_available_problems() const;
-
-    //######################################//
-    //      FUNCIONES NO IMPLEMENTADAS      //
-    //######################################//
-
-    // /** @brief Almacena la información de un usuario.
-    //  *  \pre Los datos en 'stdin' deben estar ordenados correctamente: identificador ('userid').
-    //  *  \post Se almacena un identificador en el usuario y se establece a 'true' el parámetro implícito ('has_userid').
-    //  */
-    // void read();
-
-    // /** @brief Actualiza el estado del curso al enviar un problema.
-    //  *  @param pid identificador de problema ('problemid').
-    //  *  @param solved valor que indica si el problema ha sido solucionado correctamente o no ('bool').
-    //  *  \post Actualiza el número de intentos y la lista de problemas disponibles para el usuario. Si no quedan más problemas a solucionar, se desinscribre al usuario del curso.
-    //  *        Devuelve 'true' si se ha encontrado el problema en el curso y 'false' si no sse ha encontrado.
-    //  */
-    // bool update_problems(const problemid& pid, const bool& solved);
-
 };
-
-/**
- * @brief Función con el propósito de ordenar un vector de 'ProblemData' crecientemente según el 'problemid'.
- *        Se utiliza exclusivamente el la función 'sort()' de la libreria '<algorithm>'.
- * @param a objeto del tipo 'ProblemData'.
- * @param b objeto del tipo 'ProblemData'.
- * @return true si a < b y false para el resto de casos.
- */
-bool sort_vect(ProblemData& a, ProblemData& b);
-
-/** @brief Funcion que inserta en un vector los problemas a solucionar de un árbol de 'ProblemData'.
- *  @param problemTree árbol binario de objetos del tipo 'BinTree<ProblemData>'. 
- *  @param problemVector vector al que se le insertan los problemas disponibles a solucionar. Tipo de objeto 'vector<ProblemData>'.
- *  \pre Al menos hay un nodo, el árbol no está vacío.
- *  \post Devuelve los elementos no solucionados adyacenetes a nodos solucionados, los inserta en el parámetro 'problemVector'.
- *  @return void
- */
-void get_session_available_problems(const BinTree<pair<problemid, bool>>& problemTree, int& size, vector<ProblemData>& problemVector);
-
 #endif

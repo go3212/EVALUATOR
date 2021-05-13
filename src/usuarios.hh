@@ -67,6 +67,7 @@ public:
      *  @param beginIterator iterador de la posición inicial.
      *  @param endIterator iterador de la posición final.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del mapa de problemas.
+     *  @return 'void'.
      */
     void get_iterators(UserMap::const_iterator& beginIterator, UserMap::const_iterator& endIterator) const;
 
@@ -89,6 +90,7 @@ public:
     /** @brief Lee un conjunto de usuarios por la entrada 'stdin' y los guarda.
      *  \pre Número de usuarios a leer en la entrada (U >= 0), seguido de U usuarios.
      *  \post Se almacenan los datos.
+     *  @return 'void'
      */
     void read();
 };

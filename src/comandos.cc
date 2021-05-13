@@ -200,11 +200,10 @@ int Comandos::inscribir_curso(const userid& uid, const courseid& cid)
 {
     Usuario& user = users.get_user(uid);
     if(user.is_null()) return 9;
-    CourseVector::iterator courseIter;
-    Curso& course = courses.get_course_with_iterator(cid , courseIter);
+    Curso& course = courses.get_course(cid);
     if (course.is_null()) return 6;
     if (!user.inscribe(courses.get_course(cid), sessions)) return 10;
-    cout << (*courseIter).inscribed_users() << endl;
+    cout << course.inscribed_users() << endl;
     return 0;
 }
 

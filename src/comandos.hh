@@ -17,10 +17,10 @@ typedef string command;
 class Comandos
 {
 private:
-    Usuarios users;
-    Cursos courses;
-    Problemas problems;
-    Sesiones sessions;
+    Usuarios& users;
+    Cursos& courses;
+    Problemas& problems;
+    Sesiones& sessions;
     
     static const map<command, int> commandsMap;
     static const vector<string> errors;

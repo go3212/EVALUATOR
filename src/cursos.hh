@@ -24,7 +24,8 @@ class Cursos
 private:
     int total;                      //!< Número de cursos del vector de cursos.
     CourseVector courseVector;      //!< Vector de cursos.
-    static Curso nullCourse;
+    static Curso nullCourse;        //!< Curso "nulo". Representa un 'Curso' no válido, se utiliza en los retornos de algunos métodos para indicar
+                                    //!< que el 'Curso' a modificar no ha sido encontrado.
 public:
     /** @brief Constructor por defecto de clase sobrecargado.
      *  \pre true.
@@ -52,20 +53,17 @@ public:
      *  @param endIterator iterador de la posición final.
      *  \pre true.
      *  \post Los argumentos tendran los iteradores correspondientes a la posición inicial y final del vector de cursos.
-     *  @return void
+     *  @return 'void'
      */
     void get_iterators(CourseVector::const_iterator& beginIterator, CourseVector::const_iterator& endIterator) const;
 
     /** @brief Busca un curso en el conjunto de cursos.
-     *  @param cid identificador de curso ('courseid')
-     *  @param vectorIter iterador que corresponde al curso que se busca (si se encuentra). Tipo 'CourseVector::iterator'.
+     *  @param cid identificador de curso a buscar.
      *  \pre true.
      *  \post No se modifica ningún objeto de la clase..
-     *  @return bool: true si se ha encontrado el curso y false si no se ha encontrado.
+     *  @return 'Curso&': devuelve el curso solicitado si se ha encontrado en la base de datos y devuelve el 'nullCourse' si no se ha encontrado.
      */
     Curso& get_course(const courseid& cid);
-
-    Curso& get_course_with_iterator(const courseid& cid, CourseVector::iterator& courseIter);
 
     /** @brief Lee un conjunto de cursos por la entrada 'stdin' y los guarda.
      *  \pre Número de cursos a leer en la entrada (C > 0), seguido de C cursos.
@@ -73,16 +71,6 @@ public:
      *  @return void.
      */
     void read();
-    //######################################//
-    //      FUNCIONES NO IMPLEMENTADAS      //
-    //######################################//
-    // /** @brief Constructor de clase sobrecargado, añade un curso al instanciar la clase.
-    //  *  @param cid identificador del curso ('courseid').
-    //  *  @param course objeto del tipo 'Curso'.
-    //  *  \pre true.
-    //  *  \post Se añade una curso y se incializa el conjunto de cursos ('courses').
-    //  */ 
-    // Cursos(const courseid& cid, const Curso& course);
 };
 
 #endif

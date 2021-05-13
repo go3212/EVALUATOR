@@ -23,6 +23,7 @@ private:
     */
     struct CurrentCourse
     {
+        //const Curso& course;
         courseid identifier;                                      //!< Identificador del curso inscrito, 0 si no está inscrito.
         vector<SessionMap::const_iterator> sessionProblemMapIter; //!< Vector de iteradores de las sesiones del curso al que está inscrito.
         int numSessions;                                          //!< Número de sesiones del curso al que está inscrito.                    

@@ -3,20 +3,6 @@
 using namespace std;
 
 //######################################//
-//      FUNCIONES AJENAS A LA CLASE     //
-//######################################//
-// bool get_problemDataNode (const problemid& pid, ProblemData& problemData, const BinTree<ProblemData>& problemTree)
-// {
-//     if (problemTree.empty()) return false;
-//     if (problemTree.value().pid == pid)
-//     {
-//         problemData = problemTree.value();
-//         return true;
-//     }
-//     return (get_problemDataNode (pid, problemData, problemTree.left()) or get_problemDataNode (pid, problemData, problemTree.right()));
-// }
-
-//######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
 Curso::Curso() : cid(0), total(0), isNull(true), isHintMapInitialized(false) {}
