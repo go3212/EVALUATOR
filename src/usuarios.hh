@@ -11,7 +11,14 @@ using namespace std;
 
 // N > 0, Sin repeticiones, 
 
+/** @typedef UserMap
+ *  @brief Mapa de identificador de usuario a 'Usuario'.
+ */
 typedef map<userid, Usuario> UserMap;
+
+/** @typedef UserMapPair
+ *  @brief Pareja de identificador de usuario y 'Usuario'.
+ */
 typedef pair<userid, Usuario> UserMapPair;
 
 /** @class Usuarios
@@ -19,10 +26,10 @@ typedef pair<userid, Usuario> UserMapPair;
  */
 class Usuarios
 {
-private:
-    int total;
-    UserMap userMap;
-    static Usuario nullUser;
+private:    
+    int total;                //!< Número total de usuarios del conjunto.
+    UserMap userMap;          //!< Mapa de relaciona un identificador de usuario con su objeto 'Usuario'.
+    static Usuario nullUser;  //!< Objeto "nulo" de 'Usuario' que se devuelve por referencia cuando no se ha encontrado un 'Usuario' en el mapa.
 
 public:
     /** @brief Constructor por defecto de clase sobrecargado.

@@ -3,26 +3,8 @@
 using namespace std;
 
 //######################################//
-//      FUNCIONES AJENAS A LA CLASE     //
-//######################################//
-void write_data (const ProblemData& problemData)
-{
-    cout << problemData.pid;
-    cout << '(' << problemData.attempts.total << ')';
-    cout << endl;
-}
-
-
-bool sort_LH_2 (ProblemData& a, ProblemData& b)
-{
-    return a.pid < b.pid;
-}
-
-
-//######################################//
 //        FUNCIONES DE A LA CLASE       //
 //######################################//
-
 Usuario::Usuario() : uid(), isNull(true), isInscribed(false) {}
 
 Usuario::Usuario(const userid& uid) : uid(uid), isNull(false), isInscribed(false) {}

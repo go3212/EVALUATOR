@@ -55,12 +55,19 @@ public:
 
     /** @brief Busca una sesión en el conjunto de sesiones.
      *  @param sid identificador de sesión ('userid').
-     *  @param mapIter iterador del tipo 'SessionMap::const_iterator' al que se le asignará la sesión encontrada, si se encuentra.
      *  \pre true.
      *  \post No se modifica ningún objeto de la clase.
      *  @return true si se encuentra la sesión o false si no se encuentra.
      */
     const Sesion& get_session(const sessionid& sid) const;
+
+    /** @brief Busca una sesión en el conjunto de sesiones.
+     *  @param sid identificador de sesión ('userid').
+     *  @param mapIter iterador del tipo 'SessionMap::const_iterator' al que se le asignará la sesión encontrada, si se encuentra.
+     *  \pre true.
+     *  \post No se modifica ningún objeto de la clase.
+     *  @return true si se encuentra la sesión o false si no se encuentra.
+     */
     const Sesion& get_session_with_iterator (const sessionid& sid, SessionMap::const_iterator& mapIter) const;
 
     /** @brief Devuelve los iteradores del mapa de sesiones 

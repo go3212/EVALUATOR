@@ -12,7 +12,7 @@ using namespace std;
 typedef string command;
 
 /** @class Comandos
- *  @brief Contiene funciones para gestionar los 'Cursos', 'Usuarios' y 'Problemas'.
+ *  @brief Contiene funciones para gestionar los 'Cursos', 'Usuarios', 'Problemas' y 'Sesiones'.
  */
 class Comandos
 {
