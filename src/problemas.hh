@@ -18,6 +18,9 @@ typedef map<problemid, Problema> ProblemMap;
 
 /** @class Problemas
  *  @brief Facilita la gestión de un conjunto de problemas (obj. 'Problema').
+ * 
+ *  La clase tiene el propósito de gestionar un conjunto de problemas. Se pueden añadir y quitar problemas asi como "adquirirlos" 
+ *  y realizar operaciones sobre el conjunto.
  */
 class Problemas
 {
@@ -64,14 +67,6 @@ public:
      *  @return 'void'
      */
     void get_iterators(ProblemMap::const_iterator& beginIterator, ProblemMap::const_iterator& endIterator) const;
-
-    /** @brief Realiza un intento al problema de la lista.
-     *  @param pid identificador de problema ('problemid').
-     *  \pre true.
-     *  \post true.
-     *  @return 'bool': 'true' si el problema es válido y 'false' si no lo es.
-     */
-    bool make_an_attempt(const problemid& pid, const bool& success);            //[NO DEFINIDA!!!!]
 
     /** @brief Lee un conjunto de problemas por la entrada 'stdin' y los guarda.
      *  \pre Número de problemas a leer en la entrada (P > 0), seguido de P problemas.

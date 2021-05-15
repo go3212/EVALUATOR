@@ -30,6 +30,20 @@ typedef vector<problemid> ProblemVector;
 
 /** @class Sesion
  *  @brief Almacena la información de una sesión y facilita su gestión.
+ * 
+ *  Gestiona toda la información relevante de una sesion:
+ *      - Identificador de la sesión.
+ *      - Número de problemas de sesión.
+ *      - Problemas de la sesión en árbol binário por orden de requisitos.
+ *      - Problemas de la sesión en un vector por orden lexicográfico creciente.
+ *  Como la sesion en si representa información estática, las operaciones que se pueden realizar a cada sesion son:
+ *      - Solicitar el identificador de la sesion.
+ *      - Verificar si un problema pertenece a la sesion.
+ *      - Solicitar número de problemas que contiene la sesion.
+ *      - Solicitar el árbol de problemas de la sesion.
+ *      - Solicitar el vector de problemas de la sesion.
+ *  Hay algunas operaciones que se deben utilizar para comprobar si se ha podido obtener el problema solicitado, 
+ *  si previamente no se conocia su existencia. No estan listadas.
  */
 
 class Sesion
@@ -131,7 +145,12 @@ public:
      */
     const ProblemVector& get_problem_vector() const;
     
-    const BinTree<problemid>& get_problemTree() const;    // ELIMINAR???
+    /** @brief Get the problemTree object
+     *  \pre true.
+     *  \post true.
+     *  @return const BinTree<problemid>& 
+     */
+    const BinTree<problemid>& get_problemTree() const;
 
     /** @brief Almacena la infomración de una sesión por el 'stdin'
      *  \pre La información a leer debe estar en un orden correcto.

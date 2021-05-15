@@ -75,6 +75,10 @@ struct ProblemData
 
 /** @class Problema
  *  @brief Almacena la información de un problema y facilita su gestión.
+ *  
+ *  La clase almacena toda la información relevante de un problema:
+ *      - Identificador del problema.
+ *      - Intentos totales realizados: totales, aceptados, rechazados.
  */
 class Problema
 {

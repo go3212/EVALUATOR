@@ -6,8 +6,20 @@
 typedef map<problemid, ProblemData> ProblemDataMap;
 typedef map<problemid, ProblemDataMap::const_iterator> ProblemDataIteratorMap;
 
-/** @struct UserCoursesData
- *  @brief Almacena información genérica sobre todos los 'Curso' que ha cursado un 'Usuario'.
+/** @struct CourseManager
+ *  @brief Gestiona los cursos de un usuario.
+ *  
+ *  Gestiona los cursos de un usuario, asi como el que está cursando. Almacena información respecto a:
+ *      - Intentos totales a un curso.
+ *      - Mapa de problemas que se han intentado.
+ *      - Vector de problemas solucionados.
+ *      - Información sobre el curso al que está inscrito.
+ *  Se pueden realizar algunas operaciones:
+ *      - Solicitar identificador del curso al que está inscrito.
+ *      - Inscribir/desinscribir al usuario en un curso.
+ *      - Verificar si ha completado el curso.
+ *      - Realizar un envio a un problema del curso.
+ *      - Imprimir problemas solucionados/problemas disponibles a solucionar.
  */
 class CourseManager
 {

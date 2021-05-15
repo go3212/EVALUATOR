@@ -24,6 +24,11 @@ using namespace std;
 
 /** @class Sesiones
  *  @brief Facilita la gestión de un conjunto de sesiones (obj. 'Sesion').
+ * 
+ *  Gestiona un conjunto de sesiones, puede realizar diferentes operaciones sobre el conjunto:
+ *      - Añadir sesiones, directamente o por lectura.
+ *      - Solicitar número de sesiones.
+ *      - Solicitar una 'Sesion' para operar directamente sobre ella.
  */
 class Sesiones
 {

@@ -23,6 +23,11 @@ typedef pair<userid, Usuario> UserMapPair;
 
 /** @class Usuarios
  *  @brief Facilita la gestión de un conjunto de usuarios (obj. 'Usuario').
+ * 
+ *  Gestiona un conjunto de usuarios, puede realizar operaciones sobre el conjunto:
+ *      - Añadir/eliminar usuarios.
+ *      - Solicitar número de usuarios totales.
+ *      - Solicitar un 'Usuario' para operar directamente con él.
  */
 class Usuarios
 {
@@ -77,15 +82,6 @@ public:
      *  @return 'void'.
      */
     void get_iterators(UserMap::const_iterator& beginIterator, UserMap::const_iterator& endIterator) const;
-
-    /** @brief Se inscribe a un usuario en un curso.
-     *  @param uid identificador de usuario ('userid')
-     *  \pre El curso al que se inscribe debe existir.
-     *  \post El usuario queda inscrito en el curso si se ha encontrado el usuario y el curso en la base de datos, además, el usuario no puede estrar inscrito. En este caso se devuelve 'true', en los otros, 
-     *        se devuelve 'false'. 
-     *  @return true si el usuario a inscribir existe y true si no existe.
-     */
-    bool inscribe_user(const userid& uid);  // NO EN USO
 
     /** @brief Función que devuelve el número de usuarios registrados.
      *  \pre true.

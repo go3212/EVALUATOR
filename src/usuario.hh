@@ -16,6 +16,19 @@ typedef string userid;
 
 /** @class Usuario
  *  @brief Almacena la información de un usuario y facilita su gestión.
+ * 
+ *  Gestiona toda la información relevante de un usuario:
+ *      - Identificador del usuario.
+ *      - Estado del usuario (incrito/no inscrito)
+ *      - Información sobre los cursos que ha realizado/está realizando.
+ *  Las operaciones que se pueden realizar sobre un usuario son las siguientes:
+ *      - Solicitar identificador de usuario.
+ *      - Solicitar el estado de inscripción a un curso.
+ *      - Solicitar identificador del curso al que está inscrito.
+ *      - Inscribir al usuario en un curso.
+ *      - Desincribir al usuario de un curso.
+ *      - Realizar un envio/actualizacion de problema.
+ *      - Imprimir problemas solucionados/ problemas disponibles a resolver.
  */
 class Usuario
 {
@@ -103,6 +116,11 @@ public:
      */
     int print_all_time_solved_problems();
 
+    /** @brief Imprime por pantalla los problemas disponibles del usuario.
+     *  @return 'void'.
+     */
+    void print_available_problems() const;
+
     /** @brief Imprime por pantalla información sobre el usuario
      *  \pre true.
      *  \post Se imprime por pantalla la infomación del problema en este formato:
@@ -111,9 +129,5 @@ public:
      */
     void write() const;
 
-    /** @brief Imprime por pantalla los problemas disponibles del usuario.
-     *  @return 'void'.
-     */
-    void print_available_problems() const;
 };
 #endif

@@ -28,6 +28,19 @@ typedef vector<sessionid> CourseSessionVector;
 
 /** @class Curso
  *  @brief Almacena la información de un curso y facilita su gestión.
+ * 
+ *  Gestiona la información sobre un curso:
+ *      - Identificador de curso.
+ *      - Número total de sesiones que contiene.
+ *      - Vector de identificadores de sesiones que pertenecen al curso.
+ *      - Datos sobre los usuarios (inscritos/que han cursado el curso).
+ *  Se pueden realizar algunas operaciones:
+ *      - Solicitar/re-asignar identificador.
+ *      - Inscribir/desinscribir usuario.
+ *      - Solicitar número total de sesiones.
+ *      - Solicitar sesion a la que pertence un problema.
+ *      - Escribir/leer sesion.
+ *  Algunas operaciones requieren de precondiciones en los parámetros implícitos.
  */
 class Curso
 {

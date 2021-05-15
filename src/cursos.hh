@@ -18,6 +18,11 @@ typedef vector<Curso> CourseVector;
 
 /** @class Cursos
  *  @brief Facilita la gestión de un conjunto de cursos (obj. 'Curso').
+ * 
+ *  Gestiona la información de un conjunto de cursos, puede realizar las siguientes operaciones sobre el conjunto:
+ *      - Añadir curso, por entrada o directamente.
+ *      - Solicitar número total de cursos.
+ *      - Solicitar 'Curso' en específico para operar directamente con él.
  */
 class Cursos
 {
